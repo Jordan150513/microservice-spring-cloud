@@ -1,6 +1,11 @@
 package com.qiaodan.controller;
 
+import com.qiaodan.feign.ChargeFeignClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -10,10 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
-    // 请求url： http://localhost:8080/demo/TestController/sayHello?word=qiao
+    @Autowired
+    private ChargeFeignClient chargeFeignClient;
+
     // 更改配置之后的 http://localhost:9090/QD/demo/TestController/sayHello?word=qiao
     @RequestMapping("sayHello")
     public String sayHello(String word){
         return "Hello "+ word;
+    }
+
+    // 更改配置之后的 http://localhost:9090/QD/demo/TestController/useFeign
+    @RequestMapping(value = "useFeign",method = RequestMethod.GET)
+    public String useFeign(){
+        return chargeFeignClient.chargeForUser();
     }
 }
