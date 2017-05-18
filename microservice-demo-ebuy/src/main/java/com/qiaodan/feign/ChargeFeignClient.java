@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * Created by qiaodan on 2017/5/16.
  */
-@FeignClient(value = "MICROSERVICE-ACCOUNT-WALLET" )
+@FeignClient(value = "MICROSERVICE-ACCOUNT-WALLET")
 public interface ChargeFeignClient {
 
-    @RequestMapping(value = "/ChargeController/chargeForUser",method = RequestMethod.GET)
+    @RequestMapping(value = "/wallet/ChargeController/chargeForUser",method = RequestMethod.GET)
     public String chargeForUser();
 }
