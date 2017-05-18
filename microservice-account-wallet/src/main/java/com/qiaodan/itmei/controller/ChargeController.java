@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by qiaodan on 2017/5/16.
  */
 @RestController
-@RequestMapping("/ChargeController/")
+//@RequestMapping("/ChargeController/")
 @Api(value = "ChargeController",description = "钱包充值中心")
 public class ChargeController {
 //  http://localhost:7979/wallet/ChargeController/chargeForUser
     @ApiOperation(value = "chargeForUser",notes = "为某个用户充值")
-    @RequestMapping(value = "chargeForUser",method = RequestMethod.GET)
+    @RequestMapping(value = "/ChargeController/chargeForUser",method = RequestMethod.GET)
     public String chargeForUser(){
         return "charge+1";
     }

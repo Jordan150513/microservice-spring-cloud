@@ -1,4 +1,4 @@
-package com.qiaodan;
+package com.qiaodan.itmei;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MicroserviceDemoEbuyApplicationTests {
+public class MicroserviceConsumerFeignApplicationTests {
 
 	@Test
 	public void contextLoads() {

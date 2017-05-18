@@ -1,7 +1,6 @@
-package com.qiaodan.service;
+package com.qiaodan.itmei.service;
 
-import com.qiaodan.feign.ChargeFeignClient;
-import com.qiaodan.feign.UseChargeFeign;
+import com.qiaodan.itmei.feign.UseChargeFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +9,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TestService {
+
     @Autowired
     private UseChargeFeign useChargeFeign;
-
-    public  String useFeign(){
+    public String test(){
         return useChargeFeign.chargeForUser();
     }
 }

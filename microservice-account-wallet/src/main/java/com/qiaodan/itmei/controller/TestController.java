@@ -24,7 +24,7 @@ import java.util.List;
 public class TestController {
     @Autowired
     private EurekaClient discoveryClient;
-
+// localhost:7979/QD/TestController/getTestMessage
     @RequestMapping(value = "getTestMessage",method = RequestMethod.GET)
     public String getTestMessage(String message){
         return "Hello "+message;
