@@ -18,5 +18,16 @@ public class TestController {
     @RequestMapping(value = "/testFeign",method = RequestMethod.GET)
     public String testFeign(){
         return testService.test();
+//        return  formatterTotal("12345678888888");
+    }
+
+    // 当年如此简单的东西 都没有写好
+    public String formatterTotal(String str){
+
+        if (str.length()<4) return str;
+        for (int i =str.length();i>0;i=i-3){
+            str = str.substring(0,i)+","+str.substring(i);
+        }
+        return str;
     }
 }
