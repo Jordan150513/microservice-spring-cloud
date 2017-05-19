@@ -13,6 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @EnableEurekaClient
 @EnableFeignClients
+
 public class MicroserviceDemoEbuyApplication {
 
 	public static void main(String[] args) {

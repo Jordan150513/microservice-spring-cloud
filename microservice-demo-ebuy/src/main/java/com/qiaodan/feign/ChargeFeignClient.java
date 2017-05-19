@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * Created by qiaodan on 2017/5/16.
  */
-//@Component
+@Component
 @FeignClient(value = "microservice-account-wallet",configuration = FooConfiguration.class)
 public interface ChargeFeignClient {
 
