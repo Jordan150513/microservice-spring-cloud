@@ -1,5 +1,6 @@
 package com.qiaodan.itmei.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.qiaodan.itmei.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ public class TestController {
     private TestService testService;
 //  localhost:8877/TestController/testFeign/
     @RequestMapping(value = "/testFeign",method = RequestMethod.GET)
+
     public String testFeign(){
         return testService.test();
 //        return  formatterTotal("12345678888888");
