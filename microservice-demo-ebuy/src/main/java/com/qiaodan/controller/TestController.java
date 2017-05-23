@@ -23,9 +23,9 @@ private TestService testService;
         return "Hello "+ word;
     }
 
-    // 更改配置之后的 http://localhost:9090/QD/demo/TestController/useFeign
-    @RequestMapping(value = "useFeign",method = RequestMethod.GET)
-    public String useFeign(){
-        return testService.useFeign();
-    }
+//    // 更改配置之后的 http://localhost:9090/QD/demo/TestController/useFeign
+//    @RequestMapping(value = "useFeign",method = RequestMethod.GET)
+//    public String useFeign(){
+//        return testService.useFeign();
+//    }
 }

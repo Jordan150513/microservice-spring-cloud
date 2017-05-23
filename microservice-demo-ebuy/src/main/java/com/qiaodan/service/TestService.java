@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TestService {
-    @Autowired
-    private UseChargeFeign useChargeFeign;
+//    @Autowired
+//    private UseChargeFeign useChargeFeign;
 
-    public  String useFeign(){
-        return useChargeFeign.chargeForUser();
-    }
+//    public  String useFeign(){
+//        return useChargeFeign.chargeForUser();
+//    }
 }

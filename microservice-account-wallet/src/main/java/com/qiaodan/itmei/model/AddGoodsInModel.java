@@ -1,4 +1,4 @@
-package com.qiaodan.inmodel;
+package com.qiaodan.itmei.model;
 
 import java.util.List;
 

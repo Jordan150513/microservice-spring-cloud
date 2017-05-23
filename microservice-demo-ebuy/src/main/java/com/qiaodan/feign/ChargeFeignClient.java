@@ -14,6 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient(value = "microservice-account-wallet",configuration = FooConfiguration.class)
 public interface ChargeFeignClient {
 
-    @RequestMapping(value = "/wallet/ChargeController/chargeForUser",method = RequestMethod.GET)
-    public String chargeForUser();
+//    @RequestMapping(value = "/wallet/ChargeController/chargeForUser",method = RequestMethod.GET)
+//    public String chargeForUser();
 }
