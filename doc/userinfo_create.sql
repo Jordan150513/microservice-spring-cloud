@@ -51,6 +51,29 @@ shopid integer not null comment '店铺id'
 
 alter table gooddetail add column (shopid integer not null comment '店铺id');
 
+#决定将 拆分成两个表 符合第几范式
+
+#id goodName shopid pictures
+
+#goodColor goodSize goodPrize goodRemainCount pictures 
+use qddemo;
+create table goodsBrief(
+id integer auto_increment primary key comment '商品id',
+pictures integer comment '商品图片',
+shopid integer not null comment '店铺id'
+);
+
+use qddemo;
+create table goodsDetail(
+id integer auto_increment primary key comment 'id',
+goodBriefId integer  not null comment 'goodBrief id 属于某个商品',
+goodColor varchar(255) not null comment '商品颜色',
+goodSize varchar(255) not null comment '商品尺寸',
+goodPrice varchar(255) not null comment '商品价格',
+goodRemainCount integer not null comment '商品剩余数量',
+pictures integer comment '商品图片'
+);
+
 # 商品的购买记录表
 use qddemo;
 create table purchaseRecord(
