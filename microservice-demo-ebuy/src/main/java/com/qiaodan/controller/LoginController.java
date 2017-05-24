@@ -29,7 +29,7 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    //  http://localhost:9090/QD/LoginController/login?name=baozi&password=baozi123
+    //  http://localhost:9090/LoginController/login?name=baozi&password=baozi123
     @ApiOperation(value = "登陆操作",notes = "操作行为")
     @RequestMapping(value = "login",method = RequestMethod.POST)
     public BaseOutModel login(@RequestBody LoginInModel model){
