@@ -10,6 +10,16 @@ public class SingleGoodInModel {
     private float goodPrice;
     private Integer goodRemainCount;
 
+    private Integer shopId;
+
+    public Integer getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Integer shopId) {
+        this.shopId = shopId;
+    }
+
     public String getGoodName() {
         return goodName;
     }

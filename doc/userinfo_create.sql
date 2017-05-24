@@ -59,6 +59,7 @@ alter table gooddetail add column (shopid integer not null comment '店铺id');
 use qddemo;
 create table goodsBrief(
 id integer auto_increment primary key comment '商品id',
+goodName varchar(255) not null comment '商品名称',
 pictures integer comment '商品图片',
 shopid integer not null comment '店铺id'
 );

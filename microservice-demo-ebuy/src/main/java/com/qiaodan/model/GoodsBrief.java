@@ -3,6 +3,8 @@ package com.qiaodan.model;
 public class GoodsBrief {
     private Integer id;
 
+    private String goodname;
+
     private Integer pictures;
 
     private Integer shopid;
@@ -13,6 +15,14 @@ public class GoodsBrief {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getGoodname() {
+        return goodname;
+    }
+
+    public void setGoodname(String goodname) {
+        this.goodname = goodname == null ? null : goodname.trim();
     }
 
     public Integer getPictures() {

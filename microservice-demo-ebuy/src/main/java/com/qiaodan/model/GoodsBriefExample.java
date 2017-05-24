@@ -164,6 +164,76 @@ public class GoodsBriefExample {
             return (Criteria) this;
         }
 
+        public Criteria andGoodnameIsNull() {
+            addCriterion("goodName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodnameIsNotNull() {
+            addCriterion("goodName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodnameEqualTo(String value) {
+            addCriterion("goodName =", value, "goodname");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodnameNotEqualTo(String value) {
+            addCriterion("goodName <>", value, "goodname");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodnameGreaterThan(String value) {
+            addCriterion("goodName >", value, "goodname");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodnameGreaterThanOrEqualTo(String value) {
+            addCriterion("goodName >=", value, "goodname");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodnameLessThan(String value) {
+            addCriterion("goodName <", value, "goodname");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodnameLessThanOrEqualTo(String value) {
+            addCriterion("goodName <=", value, "goodname");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodnameLike(String value) {
+            addCriterion("goodName like", value, "goodname");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodnameNotLike(String value) {
+            addCriterion("goodName not like", value, "goodname");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodnameIn(List<String> values) {
+            addCriterion("goodName in", values, "goodname");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodnameNotIn(List<String> values) {
+            addCriterion("goodName not in", values, "goodname");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodnameBetween(String value1, String value2) {
+            addCriterion("goodName between", value1, value2, "goodname");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodnameNotBetween(String value1, String value2) {
+            addCriterion("goodName not between", value1, value2, "goodname");
+            return (Criteria) this;
+        }
+
         public Criteria andPicturesIsNull() {
             addCriterion("pictures is null");
             return (Criteria) this;

@@ -3,6 +3,7 @@
 <mapper namespace="com.qiaodan.DAO.GoodsBriefMapper">
   <resultMap id="BaseResultMap" type="com.qiaodan.model.GoodsBrief">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="goodName" jdbcType="VARCHAR" property="goodname" />
     <result column="pictures" jdbcType="INTEGER" property="pictures" />
     <result column="shopid" jdbcType="INTEGER" property="shopid" />
   </resultMap>
@@ -65,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, pictures, shopid
+    id, goodName, pictures, shopid
   </sql>
   <select id="selectByExample" parameterType="com.qiaodan.model.GoodsBriefExample" resultMap="BaseResultMap">
     select
@@ -98,16 +99,19 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.qiaodan.model.GoodsBrief">
-    insert into goodsbrief (id, pictures, shopid
-      )
-    values (#{id,jdbcType=INTEGER}, #{pictures,jdbcType=INTEGER}, #{shopid,jdbcType=INTEGER}
-      )
+    insert into goodsbrief (id, goodName, pictures, 
+      shopid)
+    values (#{id,jdbcType=INTEGER}, #{goodname,jdbcType=VARCHAR}, #{pictures,jdbcType=INTEGER}, 
+      #{shopid,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.qiaodan.model.GoodsBrief">
+  <insert id="insertSelective" parameterType="com.qiaodan.model.GoodsBrief" useGeneratedKeys="true" keyProperty="id">
     insert into goodsbrief
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="goodname != null">
+        goodName,
       </if>
       <if test="pictures != null">
         pictures,
@@ -119,6 +123,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
+      </if>
+      <if test="goodname != null">
+        #{goodname,jdbcType=VARCHAR},
       </if>
       <if test="pictures != null">
         #{pictures,jdbcType=INTEGER},
@@ -140,6 +147,9 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
+      <if test="record.goodname != null">
+        goodName = #{record.goodname,jdbcType=VARCHAR},
+      </if>
       <if test="record.pictures != null">
         pictures = #{record.pictures,jdbcType=INTEGER},
       </if>
@@ -154,6 +164,7 @@
   <update id="updateByExample" parameterType="map">
     update goodsbrief
     set id = #{record.id,jdbcType=INTEGER},
+      goodName = #{record.goodname,jdbcType=VARCHAR},
       pictures = #{record.pictures,jdbcType=INTEGER},
       shopid = #{record.shopid,jdbcType=INTEGER}
     <if test="_parameter != null">
@@ -163,6 +174,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.qiaodan.model.GoodsBrief">
     update goodsbrief
     <set>
+      <if test="goodname != null">
+        goodName = #{goodname,jdbcType=VARCHAR},
+      </if>
       <if test="pictures != null">
         pictures = #{pictures,jdbcType=INTEGER},
       </if>
@@ -174,7 +188,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.qiaodan.model.GoodsBrief">
     update goodsbrief
-    set pictures = #{pictures,jdbcType=INTEGER},
+    set goodName = #{goodname,jdbcType=VARCHAR},
+      pictures = #{pictures,jdbcType=INTEGER},
       shopid = #{shopid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>

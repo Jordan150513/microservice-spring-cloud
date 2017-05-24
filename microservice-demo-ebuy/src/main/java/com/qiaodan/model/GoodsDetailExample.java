@@ -374,62 +374,52 @@ public class GoodsDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andGoodpriceEqualTo(String value) {
+        public Criteria andGoodpriceEqualTo(Float value) {
             addCriterion("goodPrice =", value, "goodprice");
             return (Criteria) this;
         }
 
-        public Criteria andGoodpriceNotEqualTo(String value) {
+        public Criteria andGoodpriceNotEqualTo(Float value) {
             addCriterion("goodPrice <>", value, "goodprice");
             return (Criteria) this;
         }
 
-        public Criteria andGoodpriceGreaterThan(String value) {
+        public Criteria andGoodpriceGreaterThan(Float value) {
             addCriterion("goodPrice >", value, "goodprice");
             return (Criteria) this;
         }
 
-        public Criteria andGoodpriceGreaterThanOrEqualTo(String value) {
+        public Criteria andGoodpriceGreaterThanOrEqualTo(Float value) {
             addCriterion("goodPrice >=", value, "goodprice");
             return (Criteria) this;
         }
 
-        public Criteria andGoodpriceLessThan(String value) {
+        public Criteria andGoodpriceLessThan(Float value) {
             addCriterion("goodPrice <", value, "goodprice");
             return (Criteria) this;
         }
 
-        public Criteria andGoodpriceLessThanOrEqualTo(String value) {
+        public Criteria andGoodpriceLessThanOrEqualTo(Float value) {
             addCriterion("goodPrice <=", value, "goodprice");
             return (Criteria) this;
         }
 
-        public Criteria andGoodpriceLike(String value) {
-            addCriterion("goodPrice like", value, "goodprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoodpriceNotLike(String value) {
-            addCriterion("goodPrice not like", value, "goodprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoodpriceIn(List<String> values) {
+        public Criteria andGoodpriceIn(List<Float> values) {
             addCriterion("goodPrice in", values, "goodprice");
             return (Criteria) this;
         }
 
-        public Criteria andGoodpriceNotIn(List<String> values) {
+        public Criteria andGoodpriceNotIn(List<Float> values) {
             addCriterion("goodPrice not in", values, "goodprice");
             return (Criteria) this;
         }
 
-        public Criteria andGoodpriceBetween(String value1, String value2) {
+        public Criteria andGoodpriceBetween(Float value1, Float value2) {
             addCriterion("goodPrice between", value1, value2, "goodprice");
             return (Criteria) this;
         }
 
-        public Criteria andGoodpriceNotBetween(String value1, String value2) {
+        public Criteria andGoodpriceNotBetween(Float value1, Float value2) {
             addCriterion("goodPrice not between", value1, value2, "goodprice");
             return (Criteria) this;
         }

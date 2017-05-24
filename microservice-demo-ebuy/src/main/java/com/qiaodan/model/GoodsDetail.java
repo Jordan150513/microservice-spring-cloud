@@ -9,7 +9,7 @@ public class GoodsDetail {
 
     private String goodsize;
 
-    private String goodprice;
+    private Float goodprice;
 
     private Integer goodremaincount;
 
@@ -47,12 +47,12 @@ public class GoodsDetail {
         this.goodsize = goodsize == null ? null : goodsize.trim();
     }
 
-    public String getGoodprice() {
+    public Float getGoodprice() {
         return goodprice;
     }
 
-    public void setGoodprice(String goodprice) {
-        this.goodprice = goodprice == null ? null : goodprice.trim();
+    public void setGoodprice(Float goodprice) {
+        this.goodprice = goodprice;
     }
 
     public Integer getGoodremaincount() {

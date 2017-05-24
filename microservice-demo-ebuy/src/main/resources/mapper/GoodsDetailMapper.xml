@@ -6,7 +6,7 @@
     <result column="goodBriefId" jdbcType="INTEGER" property="goodbriefid" />
     <result column="goodColor" jdbcType="VARCHAR" property="goodcolor" />
     <result column="goodSize" jdbcType="VARCHAR" property="goodsize" />
-    <result column="goodPrice" jdbcType="VARCHAR" property="goodprice" />
+    <result column="goodPrice" jdbcType="REAL" property="goodprice" />
     <result column="goodRemainCount" jdbcType="INTEGER" property="goodremaincount" />
     <result column="pictures" jdbcType="INTEGER" property="pictures" />
   </resultMap>
@@ -106,7 +106,7 @@
       goodSize, goodPrice, goodRemainCount, 
       pictures)
     values (#{id,jdbcType=INTEGER}, #{goodbriefid,jdbcType=INTEGER}, #{goodcolor,jdbcType=VARCHAR}, 
-      #{goodsize,jdbcType=VARCHAR}, #{goodprice,jdbcType=VARCHAR}, #{goodremaincount,jdbcType=INTEGER}, 
+      #{goodsize,jdbcType=VARCHAR}, #{goodprice,jdbcType=REAL}, #{goodremaincount,jdbcType=INTEGER}, 
       #{pictures,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.qiaodan.model.GoodsDetail">
@@ -148,7 +148,7 @@
         #{goodsize,jdbcType=VARCHAR},
       </if>
       <if test="goodprice != null">
-        #{goodprice,jdbcType=VARCHAR},
+        #{goodprice,jdbcType=REAL},
       </if>
       <if test="goodremaincount != null">
         #{goodremaincount,jdbcType=INTEGER},
@@ -180,7 +180,7 @@
         goodSize = #{record.goodsize,jdbcType=VARCHAR},
       </if>
       <if test="record.goodprice != null">
-        goodPrice = #{record.goodprice,jdbcType=VARCHAR},
+        goodPrice = #{record.goodprice,jdbcType=REAL},
       </if>
       <if test="record.goodremaincount != null">
         goodRemainCount = #{record.goodremaincount,jdbcType=INTEGER},
@@ -199,7 +199,7 @@
       goodBriefId = #{record.goodbriefid,jdbcType=INTEGER},
       goodColor = #{record.goodcolor,jdbcType=VARCHAR},
       goodSize = #{record.goodsize,jdbcType=VARCHAR},
-      goodPrice = #{record.goodprice,jdbcType=VARCHAR},
+      goodPrice = #{record.goodprice,jdbcType=REAL},
       goodRemainCount = #{record.goodremaincount,jdbcType=INTEGER},
       pictures = #{record.pictures,jdbcType=INTEGER}
     <if test="_parameter != null">
@@ -219,7 +219,7 @@
         goodSize = #{goodsize,jdbcType=VARCHAR},
       </if>
       <if test="goodprice != null">
-        goodPrice = #{goodprice,jdbcType=VARCHAR},
+        goodPrice = #{goodprice,jdbcType=REAL},
       </if>
       <if test="goodremaincount != null">
         goodRemainCount = #{goodremaincount,jdbcType=INTEGER},
@@ -235,7 +235,7 @@
     set goodBriefId = #{goodbriefid,jdbcType=INTEGER},
       goodColor = #{goodcolor,jdbcType=VARCHAR},
       goodSize = #{goodsize,jdbcType=VARCHAR},
-      goodPrice = #{goodprice,jdbcType=VARCHAR},
+      goodPrice = #{goodprice,jdbcType=REAL},
       goodRemainCount = #{goodremaincount,jdbcType=INTEGER},
       pictures = #{pictures,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
