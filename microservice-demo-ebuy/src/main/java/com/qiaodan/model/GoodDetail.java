@@ -15,6 +15,8 @@ public class GoodDetail {
 
     private Integer pictures;
 
+    private Integer shopid;
+
     public Integer getId() {
         return id;
     }
@@ -69,5 +71,13 @@ public class GoodDetail {
 
     public void setPictures(Integer pictures) {
         this.pictures = pictures;
+    }
+
+    public Integer getShopid() {
+        return shopid;
+    }
+
+    public void setShopid(Integer shopid) {
+        this.shopid = shopid;
     }
 }

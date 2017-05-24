@@ -56,9 +56,9 @@ public class AddGoodService {
         String goodName = model.getGoodName();
         List<SubInfo> list = model.getGoodInfoList();
         GoodDetail goodDetail = new GoodDetail();
-
         goodDetail.setGoodname(model.getGoodName());
-        int rs=0;
+        goodDetail.setShopid(model.getShopId());
+        int rs = 0;
         for (int i = 0; i < list.size(); i++) {
             SubInfo subInfoI = list.get(i);
             goodDetail.setGoodcolor(subInfoI.getGoodColor());
@@ -66,7 +66,7 @@ public class AddGoodService {
             goodDetail.setGoodremaincount(subInfoI.getGoodRemainCount());
             goodDetail.setGoodsize(subInfoI.getGoodSize());
             rs = goodDetailMapper.insertSelective(goodDetail);
-            if (rs!=1){
+            if (rs != 1) {
                 //插入失败了
                 baseOutModel.setCode(0);
                 baseOutModel.setMessage("插入商品失败！");
@@ -77,4 +77,14 @@ public class AddGoodService {
         baseOutModel.setMessage("插入商品成功！");
         return baseOutModel;
     }
+
+//    public List<AddGoodsInModel> getGoodsListByShopid(Integer shopId) {
+//        /*
+//        *   这里有一个疑问，就是：
+//        *   在数据库中是按照一个商品确定的尺寸 作为一个商品记录的，但是，我现在要返回的是这样一个形式的数据
+//        *   这个应该如何设计实现?、
+ //       *    经过考虑 决定将gooddetail商品表拆分成两个表，会好很多。
+//        * */
+//        return new List();
+//    }
 }

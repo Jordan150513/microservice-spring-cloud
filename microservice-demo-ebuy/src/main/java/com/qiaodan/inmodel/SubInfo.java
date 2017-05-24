@@ -9,6 +9,17 @@ public class SubInfo {
     private String goodColor;
     private Integer goodRemainCount;
 
+    // 输出 商品列表的时候，需要用到这个
+    private Integer goodid;
+
+    public Integer getGoodid() {
+        return goodid;
+    }
+
+    public void setGoodid(Integer goodid) {
+        this.goodid = goodid;
+    }
+
     public String getGoodSize() {
         return goodSize;
     }

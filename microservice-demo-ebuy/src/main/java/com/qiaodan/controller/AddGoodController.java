@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * Created by qiaodan on 2017/5/11.
  */
@@ -37,4 +39,11 @@ public class AddGoodController {
     public  BaseOutModel addGoods(@RequestBody AddGoodsInModel model){
         return addGoodService.addGoods(model);
     }
+
+//    @ApiOperation(value = "获取店铺商品列表",notes = "操作")
+//    @RequestMapping(value = "getGoodsListByShopid",method = RequestMethod.POST)
+//    public List<AddGoodsInModel> getGoodsListByShopid(Integer shopId){
+//
+//        return addGoodService.getGoodsListByShopid(shopId);
+//    }
 }

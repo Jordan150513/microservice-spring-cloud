@@ -26,9 +26,15 @@ shopName 	varchar(255) not null 						comment '店铺名',
 address 	varchar(255) 								comment '地址',
 phoneNo		varchar(255) 								comment '电话号码',
 email 		varchar(255) 								comment '邮箱',
-score       float		not null 	default 5.0					 comment '评分',
+score       float		not null 	default 5.0			comment '评分',
+userid 		integer 	not null						comment'店铺卖家用户id',
 primary key(id)
 );
+
+alter table shop add column(userid integer comment'店铺卖家用户id');
+update shop set userid=1 where id =1;
+
+
 
 #商品详情表
 use qddemo;

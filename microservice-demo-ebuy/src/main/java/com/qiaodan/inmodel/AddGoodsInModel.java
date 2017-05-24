@@ -9,6 +9,15 @@ public class AddGoodsInModel {
 
     private String goodName;
     private List<SubInfo> goodInfoList;
+    private Integer shopId;
+
+    public Integer getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Integer shopId) {
+        this.shopId = shopId;
+    }
 
     public String getGoodName() {
         return goodName;
