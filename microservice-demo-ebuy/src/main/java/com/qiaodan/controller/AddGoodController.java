@@ -5,6 +5,7 @@ import com.qiaodan.inmodel.AddGoodsInModel;
 import com.qiaodan.inmodel.SingleGoodInModel;
 import com.qiaodan.model.GoodDetail;
 import com.qiaodan.outmodel.BaseOutModel;
+import com.qiaodan.outmodel.GoodsListOutModel;
 import com.qiaodan.service.AddGoodService;
 import com.qiaodan.service.LoginService;
 import io.swagger.annotations.Api;
@@ -40,10 +41,10 @@ public class AddGoodController {
         return addGoodService.addGoods(model);
     }
 
-//    @ApiOperation(value = "获取店铺商品列表",notes = "操作")
-//    @RequestMapping(value = "getGoodsListByShopid",method = RequestMethod.POST)
-//    public List<AddGoodsInModel> getGoodsListByShopid(Integer shopId){
-//
-//        return addGoodService.getGoodsListByShopid(shopId);
-//    }
+    @ApiOperation(value = "获取店铺商品列表",notes = "操作")
+    @RequestMapping(value = "getGoodsListByShopid",method = RequestMethod.POST)
+    public GoodsListOutModel getGoodsListByShopid(Integer shopId){
+
+        return addGoodService.getGoodsListByShopid(shopId);
+    }
 }

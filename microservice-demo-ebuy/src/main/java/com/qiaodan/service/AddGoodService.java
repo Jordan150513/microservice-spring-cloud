@@ -9,8 +9,10 @@ import com.qiaodan.inmodel.SubInfo;
 import com.qiaodan.inmodel.SubInfo;
 import com.qiaodan.model.GoodDetail;
 import com.qiaodan.model.GoodsBrief;
+import com.qiaodan.model.GoodsBriefExample;
 import com.qiaodan.model.GoodsDetail;
 import com.qiaodan.outmodel.BaseOutModel;
+import com.qiaodan.outmodel.GoodsListOutModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -91,14 +93,14 @@ public class AddGoodService {
         goodsBrief.setShopid(model.getShopId());
         goodsBrief.setGoodname(model.getGoodName());
         int rs = goodsBriefMapper.insertSelective(goodsBrief);
-        if (rs!=1){
+        if (rs != 1) {
             baseOutModel.setCode(0);
             baseOutModel.setMessage("插入商品失败！");
             return baseOutModel;
         }
         GoodsDetail goodsDetail = new GoodsDetail();
         goodsDetail.setGoodbriefid(goodsBrief.getId());// 这里一直获取不到。。。
-        for (int i=0;i<model.getGoodInfoList().size();i++){
+        for (int i = 0; i < model.getGoodInfoList().size(); i++) {
             SubInfo subInfoI = model.getGoodInfoList().get(i);
             goodsDetail.setGoodcolor(subInfoI.getGoodColor());
             goodsDetail.setGoodprice(subInfoI.getGoodPrice());
@@ -123,7 +125,7 @@ public class AddGoodService {
         goodsBrief.setShopid(model.getShopId());
         goodsBrief.setGoodname(model.getGoodName());
         int rs = goodsBriefMapper.insertSelective(goodsBrief);
-        if (rs!=1){
+        if (rs != 1) {
             baseOutModel.setCode(0);
             baseOutModel.setMessage("插入商品失败！");
             return baseOutModel;
@@ -145,13 +147,34 @@ public class AddGoodService {
         baseOutModel.setMessage("插入商品成功！");
         return baseOutModel;
     }
-//    public List<AddGoodsInModel> getGoodsListByShopid(Integer shopId) {
-//        /*
-//        *   这里有一个疑问，就是：
-//        *   在数据库中是按照一个商品确定的尺寸 作为一个商品记录的，但是，我现在要返回的是这样一个形式的数据
-//        *   这个应该如何设计实现?、
- //       *    经过考虑 决定将gooddetail商品表拆分成两个表，会好很多。
-//        * */
-//        return new List();
-//    }
+
+    public GoodsListOutModel getGoodsListByShopid(Integer shopId) {
+        /*
+        *   这里有一个疑问，就是：
+        *   在数据库中是按照一个商品确定的尺寸 作为一个商品记录的，但是，我现在要返回的是这样一个形式的数据
+        *   这个应该如何设计实现?、
+        *    经过考虑 决定将gooddetail商品表拆分成两个表，会好很多。
+        * */
+        GoodsListOutModel model = new GoodsListOutModel();
+        GoodsBriefExample goodsBriefExample = new GoodsBriefExample();
+        GoodsBriefExample.Criteria criteria = goodsBriefExample.createCriteria();
+        criteria.andShopidEqualTo(shopId);
+        List<GoodsBrief> list =  goodsBriefMapper.selectByExample(goodsBriefExample);
+        if (list==null){
+            model.setCode(0);
+            model.setMessage("没有找到店铺对应的商品列表");
+            return model;
+        }
+        if (list.size()==0){
+            model.setCode(1);
+            model.setMessage("店铺目前还没有商品");
+            return model;
+        }
+        for (int i =0;i<list.size();i++){
+//            model.setGoodsModel();
+
+            
+        }
+        return model;
+    }
 }
