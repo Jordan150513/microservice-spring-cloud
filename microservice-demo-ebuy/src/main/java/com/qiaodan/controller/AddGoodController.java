@@ -5,6 +5,7 @@ import com.qiaodan.inmodel.AddGoodsInModel;
 import com.qiaodan.inmodel.SingleGoodInModel;
 import com.qiaodan.model.GoodDetail;
 import com.qiaodan.outmodel.BaseOutModel;
+import com.qiaodan.outmodel.GoodBriefDetailOutModel;
 import com.qiaodan.outmodel.GoodsListOutModel;
 import com.qiaodan.service.AddGoodService;
 import com.qiaodan.service.LoginService;
@@ -20,30 +21,37 @@ import java.util.List;
 /**
  * Created by qiaodan on 2017/5/11.
  */
-@Api(value = "添加商品控制器",description = "添加单个商品，一批商品")
+@Api(value = "商品相关控制器",description = "添加，查询")
 @RestController
-@RequestMapping("/AddGoodController/")
+@RequestMapping("/GoodController/")
 public class AddGoodController {
 
     @Autowired
     private AddGoodService addGoodService;
     //  http://localhost:9090/AddGoodController/addSingleGood?goodName=圣迪奥女裙&goodColor=白&goodPrice=228.0&goodRemainCount=24$goodSize=L
-    @ApiOperation(value = "添加单个商品",notes = "操作")
+    @ApiOperation(value = "添加单个商品",notes = "添加操作")
     @RequestMapping(value = "addSingleGood",method = RequestMethod.GET)
     public BaseOutModel addSingleGood(@RequestBody SingleGoodInModel model){
        return addGoodService.addSingle(model);
     }
 
-    @ApiOperation(value = "添加一批规格的商品",notes = "操作")
+    @ApiOperation(value = "添加一批规格的商品",notes = "添加操作")
     @RequestMapping(value = "addGoods",method = RequestMethod.POST)
     public  BaseOutModel addGoods(@RequestBody AddGoodsInModel model){
         return addGoodService.addGoods(model);
     }
 
-    @ApiOperation(value = "获取店铺商品列表",notes = "操作")
+    @ApiOperation(value = "获取店铺所有商品列表",notes = "查询操作")
     @RequestMapping(value = "getGoodsListByShopid",method = RequestMethod.GET)
     public GoodsListOutModel getGoodsListByShopid(@RequestParam Integer shopId){
 
         return addGoodService.getGoodsListByShopid(shopId);
+    }
+
+    @ApiOperation(value = "获取某个商品的详细信息",notes = "查询操作")
+    @RequestMapping(value = "getGoodById",method = RequestMethod.GET)
+    public GoodBriefDetailOutModel getGoodById(@RequestParam Integer goodBriefId){
+
+        return addGoodService.getGoodById(goodBriefId);
     }
 }

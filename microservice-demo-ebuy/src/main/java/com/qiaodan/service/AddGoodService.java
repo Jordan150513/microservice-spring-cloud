@@ -9,9 +9,11 @@ import com.qiaodan.inmodel.SubInfo;
 import com.qiaodan.inmodel.SubInfo;
 import com.qiaodan.model.*;
 import com.qiaodan.outmodel.BaseOutModel;
+import com.qiaodan.outmodel.GoodBriefDetailOutModel;
 import com.qiaodan.outmodel.GoodsListOutModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import sun.plugin.javascript.navig.LinkArray;
 
 import java.util.ArrayList;
@@ -214,5 +216,51 @@ public class AddGoodService {
         model.setCode(1);
         model.setMessage("获取店铺商品列表成功");
         return model;
+    }
+
+    public GoodBriefDetailOutModel getGoodById(Integer goodBriefId){
+        GoodBriefDetailOutModel goodBriefDetailOutModel = new GoodBriefDetailOutModel();
+
+        GoodsBrief goodsBrief = goodsBriefMapper.selectByPrimaryKey(goodBriefId);
+
+        goodBriefDetailOutModel.setGoodname(goodsBrief.getGoodname());
+        goodBriefDetailOutModel.setId(goodsBrief.getId());
+        goodBriefDetailOutModel.setPictures(goodsBrief.getPictures());
+        goodBriefDetailOutModel.setShopid(goodsBrief.getShopid());
+
+        GoodsDetailExample goodsDetailExample = new GoodsDetailExample();
+        GoodsDetailExample.Criteria criteria1 = goodsDetailExample.createCriteria();
+        criteria1.andGoodbriefidEqualTo(goodsBrief.getId());
+        List<GoodsDetail> goodsDetailList = goodsDetailMapper.selectByExample(goodsDetailExample);
+        if (goodsDetailList==null||goodsDetailList.size()==0){
+            goodBriefDetailOutModel.setCode(0);
+            goodBriefDetailOutModel.setMessage("没有找到相应的商品详细信息！");
+            return  goodBriefDetailOutModel;
+        }
+
+        List<GoodsDetailOutModel> goodsDetailOutModelList = new ArrayList<GoodsDetailOutModel>();
+        for (int j=0;j<goodsDetailList.size();j++){
+            GoodsDetail goodsDetail = goodsDetailList.get(j);
+            GoodsDetailOutModel goodsDetailOutModel = new GoodsDetailOutModel();
+
+            goodsDetailOutModel.setId(goodsDetail.getId());
+            goodsDetailOutModel.setGoodcolor(goodsDetail.getGoodcolor());
+            goodsDetailOutModel.setGoodprice(goodsDetail.getGoodprice());
+            goodsDetailOutModel.setGoodsize(goodsDetail.getGoodsize());
+            goodsDetailOutModel.setGoodremaincount(goodsDetail.getGoodremaincount());
+            goodsDetailOutModel.setPictures(goodsDetail.getPictures());
+            goodsDetailOutModelList.add(goodsDetailOutModel);
+        }
+        if (goodsDetailOutModelList==null||goodsDetailOutModelList.size()==0){
+            goodBriefDetailOutModel.setMessage("没有找到相应的商品详细信息！");
+            goodBriefDetailOutModel.setCode(0);
+            return goodBriefDetailOutModel;
+        }
+//        if (goodBriefDetailOutModel.getList()==null){
+            goodBriefDetailOutModel.setList(goodsDetailOutModelList);
+//        }
+        goodBriefDetailOutModel.setMessage("查询成功");
+        goodBriefDetailOutModel.setCode(1);
+        return goodBriefDetailOutModel;
     }
 }
