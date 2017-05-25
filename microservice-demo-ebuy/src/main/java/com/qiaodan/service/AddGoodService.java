@@ -1,20 +1,14 @@
 package com.qiaodan.service;
 
-import com.qiaodan.DAO.GoodDetailMapper;
 import com.qiaodan.DAO.GoodsBriefMapper;
 import com.qiaodan.DAO.GoodsDetailMapper;
 import com.qiaodan.inmodel.AddGoodsInModel;
 import com.qiaodan.inmodel.SingleGoodInModel;
 import com.qiaodan.inmodel.SubInfo;
-import com.qiaodan.inmodel.SubInfo;
 import com.qiaodan.model.*;
-import com.qiaodan.outmodel.BaseOutModel;
-import com.qiaodan.outmodel.GoodBriefDetailOutModel;
-import com.qiaodan.outmodel.GoodsListOutModel;
+import com.qiaodan.outmodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
-import sun.plugin.javascript.navig.LinkArray;
 
 import java.util.ArrayList;
 import java.util.List;

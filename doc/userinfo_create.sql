@@ -1,4 +1,4 @@
-#用户表 包括 卖家 买家（普通用户） 客服人员 等
+# 1 用户表 包括 卖家 买家（普通用户） 客服人员 等
 use qdDemo;
 create table userinfo(
 id 			integer		 not null	 auto_increment 	comment 'id',
@@ -13,12 +13,8 @@ usertype  	integer 	not null 	default 0 			comment '用户类型：0：普通用
 primary key(id)
 );
 
-#增加用户类型字段
-alter table userinfo add column(
-usertype  	integer 	not null 	default 0 			comment '用户类型：0：普通用户 1：卖家店主 2：卖家客服'
-);
 
-#商铺表
+# 2 商铺表
 use qdDemo;
 create table shop(
 id 			integer		 not null	 auto_increment 	comment '店铺id',
@@ -31,31 +27,8 @@ userid 		integer 	not null						comment'店铺卖家用户id',
 primary key(id)
 );
 
-alter table shop add column(userid integer comment'店铺卖家用户id');
-update shop set userid=1 where id =1;
 
 
-
-#商品详情表
-use qddemo;
-create table goodDetail(
-id integer auto_increment primary key comment '商品id',
-goodName varchar(255) not null comment '商品名称',
-goodColor varchar(255) not null comment '商品颜色',
-goodSize varchar(255) not null comment '商品尺寸',
-goodPrice varchar(255) not null comment '商品价格',
-goodRemainCount integer not null comment '商品剩余数量',
-pictures integer comment '商品图片',
-shopid integer not null comment '店铺id'
-);
-
-alter table gooddetail add column (shopid integer not null comment '店铺id');
-
-#决定将 拆分成两个表 符合第几范式
-
-#id goodName shopid pictures
-
-#goodColor goodSize goodPrize goodRemainCount pictures 
 use qddemo;
 create table goodsBrief(
 id integer auto_increment primary key comment '商品id',
@@ -96,6 +69,34 @@ goodPicture varchar(255) not null comment '商品图片'
 
 
 
+#商品详情表
+use qddemo;
+create table goodDetail(
+id integer auto_increment primary key comment '商品id',
+goodName varchar(255) not null comment '商品名称',
+goodColor varchar(255) not null comment '商品颜色',
+goodSize varchar(255) not null comment '商品尺寸',
+goodPrice varchar(255) not null comment '商品价格',
+goodRemainCount integer not null comment '商品剩余数量',
+pictures integer comment '商品图片',
+shopid integer not null comment '店铺id'
+);
+
+#增加用户类型字段
+alter table userinfo add column(
+usertype  	integer 	not null 	default 0 			comment '用户类型：0：普通用户 1：卖家店主 2：卖家客服'
+);
+
+alter table gooddetail add column (shopid integer not null comment '店铺id');
+
+#决定将 拆分成两个表 符合第几范式
+
+#id goodName shopid pictures
+
+#goodColor goodSize goodPrize goodRemainCount pictures 
+
+alter table shop add column(userid integer comment'店铺卖家用户id');
+update shop set userid=1 where id =1;
 drop table if exists shop;
 
 # create schema 和 create database 的区别？

@@ -1,7 +1,5 @@
 package com.qiaodan.outmodel;
 
-import com.qiaodan.model.GoodsDetailOutModel;
-
 import java.util.List;
 
 /**

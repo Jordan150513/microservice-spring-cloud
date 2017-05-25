@@ -1,4 +1,4 @@
-package com.qiaodan.model;
+package com.qiaodan.outmodel;
 
 /**
  * Created by qiaodan on 2017/5/25.

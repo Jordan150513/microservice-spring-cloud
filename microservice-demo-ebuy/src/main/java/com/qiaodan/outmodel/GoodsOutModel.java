@@ -1,6 +1,4 @@
-package com.qiaodan.model;
-
-import io.swagger.models.auth.In;
+package com.qiaodan.outmodel;
 
 import java.util.List;
 
