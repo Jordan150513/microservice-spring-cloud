@@ -2,6 +2,7 @@ package com.qiaodan.outmodel;
 
 import com.qiaodan.inmodel.AddGoodsInModel;
 import com.qiaodan.inmodel.SubInfo;
+import com.qiaodan.model.GoodsOutModel;
 
 import java.util.List;
 
@@ -10,13 +11,13 @@ import java.util.List;
  */
 public class GoodsListOutModel extends BaseOutModel {
 
-    private List<AddGoodsInModel> goodsModel;
+    private List<GoodsOutModel> goodsOutModelList;
 
-    public List<AddGoodsInModel> getGoodsModel() {
-        return goodsModel;
+    public List<GoodsOutModel> getGoodsOutModelList() {
+        return goodsOutModelList;
     }
 
-    public void setGoodsModel(List<AddGoodsInModel> goodsModel) {
-        this.goodsModel = goodsModel;
+    public void setGoodsOutModelList(List<GoodsOutModel> goodsOutModelList) {
+        this.goodsOutModelList = goodsOutModelList;
     }
 }

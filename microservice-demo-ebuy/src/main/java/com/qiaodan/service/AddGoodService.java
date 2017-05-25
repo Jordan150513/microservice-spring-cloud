@@ -7,15 +7,14 @@ import com.qiaodan.inmodel.AddGoodsInModel;
 import com.qiaodan.inmodel.SingleGoodInModel;
 import com.qiaodan.inmodel.SubInfo;
 import com.qiaodan.inmodel.SubInfo;
-import com.qiaodan.model.GoodDetail;
-import com.qiaodan.model.GoodsBrief;
-import com.qiaodan.model.GoodsBriefExample;
-import com.qiaodan.model.GoodsDetail;
+import com.qiaodan.model.*;
 import com.qiaodan.outmodel.BaseOutModel;
 import com.qiaodan.outmodel.GoodsListOutModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.plugin.javascript.navig.LinkArray;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -148,18 +147,20 @@ public class AddGoodService {
         return baseOutModel;
     }
 
+    /*
+*   这里有一个疑问，就是：
+*   在数据库中是按照一个商品确定的尺寸 作为一个商品记录的，但是，我现在要返回的是这样一个形式的数据
+*   这个应该如何设计实现?、
+*    经过考虑 决定将gooddetail商品表拆分成两个表，会好很多。
+* */
     public GoodsListOutModel getGoodsListByShopid(Integer shopId) {
-        /*
-        *   这里有一个疑问，就是：
-        *   在数据库中是按照一个商品确定的尺寸 作为一个商品记录的，但是，我现在要返回的是这样一个形式的数据
-        *   这个应该如何设计实现?、
-        *    经过考虑 决定将gooddetail商品表拆分成两个表，会好很多。
-        * */
         GoodsListOutModel model = new GoodsListOutModel();
+
         GoodsBriefExample goodsBriefExample = new GoodsBriefExample();
         GoodsBriefExample.Criteria criteria = goodsBriefExample.createCriteria();
         criteria.andShopidEqualTo(shopId);
         List<GoodsBrief> list =  goodsBriefMapper.selectByExample(goodsBriefExample);
+
         if (list==null){
             model.setCode(0);
             model.setMessage("没有找到店铺对应的商品列表");
@@ -170,11 +171,48 @@ public class AddGoodService {
             model.setMessage("店铺目前还没有商品");
             return model;
         }
-        for (int i =0;i<list.size();i++){
-//            model.setGoodsModel();
 
-            
+        GoodsOutModel goodsOutModel = new GoodsOutModel();
+        for (int i =0;i<list.size();i++){
+            GoodsBrief goodsBrief = list.get(i);
+            goodsOutModel.setGoodname(goodsBrief.getGoodname());
+            goodsOutModel.setId(goodsBrief.getId());
+            goodsOutModel.setShopid(goodsBrief.getShopid());
+            goodsOutModel.setPictures(goodsBrief.getPictures());
+
+            GoodsDetailExample goodsDetailExample = new GoodsDetailExample();
+            GoodsDetailExample.Criteria criteria1 = goodsDetailExample.createCriteria();
+            criteria1.andGoodbriefidEqualTo(goodsBrief.getId());
+            List<GoodsDetail> goodsDetailList = goodsDetailMapper.selectByExample(goodsDetailExample);
+            if (goodsDetailList==null||goodsDetailList.size()==0){
+                break;
+            }
+            List<GoodsDetailOutModel> goodsDetailOutModelList = new ArrayList<GoodsDetailOutModel>();
+            for (int j=0;j<goodsDetailList.size();j++){
+                GoodsDetail goodsDetail = goodsDetailList.get(j);
+                GoodsDetailOutModel goodsDetailOutModel = new GoodsDetailOutModel();
+
+                goodsDetailOutModel.setId(goodsDetail.getId());
+                goodsDetailOutModel.setGoodcolor(goodsDetail.getGoodcolor());
+                goodsDetailOutModel.setGoodprice(goodsDetail.getGoodprice());
+                goodsDetailOutModel.setGoodsize(goodsDetail.getGoodsize());
+                goodsDetailOutModel.setGoodremaincount(goodsDetail.getGoodremaincount());
+                goodsDetailOutModel.setPictures(goodsDetail.getPictures());
+                goodsDetailOutModelList.add(goodsDetailOutModel);
+            }
+            goodsOutModel.setList(goodsDetailOutModelList);
+
+            if (model.getGoodsOutModelList()==null){
+                List<GoodsOutModel> goodsOutModelList = new ArrayList<GoodsOutModel>();
+                goodsOutModelList.add(goodsOutModel);
+                model.setGoodsOutModelList(goodsOutModelList);
+            }else {
+                model.getGoodsOutModelList().add(goodsOutModel);
+            }
+
         }
+        model.setCode(1);
+        model.setMessage("获取店铺商品列表成功");
         return model;
     }
 }

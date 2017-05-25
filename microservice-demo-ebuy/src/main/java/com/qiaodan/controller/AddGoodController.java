@@ -8,13 +8,12 @@ import com.qiaodan.outmodel.BaseOutModel;
 import com.qiaodan.outmodel.GoodsListOutModel;
 import com.qiaodan.service.AddGoodService;
 import com.qiaodan.service.LoginService;
+import com.sun.tracing.dtrace.Attributes;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -42,8 +41,8 @@ public class AddGoodController {
     }
 
     @ApiOperation(value = "获取店铺商品列表",notes = "操作")
-    @RequestMapping(value = "getGoodsListByShopid",method = RequestMethod.POST)
-    public GoodsListOutModel getGoodsListByShopid(Integer shopId){
+    @RequestMapping(value = "getGoodsListByShopid",method = RequestMethod.GET)
+    public GoodsListOutModel getGoodsListByShopid(@RequestParam Integer shopId){
 
         return addGoodService.getGoodsListByShopid(shopId);
     }
