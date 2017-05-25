@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by qiaodan on 2017/5/9.
  */
-@Api(value = "登陆相关",description = "登陆")
+@Api(value = "登陆-控制器",description = "登陆")
 @RestController
 @RequestMapping("/LoginController/")
 public class LoginController {

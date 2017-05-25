@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Created by qiaodan on 2017/5/9.
  */
-@Api(value = "注册",description = "注册相关")
+@Api(value = "注册-控制器",description = "注册相关")
 @ComponentScan("com.qiaodan.DAO")
 @RestController
 @RequestMapping(value = "/RegisterControlller/",method = RequestMethod.POST)

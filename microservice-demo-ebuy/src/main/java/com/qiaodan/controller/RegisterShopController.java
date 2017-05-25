@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("Shop")
-@Api(value = "店铺", description = "创建修改信息")
+@Api(value = "店铺-控制器", description = "创建修改信息")
 public class RegisterShopController {
     @Autowired
     private ShopService shopService;

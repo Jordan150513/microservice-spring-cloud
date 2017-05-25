@@ -30,63 +30,6 @@ public class AddGoodService {
     @Autowired
     private GoodsDetailMapper goodsDetailMapper;
 
-//    public BaseOutModel addSingle(SingleGoodInModel model) {
-//        BaseOutModel baseOutModel = new BaseOutModel();
-//        GoodDetail goodDetail = new GoodDetail();
-//
-//        goodDetail.setGoodname(model.getGoodName());
-//        goodDetail.setGoodcolor(model.getGoodColor());
-//        goodDetail.setGoodprice(model.getGoodPrice());
-//        goodDetail.setGoodremaincount(model.getGoodRemainCount());
-//        goodDetail.setGoodsize(model.getGoodSize());
-//
-//        int rs = 0;
-//        try {
-//            rs = goodDetailMapper.insertSelective(goodDetail);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            baseOutModel.setCode(0);
-//            baseOutModel.setMessage("添加失败！ " + e.toString());
-//            return baseOutModel;
-//        }
-//        if (rs == 1) {
-//            baseOutModel.setCode(1);
-//            baseOutModel.setMessage("添加成功！");
-//            return baseOutModel;
-//        }
-//        baseOutModel.setCode(0);
-//        baseOutModel.setMessage("添加失败！");
-//        return baseOutModel;
-//    }
-
-//    // 添加一系列的
-//    public BaseOutModel addGoods(AddGoodsInModel model) {
-//        BaseOutModel baseOutModel = new BaseOutModel();
-//        String goodName = model.getGoodName();
-//        List<SubInfo> list = model.getGoodInfoList();
-//        GoodDetail goodDetail = new GoodDetail();
-//        goodDetail.setGoodname(model.getGoodName());
-//        goodDetail.setShopid(model.getShopId());
-//        int rs = 0;
-//        for (int i = 0; i < list.size(); i++) {
-//            SubInfo subInfoI = list.get(i);
-//            goodDetail.setGoodcolor(subInfoI.getGoodColor());
-//            goodDetail.setGoodprice(subInfoI.getGoodPrice());
-//            goodDetail.setGoodremaincount(subInfoI.getGoodRemainCount());
-//            goodDetail.setGoodsize(subInfoI.getGoodSize());
-//            rs = goodDetailMapper.insertSelective(goodDetail);
-//            if (rs != 1) {
-//                //插入失败了
-//                baseOutModel.setCode(0);
-//                baseOutModel.setMessage("插入商品失败！");
-//                return baseOutModel;
-//            }
-//        }
-//        baseOutModel.setCode(1);
-//        baseOutModel.setMessage("插入商品成功！");
-//        return baseOutModel;
-//    }
-
     // 添加一系列的商品
     public BaseOutModel addGoods(AddGoodsInModel model) {
         BaseOutModel baseOutModel = new BaseOutModel();
@@ -120,6 +63,7 @@ public class AddGoodService {
         return baseOutModel;
     }
 
+    // 添加单个商品
     public BaseOutModel addSingle(SingleGoodInModel model) {
         BaseOutModel baseOutModel = new BaseOutModel();
         GoodsBrief goodsBrief = new GoodsBrief();
@@ -155,6 +99,8 @@ public class AddGoodService {
 *   这个应该如何设计实现?、
 *    经过考虑 决定将gooddetail商品表拆分成两个表，会好很多。
 * */
+
+    // 查询店铺所有商品的详细信息列表
     public GoodsListOutModel getGoodsListByShopid(Integer shopId) {
         GoodsListOutModel model = new GoodsListOutModel();
 
@@ -218,6 +164,7 @@ public class AddGoodService {
         return model;
     }
 
+    // 查询 单个商品的详细信息
     public GoodBriefDetailOutModel getGoodById(Integer goodBriefId){
         GoodBriefDetailOutModel goodBriefDetailOutModel = new GoodBriefDetailOutModel();
 

@@ -21,14 +21,13 @@ import java.util.List;
 /**
  * Created by qiaodan on 2017/5/11.
  */
-@Api(value = "商品相关控制器",description = "添加，查询")
+@Api(value = "商品-控制器",description = "添加，查询")
 @RestController
-@RequestMapping("/GoodController/")
+@RequestMapping("/Goods/")
 public class AddGoodController {
 
     @Autowired
     private AddGoodService addGoodService;
-    //  http://localhost:9090/AddGoodController/addSingleGood?goodName=圣迪奥女裙&goodColor=白&goodPrice=228.0&goodRemainCount=24$goodSize=L
     @ApiOperation(value = "添加单个商品",notes = "添加操作")
     @RequestMapping(value = "addSingleGood",method = RequestMethod.GET)
     public BaseOutModel addSingleGood(@RequestBody SingleGoodInModel model){
