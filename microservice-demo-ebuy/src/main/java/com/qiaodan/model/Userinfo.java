@@ -17,6 +17,8 @@ public class Userinfo {
 
     private String email;
 
+    private Integer usertype;
+
     public Integer getId() {
         return id;
     }
@@ -81,17 +83,11 @@ public class Userinfo {
         this.email = email == null ? null : email.trim();
     }
 
-    @Override
-    public String toString() {
-        return "Userinfo{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", truename='" + truename + '\'' +
-                ", sex=" + sex +
-                ", address='" + address + '\'' +
-                ", phoneno='" + phoneno + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+    public Integer getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(Integer usertype) {
+        this.usertype = usertype;
     }
 }

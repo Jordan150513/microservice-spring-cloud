@@ -10,6 +10,7 @@
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="phoneNo" jdbcType="VARCHAR" property="phoneno" />
     <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="usertype" jdbcType="INTEGER" property="usertype" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, userName, password, trueName, sex, address, phoneNo, email
+    id, userName, password, trueName, sex, address, phoneNo, email, usertype
   </sql>
   <select id="selectByExample" parameterType="com.qiaodan.model.UserinfoExample" resultMap="BaseResultMap">
     select
@@ -105,15 +106,17 @@
   <insert id="insert" parameterType="com.qiaodan.model.Userinfo">
     insert into userinfo (id, userName, password, 
       trueName, sex, address, 
-      phoneNo, email)
+      phoneNo, email, usertype
+      )
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{truename,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
-      #{phoneno,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR})
+      #{phoneno,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{usertype,jdbcType=INTEGER}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.qiaodan.model.Userinfo" useGeneratedKeys="true">
+  <insert id="insertSelective" parameterType="com.qiaodan.model.Userinfo">
     insert into userinfo
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null and id !=''">
+      <if test="id != null">
         id,
       </if>
       <if test="username != null">
@@ -136,6 +139,9 @@
       </if>
       <if test="email != null">
         email,
+      </if>
+      <if test="usertype != null">
+        usertype,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -162,6 +168,9 @@
       </if>
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="usertype != null">
+        #{usertype,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -198,6 +207,9 @@
       <if test="record.email != null">
         email = #{record.email,jdbcType=VARCHAR},
       </if>
+      <if test="record.usertype != null">
+        usertype = #{record.usertype,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -212,7 +224,8 @@
       sex = #{record.sex,jdbcType=INTEGER},
       address = #{record.address,jdbcType=VARCHAR},
       phoneNo = #{record.phoneno,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR}
+      email = #{record.email,jdbcType=VARCHAR},
+      usertype = #{record.usertype,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -241,6 +254,9 @@
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
       </if>
+      <if test="usertype != null">
+        usertype = #{usertype,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -252,7 +268,8 @@
       sex = #{sex,jdbcType=INTEGER},
       address = #{address,jdbcType=VARCHAR},
       phoneNo = #{phoneno,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR}
+      email = #{email,jdbcType=VARCHAR},
+      usertype = #{usertype,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -4,7 +4,6 @@ import com.qiaodan.model.Userinfo;
 import com.qiaodan.model.UserinfoExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
 
 public interface UserinfoMapper {
     long countByExample(UserinfoExample example);

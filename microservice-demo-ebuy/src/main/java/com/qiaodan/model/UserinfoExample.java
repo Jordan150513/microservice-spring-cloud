@@ -643,6 +643,66 @@ public class UserinfoExample {
             addCriterion("email not between", value1, value2, "email");
             return (Criteria) this;
         }
+
+        public Criteria andUsertypeIsNull() {
+            addCriterion("usertype is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsertypeIsNotNull() {
+            addCriterion("usertype is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsertypeEqualTo(Integer value) {
+            addCriterion("usertype =", value, "usertype");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsertypeNotEqualTo(Integer value) {
+            addCriterion("usertype <>", value, "usertype");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsertypeGreaterThan(Integer value) {
+            addCriterion("usertype >", value, "usertype");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsertypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("usertype >=", value, "usertype");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsertypeLessThan(Integer value) {
+            addCriterion("usertype <", value, "usertype");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsertypeLessThanOrEqualTo(Integer value) {
+            addCriterion("usertype <=", value, "usertype");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsertypeIn(List<Integer> values) {
+            addCriterion("usertype in", values, "usertype");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsertypeNotIn(List<Integer> values) {
+            addCriterion("usertype not in", values, "usertype");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsertypeBetween(Integer value1, Integer value2) {
+            addCriterion("usertype between", value1, value2, "usertype");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsertypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("usertype not between", value1, value2, "usertype");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
