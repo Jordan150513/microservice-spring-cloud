@@ -3,6 +3,7 @@ package com.qiaodan.controller;
 import com.qiaodan.DAO.GoodDetailMapper;
 import com.qiaodan.inmodel.AddGoodsInModel;
 import com.qiaodan.inmodel.SingleGoodInModel;
+import com.qiaodan.inmodel.SubInfo;
 import com.qiaodan.model.GoodDetail;
 import com.qiaodan.outmodel.BaseOutModel;
 import com.qiaodan.outmodel.GoodBriefDetailOutModel;
@@ -21,7 +22,7 @@ import java.util.List;
 /**
  * Created by qiaodan on 2017/5/11.
  */
-@Api(value = "商品-控制器",description = "添加，查询")
+@Api(value = "商品-控制器",description = "添加，查询，更改信息")
 @RestController
 @RequestMapping("/Goods/")
 public class AddGoodController {
@@ -52,5 +53,10 @@ public class AddGoodController {
     public GoodBriefDetailOutModel getGoodById(@RequestParam Integer goodBriefId){
 
         return addGoodService.getGoodById(goodBriefId);
+    }
+    @ApiOperation(value = "修改某个商品的详细信息",notes = "更新操作")
+    @RequestMapping(value = "updateGood",method = RequestMethod.POST)
+    public BaseOutModel updateGood(@RequestBody SubInfo subInfo){
+        return addGoodService.updateGood(subInfo);
     }
 }

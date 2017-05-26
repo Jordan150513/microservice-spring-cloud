@@ -101,21 +101,21 @@ public class AddGoodService {
         GoodsBriefExample goodsBriefExample = new GoodsBriefExample();
         GoodsBriefExample.Criteria criteria = goodsBriefExample.createCriteria();
         criteria.andShopidEqualTo(shopId);
-        List<GoodsBrief> list =  goodsBriefMapper.selectByExample(goodsBriefExample);
+        List<GoodsBrief> list = goodsBriefMapper.selectByExample(goodsBriefExample);
 
-        if (list==null){
+        if (list == null) {
             model.setCode(0);
             model.setMessage("没有找到店铺对应的商品列表");
             return model;
         }
-        if (list.size()==0){
+        if (list.size() == 0) {
             model.setCode(1);
             model.setMessage("店铺目前还没有商品");
             return model;
         }
 
         GoodsOutModel goodsOutModel = new GoodsOutModel();
-        for (int i =0;i<list.size();i++){
+        for (int i = 0; i < list.size(); i++) {
             GoodsBrief goodsBrief = list.get(i);
             goodsOutModel.setGoodname(goodsBrief.getGoodname());
             goodsOutModel.setId(goodsBrief.getId());
@@ -126,11 +126,11 @@ public class AddGoodService {
             GoodsDetailExample.Criteria criteria1 = goodsDetailExample.createCriteria();
             criteria1.andGoodbriefidEqualTo(goodsBrief.getId());
             List<GoodsDetail> goodsDetailList = goodsDetailMapper.selectByExample(goodsDetailExample);
-            if (goodsDetailList==null||goodsDetailList.size()==0){
+            if (goodsDetailList == null || goodsDetailList.size() == 0) {
                 break;
             }
             List<GoodsDetailOutModel> goodsDetailOutModelList = new ArrayList<GoodsDetailOutModel>();
-            for (int j=0;j<goodsDetailList.size();j++){
+            for (int j = 0; j < goodsDetailList.size(); j++) {
                 GoodsDetail goodsDetail = goodsDetailList.get(j);
                 GoodsDetailOutModel goodsDetailOutModel = new GoodsDetailOutModel();
 
@@ -144,11 +144,11 @@ public class AddGoodService {
             }
             goodsOutModel.setList(goodsDetailOutModelList);
 
-            if (model.getGoodsOutModelList()==null){
+            if (model.getGoodsOutModelList() == null) {
                 List<GoodsOutModel> goodsOutModelList = new ArrayList<GoodsOutModel>();
                 goodsOutModelList.add(goodsOutModel);
                 model.setGoodsOutModelList(goodsOutModelList);
-            }else {
+            } else {
                 model.getGoodsOutModelList().add(goodsOutModel);
             }
 
@@ -159,7 +159,7 @@ public class AddGoodService {
     }
 
     // 查询 单个商品的详细信息
-    public GoodBriefDetailOutModel getGoodById(Integer goodBriefId){
+    public GoodBriefDetailOutModel getGoodById(Integer goodBriefId) {
         GoodBriefDetailOutModel goodBriefDetailOutModel = new GoodBriefDetailOutModel();
 
         GoodsBrief goodsBrief = goodsBriefMapper.selectByPrimaryKey(goodBriefId);
@@ -173,14 +173,14 @@ public class AddGoodService {
         GoodsDetailExample.Criteria criteria1 = goodsDetailExample.createCriteria();
         criteria1.andGoodbriefidEqualTo(goodsBrief.getId());
         List<GoodsDetail> goodsDetailList = goodsDetailMapper.selectByExample(goodsDetailExample);
-        if (goodsDetailList==null||goodsDetailList.size()==0){
+        if (goodsDetailList == null || goodsDetailList.size() == 0) {
             goodBriefDetailOutModel.setCode(0);
             goodBriefDetailOutModel.setMessage("没有找到相应的商品详细信息！");
-            return  goodBriefDetailOutModel;
+            return goodBriefDetailOutModel;
         }
 
         List<GoodsDetailOutModel> goodsDetailOutModelList = new ArrayList<GoodsDetailOutModel>();
-        for (int j=0;j<goodsDetailList.size();j++){
+        for (int j = 0; j < goodsDetailList.size(); j++) {
             GoodsDetail goodsDetail = goodsDetailList.get(j);
             GoodsDetailOutModel goodsDetailOutModel = new GoodsDetailOutModel();
 
@@ -192,16 +192,50 @@ public class AddGoodService {
             goodsDetailOutModel.setPictures(goodsDetail.getPictures());
             goodsDetailOutModelList.add(goodsDetailOutModel);
         }
-        if (goodsDetailOutModelList==null||goodsDetailOutModelList.size()==0){
+        if (goodsDetailOutModelList == null || goodsDetailOutModelList.size() == 0) {
             goodBriefDetailOutModel.setMessage("没有找到相应的商品详细信息！");
             goodBriefDetailOutModel.setCode(0);
             return goodBriefDetailOutModel;
         }
 //        if (goodBriefDetailOutModel.getList()==null){
-            goodBriefDetailOutModel.setList(goodsDetailOutModelList);
+        goodBriefDetailOutModel.setList(goodsDetailOutModelList);
 //        }
         goodBriefDetailOutModel.setMessage("查询成功");
         goodBriefDetailOutModel.setCode(1);
         return goodBriefDetailOutModel;
+    }
+
+    // 修改 单个商品的详细信息 单独修改货存量也可以直接用这个方法 购买时候 也可以直接调用该方法
+    public BaseOutModel updateGood(SubInfo subInfo) {
+        BaseOutModel baseOutModel = new BaseOutModel();
+        subInfo.getGoodid();
+        GoodsDetail goodsDetail = goodsDetailMapper.selectByPrimaryKey(subInfo.getGoodid());
+        if (goodsDetail == null) {
+            baseOutModel.setCode(0);
+            baseOutModel.setMessage("ouch!出错了，找不到该商品的信息！");
+            return baseOutModel;
+        }
+        if (subInfo.getGoodColor() != null && subInfo.getGoodColor().length() > 0) {
+            goodsDetail.setGoodcolor(subInfo.getGoodColor());
+        }
+        if (subInfo.getGoodPrice() > 0.0000000001) {
+            goodsDetail.setGoodprice(subInfo.getGoodPrice());
+        }
+        if (subInfo.getGoodSize() != null && subInfo.getGoodSize().length() > 0) {
+            goodsDetail.setGoodsize(subInfo.getGoodSize());
+        }
+        // 不传的时候 不会更改之前的数据
+        goodsDetail.setGoodremaincount(subInfo.getGoodRemainCount());
+        // 这里需要核实 没有传的字段 时候会被改成null？？？
+        // 没有传 价格 会把价格错误的置为0
+        int rs = goodsDetailMapper.updateByPrimaryKeySelective(goodsDetail);
+        if (rs != 1) {
+            baseOutModel.setCode(0);
+            baseOutModel.setMessage("修改失败了！");
+            return baseOutModel;
+        }
+        baseOutModel.setCode(1);
+        baseOutModel.setMessage("修改成功了！");
+        return baseOutModel;
     }
 }
