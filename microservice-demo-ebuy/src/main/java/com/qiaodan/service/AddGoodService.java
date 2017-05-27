@@ -226,8 +226,7 @@ public class AddGoodService {
         }
         // 不传的时候 不会更改之前的数据
         goodsDetail.setGoodremaincount(subInfo.getGoodRemainCount());
-        // 这里需要核实 没有传的字段 时候会被改成null？？？
-        // 没有传 价格 会把价格错误的置为0
+
         int rs = goodsDetailMapper.updateByPrimaryKeySelective(goodsDetail);
         if (rs != 1) {
             baseOutModel.setCode(0);
