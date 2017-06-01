@@ -205,11 +205,24 @@ public class AddGoodService {
         return goodBriefDetailOutModel;
     }
 
-//    // 查询店铺所有商品的详细信息列表 --- 用一条sql语句实现
-//    public GoodsListOutModel getGoodsListByShopid2(Integer shopId) {
-//
-//    }
-//
+    // 查询店铺所有商品的详细信息列表 --- 用一条sql语句实现
+    public GoodsListOutModel getGoodsListByShopid2(Integer shopId) {
+
+        GoodsListOutModel outModel = new GoodsListOutModel();
+        try {
+            List<GoodsOutModel> list = goodsBriefMapper.selectGoods(shopId);
+            outModel.setGoodsOutModelList(list);
+        }catch (Exception e){
+            e.printStackTrace();
+            outModel.setCode(0);
+            outModel.setMessage("发生啦Exception");
+        }
+
+        outModel.setCode(1);
+        outModel.setMessage("success!");
+        return outModel;
+    }
+
 //     查询 单个商品的详细信息 -- 用一条sql语句实现
     public GoodBriefDetailOutModel getGoodById2(Integer goodBriefId) {
         GoodBriefDetailOutModel outModel = goodsBriefMapper.selectOneGood(goodBriefId);

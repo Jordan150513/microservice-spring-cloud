@@ -222,13 +222,24 @@ goodsDetail.goodRemainCount
 from goodsBrief join goodsDetail on goodsBrief.id=goodsDetail.goodBriefId where goodsBrief.id=#{id,jdbcType=INTEGER};
   </select>
 
-  <select id="selectOneGoodWithChoose">
-        select goodsBrief.id as goodBriefId,goodName,goodsBrief.pictures as goodBriefPicture,shopid,
-goodsDetail.goodColor,goodsDetail.goodPrice,goodsDetail.goodSize,goodsDetail.goodRemainCount
+  <select id="selectGoods" parameterType="java.lang.Integer" resultMap="selectGoodsResultMap">
+        select goodsBrief.id as goodBriefId,
+        goodName,
+        goodsBrief.pictures as goodBriefPicture,
+        shopid,
+goodsDetail.goodColor,
+goodsDetail.goodPrice,
+goodsDetail.goodSize,
+goodsDetail.goodRemainCount
 from goodsBrief join goodsDetail on goodsBrief.id=goodsDetail.goodBriefId
-<where>
-  where goodsBrief.id=1;
-</where>
-
+WHERE goodsBrief.shopid=#{id,jdbcType=INTEGER}
   </select>
+  <resultMap id="selectGoodsResultMap" type="com.qiaodan.outmodel.GoodsOutModel">
+    <id column="goodBriefId" property="id"></id>
+    <result column="shopid" property="shopid"></result>
+    <result column="goodName" property="goodname"></result>
+    <result column="goodBriefPicture" property="pictures"></result>
+    <collection property="list" resultMap="goodDetailResultMap"></collection>
+    <!--<collection property="goodsOutModelList" resultMap="selectOneGoodResultMap"></collection>-->
+  </resultMap>
 </mapper>

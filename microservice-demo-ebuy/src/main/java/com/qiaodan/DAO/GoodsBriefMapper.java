@@ -5,6 +5,8 @@ import com.qiaodan.model.GoodsBriefExample;
 import java.util.List;
 
 import com.qiaodan.outmodel.GoodBriefDetailOutModel;
+import com.qiaodan.outmodel.GoodsListOutModel;
+import com.qiaodan.outmodel.GoodsOutModel;
 import org.apache.ibatis.annotations.Param;
 
 public interface GoodsBriefMapper {
@@ -31,4 +33,5 @@ public interface GoodsBriefMapper {
     int updateByPrimaryKey(GoodsBrief record);
 
     GoodBriefDetailOutModel selectOneGood(Integer id);
+    List<GoodsOutModel> selectGoods(Integer id);
 }
