@@ -62,13 +62,13 @@ public class AddGoodController {
 //
 //        return addGoodService.getGoodsListByShopid2(shopId);
 //    }
-//
-//    @ApiOperation(value = "获取某个商品的详细信息  用一条sql语句实现",notes = "查询操作")
-//    @RequestMapping(value = "getGoodById2",method = RequestMethod.GET)
-//    public GoodBriefDetailOutModel getGoodById2(@RequestParam Integer goodBriefId){
-//
-//        return addGoodService.getGoodById2(goodBriefId);
-//    }
+
+    @ApiOperation(value = "获取某个商品的详细信息  用一条sql语句实现",notes = "查询操作")
+    @RequestMapping(value = "getGoodById2",method = RequestMethod.GET)
+    public GoodBriefDetailOutModel getGoodById2(@RequestParam Integer goodBriefId){
+
+        return addGoodService.getGoodById2(goodBriefId);
+    }
 
 
 

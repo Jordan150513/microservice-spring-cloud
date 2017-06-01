@@ -193,4 +193,42 @@
       shopid = #{shopid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!--以下是自定义的sql语句-->
+  <resultMap id="selectOneGoodResultMap" type="com.qiaodan.outmodel.GoodBriefDetailOutModel">
+    <id column="goodBriefId" property="id"></id>
+    <result column="shopid" property="shopid"></result>
+    <result column="goodName" property="goodname"></result>
+    <result column="goodBriefPicture" property="pictures"></result>
+    <collection property="list" resultMap="goodDetailResultMap"></collection>
+  </resultMap>
+  <resultMap id="goodDetailResultMap" type="com.qiaodan.outmodel.GoodsDetailOutModel">
+    <result column="goodColor" property="goodcolor"></result>
+    <result column="goodPrice" property="goodprice"></result>
+    <result column="goodSize" property="goodsize"></result>
+    <result column="goodRemainCount" property="goodremaincount"></result>
+
+  </resultMap>
+
+  <select id="selectOneGood" parameterType="java.lang.Integer" resultMap="selectOneGoodResultMap">
+    select goodsBrief.id as goodBriefId,
+    goodName,
+    goodsBrief.pictures as goodBriefPicture,
+    shopid,
+goodsDetail.goodColor,
+goodsDetail.goodPrice,
+goodsDetail.goodSize,
+goodsDetail.goodRemainCount
+from goodsBrief join goodsDetail on goodsBrief.id=goodsDetail.goodBriefId where goodsBrief.id=#{id,jdbcType=INTEGER};
+  </select>
+
+  <select id="selectOneGoodWithChoose">
+        select goodsBrief.id as goodBriefId,goodName,goodsBrief.pictures as goodBriefPicture,shopid,
+goodsDetail.goodColor,goodsDetail.goodPrice,goodsDetail.goodSize,goodsDetail.goodRemainCount
+from goodsBrief join goodsDetail on goodsBrief.id=goodsDetail.goodBriefId
+<where>
+  where goodsBrief.id=1;
+</where>
+
+  </select>
 </mapper>

@@ -3,6 +3,8 @@ package com.qiaodan.DAO;
 import com.qiaodan.model.GoodsBrief;
 import com.qiaodan.model.GoodsBriefExample;
 import java.util.List;
+
+import com.qiaodan.outmodel.GoodBriefDetailOutModel;
 import org.apache.ibatis.annotations.Param;
 
 public interface GoodsBriefMapper {
@@ -27,4 +29,6 @@ public interface GoodsBriefMapper {
     int updateByPrimaryKeySelective(GoodsBrief record);
 
     int updateByPrimaryKey(GoodsBrief record);
+
+    GoodBriefDetailOutModel selectOneGood(Integer id);
 }
