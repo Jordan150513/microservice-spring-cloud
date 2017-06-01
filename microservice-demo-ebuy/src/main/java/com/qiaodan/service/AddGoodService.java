@@ -205,6 +205,15 @@ public class AddGoodService {
         return goodBriefDetailOutModel;
     }
 
+//    // 查询店铺所有商品的详细信息列表 --- 用一条sql语句实现
+//    public GoodsListOutModel getGoodsListByShopid2(Integer shopId) {
+//
+//    }
+//
+//    // 查询 单个商品的详细信息 -- 用一条sql语句实现
+//    public GoodBriefDetailOutModel getGoodById2(Integer goodBriefId) {
+//
+//    }
     // 修改 单个商品的详细信息 单独修改货存量也可以直接用这个方法 购买时候 也可以直接调用该方法
     public BaseOutModel updateGood(SubInfo subInfo) {
         BaseOutModel baseOutModel = new BaseOutModel();
