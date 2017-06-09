@@ -1,4 +1,4 @@
-#用户表 包括 卖家 买家（普通用户） 客服人员 等
+# 1 用户表 包括 卖家 买家（普通用户） 客服人员 等
 use qdDemo;
 create table userinfo(
 id 			integer		 not null	 auto_increment 	comment 'id',
@@ -14,7 +14,7 @@ primary key(id)
 );
 
 
-#商铺表
+# 2 商铺表
 use qdDemo;
 create table shop(
 id 			integer		 not null	 auto_increment 	comment '店铺id',
@@ -28,7 +28,7 @@ primary key(id)
 );
 
 
-#商品的简介信息表
+# 3 商品的简介信息表
 use qddemo;
 create table goodsBrief(
 id integer auto_increment primary key comment '商品id',
@@ -38,7 +38,7 @@ shopid integer not null comment '店铺id'
 );
 
 
-#商品的详细信息表
+# 4 商品的详细信息表
 create table goodsDetail(
 id integer auto_increment primary key comment 'id',
 goodBriefId integer  not null comment 'goodBrief id 属于某个商品',
@@ -49,7 +49,7 @@ goodRemainCount integer not null comment '商品剩余数量',
 pictures integer comment '商品图片'
 );
 
-# 商品的购买记录表
+# 5  商品的购买记录表
 use qddemo;
 create table purchaseRecord(
 id integer auto_increment primary key comment '购买流水id',
@@ -59,7 +59,7 @@ goodsPrice float not null comment '购买的商品金额',
 discount float comment '折扣钱数'
 );
 
-#商品的图片
+# 6 商品的图片
 use qddemo;
 create table goodPicture(
 id integer auto_increment primary key comment '图片id',
@@ -67,3 +67,18 @@ goodName varchar(255) not null comment '商品名称',
 goodColor varchar(255) not null comment '商品颜色',
 goodPicture varchar(255) not null comment '商品图片'
 );
+
+
+# 开始扩展用户功能
+ 
+# 7 用户的收获地址表
+
+use qddemo;
+create table receiverAddress(
+id integer auto_increment primary key comment '收获地址id',
+userId integer not null  comment '用户的id',
+receiverName varchar(255) not null comment '收货人名字',
+receiverAddress varchar(255) not null comment '收货人地址',
+receiverPhone numeric not null comment '收货人电话',
+isDefault bool default 0 comment '是否是默认的收获地址， defaulet==0 ，默认不是默认的收获地址'
+)
