@@ -18,25 +18,21 @@ public class LoginService {
     @Autowired
     private UserinfoMapper userinfoMapper;
 
-    public BaseOutModel login(LoginInModel model){
+    public BaseOutModel login(String name ,String password){
         BaseOutModel outModel = new BaseOutModel();
-        if (model==null){
-            outModel.setCode(0);
-            outModel.setMessage("参数错误！");
-            return outModel;
-        }else if (model.getName()==null||model.getName().length()==0){
+        if (name==null||name.length()==0){
             outModel.setCode(0);
             outModel.setMessage("用户名不能为空！");
             return outModel;
-        }else if (model.getPassword()==null||model.getPassword().length()==0){
+        }else if (password==null||password.length()==0){
             outModel.setMessage("密码不能为空");
             outModel.setCode(0);
             return outModel;
         }
         UserinfoExample userinfoExample = new UserinfoExample();
         UserinfoExample.Criteria criteria = userinfoExample.createCriteria();
-        criteria.andUsernameEqualTo(model.getName());
-        criteria.andPasswordEqualTo(model.getPassword());
+        criteria.andUsernameEqualTo(name);
+        criteria.andPasswordEqualTo(password);
         List<Userinfo> list = userinfoMapper.selectByExample(userinfoExample);
         if (list==null){
             outModel.setCode(0);

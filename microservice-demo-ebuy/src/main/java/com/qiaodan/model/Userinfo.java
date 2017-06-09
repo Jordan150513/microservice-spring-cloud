@@ -90,4 +90,19 @@ public class Userinfo {
     public void setUsertype(Integer usertype) {
         this.usertype = usertype;
     }
+
+    @Override
+    public String toString() {
+        return "Userinfo{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", truename='" + truename + '\'' +
+                ", sex=" + sex +
+                ", address='" + address + '\'' +
+                ", phoneno='" + phoneno + '\'' +
+                ", email='" + email + '\'' +
+                ", usertype=" + usertype +
+                '}';
+    }
 }
