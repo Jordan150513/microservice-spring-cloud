@@ -80,6 +80,16 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+
+
+			<!--单独设置注册到admin-->
+			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-starter-client</artifactId>
+				<version>1.5.0</version>
+			</dependency>
+
+
 		</dependencies>
 	</dependencyManagement>
 
