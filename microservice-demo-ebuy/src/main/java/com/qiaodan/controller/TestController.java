@@ -28,4 +28,15 @@ private TestService testService;
 //    public String useFeign(){
 //        return testService.useFeign();
 //    }
+
+    @RequestMapping("sperateString")
+    public String sperateString(String string){
+        return  seperateWithRegu(string);
+    }
+
+
+    public String seperateWithRegu(String string){
+
+        return string;
+    }
 }
