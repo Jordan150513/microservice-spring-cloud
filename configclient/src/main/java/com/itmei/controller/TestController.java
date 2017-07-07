@@ -2,6 +2,7 @@ package com.itmei.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -14,7 +15,7 @@ public class TestController {
     @Value("${name}")
     private String name;
 
-    @RequestMapping("fetchName")
+    @RequestMapping(value = "fetchName",method = RequestMethod.GET)
     public String fetchName(){
      return this.name;
     }
