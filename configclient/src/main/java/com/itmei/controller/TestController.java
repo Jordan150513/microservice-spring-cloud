@@ -1,6 +1,7 @@
 package com.itmei.controller;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by qiaodan on 2017/7/7.
  */
 @RestController
+@RefreshScope
 @RequestMapping("test")
 public class TestController {
 
