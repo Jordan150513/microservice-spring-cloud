@@ -28,6 +28,7 @@ public class JavalearningApplicationTests {
 		String pattern = "(\\d)(?=(\\d{3})+(?!\\d))";
 		String str1 = "123456789";
 		System.out.print(str1.replaceAll(pattern, "$1" + ","));
+		System.out.print("\n");
 
 	}
 
