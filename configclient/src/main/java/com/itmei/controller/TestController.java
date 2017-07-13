@@ -21,5 +21,10 @@ public class TestController {
     public String fetchName(){
      return this.name;
     }
+
+    @RequestMapping(value = "getName",method = RequestMethod.GET)
+    public String getUser(){
+        return "from client-provider-1-user";
+    }
 }
 
