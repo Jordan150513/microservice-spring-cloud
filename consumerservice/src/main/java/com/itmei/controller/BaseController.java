@@ -19,13 +19,9 @@ public class BaseController {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Value("${servicePath}")
-    private String servicePath;
-//
-//    @RequestMapping(name = "consumer/",method = RequestMethod.GET)
-//    public String consumer(){
-//        return this.restTemplate.getForObject(this.servicePath,String.class);
-//    }
+//    @Value("${servicePath}")
+//    private String servicePath;
+
 
     @RequestMapping(value = "getName",method = RequestMethod.GET)
     public String getUser(){
@@ -34,7 +30,8 @@ public class BaseController {
 
     @RequestMapping(value = "getName2",method = RequestMethod.GET)
     public String getUser2(){
-        return this.restTemplate.getForObject(this.servicePath,String.class);
+        return this.restTemplate.getForObject("http://configclient/test/getName/",String.class);
+//        http://localhost:50902/test/getName
     }
 
 }

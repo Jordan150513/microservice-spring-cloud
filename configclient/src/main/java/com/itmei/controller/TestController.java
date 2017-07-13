@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RefreshScope
 @RequestMapping("test")
-@EnableEurekaClient
 public class TestController {
 
     @Value("${name}")
