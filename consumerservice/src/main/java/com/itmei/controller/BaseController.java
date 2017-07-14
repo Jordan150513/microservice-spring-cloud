@@ -30,8 +30,8 @@ public class BaseController {
 
     @RequestMapping(value = "getName2",method = RequestMethod.GET)
     public String getUser2(){
+        // 使用虚拟ip VIP的方式指定访问的接口 服务之间的调用，通过eureka的service id实现
         return this.restTemplate.getForObject("http://configclient/test/getName/",String.class);
-//        http://localhost:50902/test/getName
     }
 
 }
