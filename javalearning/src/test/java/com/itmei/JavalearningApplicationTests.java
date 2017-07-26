@@ -89,6 +89,9 @@ public class JavalearningApplicationTests {
     @Test
     public void sortMethod() throws IOException {
         // quick sort
+         // 需要考虑周全的两点：
+        // 1、临近的元素交换之后，游标不会有相等相遇的情况出现就越过彼此了会出现左边游标大于了右边的游标
+        // 2、交换之后 两端向各自方向更新游标
         int[] dataArr = {1, 45, 3, 67, 90, 9, 33, 68, 2, 6, 88, 22, 6};
 
         System.out.println("you input numbers: ");
@@ -118,11 +121,11 @@ public class JavalearningApplicationTests {
                 int tmp = dataArr[i];
                 dataArr[i] = dataArr[j];
                 dataArr[j] = tmp;
-                i++;
+                i++;// 这里经常忘记操作
                 j--;
             }
         }
-        if (i >= j) {
+        if (i >= j) {// 这里需要考虑周全，有可能两个临近的元素交换了之后，两个越过彼此
             // 一次排序结束了
             int tmp = dataArr[p];
             dataArr[p] = dataArr[j];
