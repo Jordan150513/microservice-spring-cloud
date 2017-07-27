@@ -25,6 +25,31 @@ public class JavalearningApplicationTests {
 
 
     @Test
+    public void numbers(){
+        // 记得看过一个文章 100 之内的 做了缓存 所以两个变量是一样的，但是100 之外的 是没有做缓存，两个变量是不相等的。。。但是为啥 不是呢？
+
+//        int a = 100;
+//        int b = 100;
+//        int c = 10000;
+//        int d = 10000;
+
+        // 上下两种情况是不一样的
+
+        Integer a = 100;
+        Integer b = 100;
+        Integer c = 10000;
+        Integer d = 10000;
+
+        // 这里是两个对象的指针进行判断的 判断的是对象的指针
+        System.out.println(a==b);
+        System.out.println(c==d);
+
+        // equals 判断的是对象的值 类型和value
+        System.out.println(a.equals(b));
+        System.out.println(c.equals(d));
+    }
+
+    @Test
     public void seperateWithRegu() {
 
 //		'1231231321'.replace(/(\d)(?=(\d{4})+(?!\d))/g, '$1' + ',');
