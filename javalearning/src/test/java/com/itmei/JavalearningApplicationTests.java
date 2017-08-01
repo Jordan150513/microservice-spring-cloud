@@ -15,6 +15,8 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.apache.coyote.http11.Constants.a;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class JavalearningApplicationTests {
@@ -25,7 +27,7 @@ public class JavalearningApplicationTests {
 
 
     @Test
-    public void numbers(){
+    public void numbers() {
         // 记得看过一个文章 100 之内的 做了缓存 所以两个变量是一样的，但是100 之外的 是没有做缓存，两个变量是不相等的。。。但是为啥 不是呢？
 
 //        int a = 100;
@@ -41,8 +43,8 @@ public class JavalearningApplicationTests {
         Integer d = 10000;
 
         // 这里是两个对象的指针进行判断的 判断的是对象的指针
-        System.out.println(a==b);
-        System.out.println(c==d);
+        System.out.println(a == b);
+        System.out.println(c == d);
 
         // equals 判断的是对象的值 类型和value
         System.out.println(a.equals(b));
@@ -114,7 +116,7 @@ public class JavalearningApplicationTests {
     @Test
     public void sortMethod() throws IOException {
         // quick sort
-         // 需要考虑周全的两点：
+        // 需要考虑周全的两点：
         // 1、临近的元素交换之后，游标不会有相等相遇的情况出现就越过彼此了会出现左边游标大于了右边的游标
         // 2、交换之后 两端向各自方向更新游标
         int[] dataArr = {1, 45, 3, 67, 90, 9, 33, 68, 2, 6, 88, 22, 6};
@@ -156,7 +158,7 @@ public class JavalearningApplicationTests {
             dataArr[p] = dataArr[j];
             dataArr[j] = tmp;
             printNumbers(dataArr);
-            p=j;
+            p = j;
         }
         // 进行分两边递归的快排
         if (start < p - 1) {
@@ -176,4 +178,40 @@ public class JavalearningApplicationTests {
             System.out.println("");
         }
     }
+
+
+    // 回文判断
+    @Test
+    public void testPalindrome() {
+
+        char[] a = {'a', 'b', 'c', 'd', 'e', 'd', 'c', 'b', 'a'};
+        char[] stack = new char[10];
+        int top = 0;
+
+        int mid = a.length / 2;
+
+        for (int i = 0; i < mid; i++) {
+            int tmp = a[i];
+            stack[top++] = a[i];
+        }
+
+        boolean isPalindrome= true;
+        for (int j = mid + 1; j < a.length-1; j++) {
+            char left = a[j];
+            char right = stack[top--];
+            if (left==right) {
+                isPalindrome=false;
+                break;
+            }
+        }
+
+        if (isPalindrome){
+            System.out.println("the char arr is a Palindrome");
+        }else {
+            System.out.println("the char arr is not a Palindrome");
+        }
+    }
+
+    //
+
 }
