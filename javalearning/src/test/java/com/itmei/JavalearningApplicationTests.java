@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
+import java.sql.Struct;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -195,23 +196,37 @@ public class JavalearningApplicationTests {
             stack[top++] = a[i];
         }
 
-        boolean isPalindrome= true;
-        for (int j = mid + 1; j < a.length-1; j++) {
+        boolean isPalindrome = true;
+        for (int j = mid + 1; j < a.length - 1; j++) {
             char left = a[j];
             char right = stack[top--];
-            if (left==right) {
-                isPalindrome=false;
+            if (left == right) {
+                isPalindrome = false;
                 break;
             }
         }
 
-        if (isPalindrome){
+        if (isPalindrome) {
             System.out.println("the char arr is a Palindrome");
-        }else {
+        } else {
             System.out.println("the char arr is not a Palindrome");
         }
     }
 
-    //
+
+    // 小猫钓鱼demo
+    public void catFish() {
+        int[] a = {2, 4, 1, 2, 5, 6};
+        int[] b = {3, 1, 3, 5, 6, 4};
+
+
+
+        int[] stack = new int[15];
+        int top = 0;
+
+        do {
+
+        } while (a.length > 0 && b.length > 0);
+    }
 
 }
