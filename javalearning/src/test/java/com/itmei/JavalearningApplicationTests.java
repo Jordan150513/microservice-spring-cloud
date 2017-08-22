@@ -310,4 +310,11 @@ public class JavalearningApplicationTests {
         return -1;
      }
 
+     // 测试 代理模式
+     @Test
+    public void testProxy(){
+        LazyStudent lazyStudent = new LazyStudent("ergouzi");
+        Gunman gunman = new Gunman(lazyStudent);
+        gunman.answerTheQuestions();
+     }
 }
