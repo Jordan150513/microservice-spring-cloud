@@ -9,10 +9,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.io.IOException;
 import java.sql.Struct;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Scanner;
-import java.util.TimeZone;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -228,5 +225,89 @@ public class JavalearningApplicationTests {
 
         } while (a.length > 0 && b.length > 0);
     }
+
+
+    // String 是不可变类  明明是可变的哇？
+    @Test
+    public void testString(){
+        String string = "unmutable";
+        System.out.println(string);
+        string = string+" changed";
+        System.out.println(string);
+    }
+
+    @Test
+    public void testInteger(){
+        System.out.println("refresh equal:");
+
+        Integer f1 = 100, f2 = 100, f3 = 150, f4 = 150;
+        System.out.println(f1 == f2);  // true
+        System.out.println(f3 == f4);  //false
+
+        System.out.println("Integer and int");
+
+        Integer a = new Integer(3);
+        Integer b = 3;
+        int c = 3;
+        System.out.println(a == b);
+        System.out.println(a == c);
+    }
+
+    @Test
+    public void testABHello(){
+        A ab = new B();
+        ab = new B();
+        System.out.println(ab);
+    }
+
+    // binary search 二分查找
+    @Test
+    public void testBinarySearch(){
+        System.out.println("binarySearch: ");
+        Integer[] intArr = {1,2,3,4,5,7,22,30,39,44,67,90,123,245,678,1000};
+        int location = binarySearch(intArr,22);
+        System.out.println("location: "+location);
+    }
+
+    public <T extends Comparable<T>> int binarySearch(T[] x, T key) {
+        return binarySearch(x, 0, x.length- 1, key);
+    }
+
+    public  <T extends Comparable<T>> int binarySearch(T[] x, int low, int high, T key) {
+        if(low <= high) {
+            int mid = low + ((high -low) >> 1);
+            if(key.compareTo(x[mid])== 0) {
+                return mid;
+            }
+            else if(key.compareTo(x[mid])< 0) {
+                return binarySearch(x,low, mid - 1, key);
+            }
+            else {
+                return binarySearch(x,mid + 1, high, key);
+            }
+        }
+        return -1;
+    }
+
+
+     // while 循环实现  这个如何使用？
+     public <T> int binarySearch(T[] x, T key, Comparator<T> comp) {
+        int low = 0;
+        int high = x.length - 1;
+        while (low <= high) {
+            int mid = (low + high) >>> 1;
+            int cmp = comp.compare(x[mid], key);
+            if (cmp < 0) {
+              low= mid + 1;
+            }
+            else if (cmp > 0) {
+              high= mid - 1;
+            }
+            else {
+              return mid;
+            }
+        }
+        return -1;
+     }
 
 }
