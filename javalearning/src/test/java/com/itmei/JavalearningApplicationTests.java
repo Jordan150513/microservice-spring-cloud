@@ -317,4 +317,32 @@ public class JavalearningApplicationTests {
         Gunman gunman = new Gunman(lazyStudent);
         gunman.answerTheQuestions();
      }
+
+
+     @Test
+    public void testEquals(){
+
+         System.out.println("Object new String() equals and == ");
+         Object s1 = new String("Hello");
+         Object s2 = new String("Hello");
+
+         if(s1 == s2) {
+             System.out.println("s1 and s2 are ==");
+         }else if (s1.equals(s2)) {
+             System.out.println("s1 and s2 are equals()");
+         }
+
+         System.out.println("constant String equals and == ");
+
+         Object s3 = "Hello";
+         Object s4 = "Hello";
+
+         if (s3 == s4) {
+             System.out.println("s3 and s4 are ==");
+         } else if (s3.equals(s4)) {
+             System.out.println("s3 and s4 are equals()");
+         }
+
+
+     }
 }
