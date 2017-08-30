@@ -9,6 +9,7 @@ import com.swetake.util.Qrcode;
 import jp.sourceforge.qrcode.exception.DecodingFailedException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static org.apache.coyote.http11.Constants.a;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -228,7 +230,6 @@ public class JavalearningApplicationTests {
         int[] b = {3, 1, 3, 5, 6, 4};
 
 
-
         int[] stack = new int[15];
         int top = 0;
 
@@ -240,15 +241,15 @@ public class JavalearningApplicationTests {
 
     // String 是不可变类  明明是可变的哇？
     @Test
-    public void testString(){
+    public void testString() {
         String string = "unmutable";
         System.out.println(string);
-        string = string+" changed";
+        string = string + " changed";
         System.out.println(string);
     }
 
     @Test
-    public void testInteger(){
+    public void testInteger() {
         System.out.println("refresh equal:");
 
         Integer f1 = 100, f2 = 100, f3 = 150, f4 = 150;
@@ -265,7 +266,7 @@ public class JavalearningApplicationTests {
     }
 
     @Test
-    public void testABHello(){
+    public void testABHello() {
         A ab = new B();
         ab = new B();
         System.out.println(ab);
@@ -273,108 +274,127 @@ public class JavalearningApplicationTests {
 
     // binary search 二分查找
     @Test
-    public void testBinarySearch(){
+    public void testBinarySearch() {
         System.out.println("binarySearch: ");
-        Integer[] intArr = {1,2,3,4,5,7,22,30,39,44,67,90,123,245,678,1000};
-        int location = binarySearch(intArr,22);
-        System.out.println("location: "+location);
+        Integer[] intArr = {1, 2, 3, 4, 5, 7, 22, 30, 39, 44, 67, 90, 123, 245, 678, 1000};
+        int location = binarySearch(intArr, 22);
+        System.out.println("location: " + location);
     }
 
     public <T extends Comparable<T>> int binarySearch(T[] x, T key) {
-        return binarySearch(x, 0, x.length- 1, key);
+        return binarySearch(x, 0, x.length - 1, key);
     }
 
-    public  <T extends Comparable<T>> int binarySearch(T[] x, int low, int high, T key) {
-        if(low <= high) {
-            int mid = low + ((high -low) >> 1);
-            if(key.compareTo(x[mid])== 0) {
+    public <T extends Comparable<T>> int binarySearch(T[] x, int low, int high, T key) {
+        if (low <= high) {
+            int mid = low + ((high - low) >> 1);
+            if (key.compareTo(x[mid]) == 0) {
                 return mid;
-            }
-            else if(key.compareTo(x[mid])< 0) {
-                return binarySearch(x,low, mid - 1, key);
-            }
-            else {
-                return binarySearch(x,mid + 1, high, key);
+            } else if (key.compareTo(x[mid]) < 0) {
+                return binarySearch(x, low, mid - 1, key);
+            } else {
+                return binarySearch(x, mid + 1, high, key);
             }
         }
         return -1;
     }
 
 
-     // while 循环实现  这个如何使用？
-     public <T> int binarySearch(T[] x, T key, Comparator<T> comp) {
+    // while 循环实现  这个如何使用？
+    public <T> int binarySearch(T[] x, T key, Comparator<T> comp) {
         int low = 0;
         int high = x.length - 1;
         while (low <= high) {
             int mid = (low + high) >>> 1;
             int cmp = comp.compare(x[mid], key);
             if (cmp < 0) {
-              low= mid + 1;
-            }
-            else if (cmp > 0) {
-              high= mid - 1;
-            }
-            else {
-              return mid;
+                low = mid + 1;
+            } else if (cmp > 0) {
+                high = mid - 1;
+            } else {
+                return mid;
             }
         }
         return -1;
-     }
+    }
 
-     // 测试 代理模式
-     @Test
-    public void testProxy(){
+    // 测试 代理模式 第一种 lazyStudent没有办法做一些事情 让gunman帮他做了一些 他做不到的事情
+
+    @Test
+    public void testProxy() {
         LazyStudent lazyStudent = new LazyStudent("ergouzi");
         Gunman gunman = new Gunman(lazyStudent);
         gunman.answerTheQuestions();
-     }
+    }
 
+    // 测试 代理 第二种 代理工厂
+    // 代理是封装真实对象的对象。例如，如果您尝试调用Waiter bean，那么您将调用该Bean的代理，其行为方式完全相同。
+    @Test
+    public void testProxyFactory() {
 
-     @Test
-    public void testEquals(){
+        // 指定代理的 具体对象类 接口的具体实现类
+        ProxyFactory factory = new ProxyFactory(new House());
+        // 指定代理 的接口
+        factory.addInterface(Construction.class);
+        // 指定面向编程的 增强点 可以预先做一些操作
+        factory.addAdvice(new BeforeConstructAdvice());
+        factory.setExposeProxy(true);
+        //  接口对象
+        Construction construction = (Construction) factory.getProxy();
+        construction.construct();
+        assertTrue("Construction is illegal. "
+                + "Supervisor didn't give a permission to build "
+                + "the house", construction.isPermitted());
 
-         System.out.println("Object new String() equals and == ");
-         Object s1 = new String("Hello");
-         Object s2 = new String("Hello");
+    }
 
-         if(s1 == s2) {
-             System.out.println("s1 and s2 are ==");
-         }else if (s1.equals(s2)) {
-             System.out.println("s1 and s2 are equals()");
-         }
+    // 代理模式： A无法完成某个操作 让B去帮A做这个操作
 
-         System.out.println("constant String equals and == ");
+    @Test
+    public void testEquals() {
 
-         Object s3 = "Hello";
-         Object s4 = "Hello";
+        System.out.println("Object new String() equals and == ");
+        Object s1 = new String("Hello");
+        Object s2 = new String("Hello");
 
-         if (s3 == s4) {
-             System.out.println("s3 and s4 are ==");
-         } else if (s3.equals(s4)) {
-             System.out.println("s3 and s4 are equals()");
-         }
-     }
+        if (s1 == s2) {
+            System.out.println("s1 and s2 are ==");
+        } else if (s1.equals(s2)) {
+            System.out.println("s1 and s2 are equals()");
+        }
 
-     // 二维码测试
-     @Test
-    public void  testQRCode(){
+        System.out.println("constant String equals and == ");
 
-         /**
-          *    QRcode 二维码生成测试
-          *    QRCodeUtil.QRCodeCreate("http://blog.csdn.net/u014266877", "E://qrcode.jpg", 15, "E://icon.png");
-          */
+        Object s3 = "Hello";
+        Object s4 = "Hello";
+
+        if (s3 == s4) {
+            System.out.println("s3 and s4 are ==");
+        } else if (s3.equals(s4)) {
+            System.out.println("s3 and s4 are equals()");
+        }
+    }
+
+    // 二维码测试
+    @Test
+    public void testQRCode() {
+
+        /**
+         *    QRcode 二维码生成测试
+         *    QRCodeUtil.QRCodeCreate("http://blog.csdn.net/u014266877", "E://qrcode.jpg", 15, "E://icon.png");
+         */
 //         QRCodeCreate("http://www.baidu.com", "E://qrcode.jpg", 15, "E://miao.JPEG");
 
-         /**
-          *     QRcode 二维码解析测试
-          *    String qrcodeAnalyze = QRCodeUtil.QRCodeAnalyze("E://qrcode.jpg");
-          */
-         String qrcodeAnalyze = QRCodeAnalyze("E://qrcode.jpg");
-         System.out.println(qrcodeAnalyze);
-         /**
-          * ZXingCode 二维码生成测试
-          * QRCodeUtil.zxingCodeCreate("http://blog.csdn.net/u014266877", 300, 300, "E://zxingcode.jpg", "jpg");
-          */
+        /**
+         *     QRcode 二维码解析测试
+         *    String qrcodeAnalyze = QRCodeUtil.QRCodeAnalyze("E://qrcode.jpg");
+         */
+        String qrcodeAnalyze = QRCodeAnalyze("E://qrcode.jpg");
+        System.out.println(qrcodeAnalyze);
+        /**
+         * ZXingCode 二维码生成测试
+         * QRCodeUtil.zxingCodeCreate("http://blog.csdn.net/u014266877", 300, 300, "E://zxingcode.jpg", "jpg");
+         */
 
 //         try {
 //             zxingCodeCreate("http://blog.csdn.net/u014266877", 300, 300, "E://zxingcode.jpg", "jpg");
@@ -383,10 +403,10 @@ public class JavalearningApplicationTests {
 //             System.out.println(e.getMessage());
 //         }
 
-         /**
-          * ZxingCode 二维码解析
-          *    String zxingAnalyze =  QRCodeUtil.zxingCodeAnalyze("E://zxingcode.jpg").toString();
-          */
+        /**
+         * ZxingCode 二维码解析
+         *    String zxingAnalyze =  QRCodeUtil.zxingCodeAnalyze("E://zxingcode.jpg").toString();
+         */
 
 //         try {
 //             String zxingAnalyze =  zxingCodeAnalyze("E://zxingcode.jpg").toString();
@@ -396,8 +416,8 @@ public class JavalearningApplicationTests {
 //         }
 
 
-         System.out.println("success");
-     }
+        System.out.println("success");
+    }
 
 
     //二维码颜色
@@ -405,7 +425,7 @@ public class JavalearningApplicationTests {
     //二维码颜色
     private static final int WHITE = 0xFFFFFFFF;
 
-    public static void zxingCodeCreate(String text, int width, int height, String outPutPath, String imageType)throws WriterException {
+    public static void zxingCodeCreate(String text, int width, int height, String outPutPath, String imageType) throws WriterException {
         Map<EncodeHintType, String> his = new HashMap<EncodeHintType, String>();
         //设置编码字符集
         his.put(EncodeHintType.CHARACTER_SET, "utf-8");
@@ -427,7 +447,7 @@ public class JavalearningApplicationTests {
             }
             File outPutImage = new File(outPutPath);
             //如果图片不存在创建图片
-            if(!outPutImage.exists())
+            if (!outPutImage.exists())
                 outPutImage.createNewFile();
             //5、将二维码写入图片
             ImageIO.write(image, imageType, outPutImage);
@@ -442,18 +462,18 @@ public class JavalearningApplicationTests {
 
     /**
      * <span style="font-size:18px;font-weight:blod;">二维码解析</span>
-     * @param analyzePath    二维码路径
+     *
+     * @param analyzePath 二维码路径
      * @return
      * @throws IOException
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    public static Object zxingCodeAnalyze(String analyzePath) throws Exception{
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public static Object zxingCodeAnalyze(String analyzePath) throws Exception {
         MultiFormatReader formatReader = new MultiFormatReader();
         Object result = null;
         try {
             File file = new File(analyzePath);
-            if (!file.exists())
-            {
+            if (!file.exists()) {
                 return "二维码不存在";
             }
             BufferedImage image = ImageIO.read(file);
@@ -471,12 +491,13 @@ public class JavalearningApplicationTests {
 
     /**
      * <span style="font-size:18px;font-weight:blod;">QRCode 方式生成二维码</span>
-     * @param content    二维码内容
-     * @param imgPath    二维码生成路径
-     * @param version    二维码版本
-     * @param isFlag    是否生成Logo图片    为NULL不生成
+     *
+     * @param content  二维码内容
+     * @param imgPath  二维码生成路径
+     * @param version  二维码版本
+     * @param logoPath 是否生成Logo图片    为NULL不生成
      */
-    public static void QRCodeCreate(String content, String imgPath, int version, String logoPath){
+    public static void QRCodeCreate(String content, String imgPath, int version, String logoPath) {
         try {
             Qrcode qrcodeHandler = new Qrcode();
             //设置二维码排错率，可选L(7%) M(15%) Q(25%) H(30%)，排错率越高可存储的信息越少，但对二维码清晰度的要求越小
@@ -486,12 +507,12 @@ public class JavalearningApplicationTests {
             //版本1为21*21矩阵，版本每增1，二维码的两个边长都增4；所以版本7为45*45的矩阵；最高版本为是40，是177*177的矩阵
             qrcodeHandler.setQrcodeVersion(version);
             //根据版本计算尺寸
-            int imgSize = 67 + 12 * (version - 1) ;
+            int imgSize = 67 + 12 * (version - 1);
             byte[] contentBytes = content.getBytes("gb2312");
-            BufferedImage bufImg = new BufferedImage(imgSize , imgSize ,BufferedImage.TYPE_INT_RGB);
+            BufferedImage bufImg = new BufferedImage(imgSize, imgSize, BufferedImage.TYPE_INT_RGB);
             Graphics2D gs = bufImg.createGraphics();
             gs.setBackground(Color.WHITE);
-            gs.clearRect(0, 0, imgSize , imgSize);
+            gs.clearRect(0, 0, imgSize, imgSize);
             // 设定图像颜色 > BLACK
             gs.setColor(Color.BLACK);
             // 设置偏移量 不设置可能导致解析出错
@@ -510,18 +531,18 @@ public class JavalearningApplicationTests {
                 System.err.println("QRCode content bytes length = " + contentBytes.length + " not in [ 0,130 ]. ");
             }
            /* 判断是否需要添加logo图片 */
-            if(logoPath != null){
+            if (logoPath != null) {
                 File icon = new File(logoPath);
-                if(icon.exists()){
+                if (icon.exists()) {
                     int width_4 = imgSize / 4;
                     int width_8 = width_4 / 2;
                     int height_4 = imgSize / 4;
                     int height_8 = height_4 / 2;
                     Image img = ImageIO.read(icon);
-                    gs.drawImage(img, width_4 + width_8, height_4 + height_8,width_4,height_4, null);
+                    gs.drawImage(img, width_4 + width_8, height_4 + height_8, width_4, height_4, null);
                     gs.dispose();
                     bufImg.flush();
-                }else{
+                } else {
                     System.out.println("Error: login图片还在在！");
                 }
 
@@ -532,7 +553,7 @@ public class JavalearningApplicationTests {
             bufImg.flush();
             //创建二维码文件
             File imgFile = new File(imgPath);
-            if(!imgFile.exists())
+            if (!imgFile.exists())
                 imgFile.createNewFile();
             //根据生成图片获取图片
             String imgType = imgPath.substring(imgPath.lastIndexOf(".") + 1, imgPath.length());
@@ -545,15 +566,16 @@ public class JavalearningApplicationTests {
 
     /**
      * <span style="font-size:18px;font-weight:blod;">QRCode二维码解析</span>
-     * @param codePath    二维码路径
-     * @return    解析结果
+     *
+     * @param codePath 二维码路径
+     * @return 解析结果
      */
     public static String QRCodeAnalyze(String codePath) {
         File imageFile = new File(codePath);
         BufferedImage bufImg = null;
-        Result result=null;
+        Result result = null;
         try {
-            if(!imageFile.exists())
+            if (!imageFile.exists())
                 return "二维码不存在";
 //            bufImg = ImageIO.read(imageFile);
 //
@@ -575,7 +597,7 @@ public class JavalearningApplicationTests {
         } catch (DecodingFailedException dfe) {
             System.out.println("Error: " + dfe.getMessage());
             dfe.printStackTrace();
-        }catch (NotFoundException e){
+        } catch (NotFoundException e) {
             System.out.println("Error: " + e.getMessage());
             e.printStackTrace();
         }
