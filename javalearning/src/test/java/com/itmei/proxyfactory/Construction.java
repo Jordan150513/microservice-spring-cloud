@@ -1,4 +1,4 @@
-package com.itmei;
+package com.itmei.proxyfactory;
 
 /**
  * Created by qiaodan on 2017/8/30.

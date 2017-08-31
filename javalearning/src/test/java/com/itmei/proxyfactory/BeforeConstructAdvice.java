@@ -1,4 +1,4 @@
-package com.itmei;
+package com.itmei.proxyfactory;
 
 import org.springframework.aop.MethodBeforeAdvice;
 

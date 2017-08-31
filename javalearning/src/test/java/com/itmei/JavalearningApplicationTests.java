@@ -4,7 +4,12 @@ import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
-import com.sun.jmx.snmp.Timestamp;
+import com.itmei.composite.*;
+import com.itmei.proxy.Gunman;
+import com.itmei.proxy.LazyStudent;
+import com.itmei.proxyfactory.BeforeConstructAdvice;
+import com.itmei.proxyfactory.Construction;
+import com.itmei.proxyfactory.House;
 import com.swetake.util.Qrcode;
 import jp.sourceforge.qrcode.exception.DecodingFailedException;
 import org.junit.Test;
@@ -12,20 +17,17 @@ import org.junit.runner.RunWith;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Struct;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.apache.coyote.http11.Constants.a;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
@@ -602,5 +604,32 @@ public class JavalearningApplicationTests {
             e.printStackTrace();
         }
         return result.toString();
+    }
+
+    // 组合模式 demo
+    @Test
+    public void testComposite(){
+        TextTagComposite composite = new PTag();
+
+        composite.addTag(new SpanTag());
+
+        composite.addTag(new EmTag());
+
+        // sample client code
+
+        composite.startWrite();
+
+        for (TextTag leaf : composite.getTags()) {
+
+            leaf.startWrite();
+
+            leaf.endWrite();
+
+        }
+
+        composite.endWrite();
+
+        assertTrue("Composite should contain 2 tags but it contains "+composite.getTags().size(), composite.getTags().size() == 2);
+
     }
 }

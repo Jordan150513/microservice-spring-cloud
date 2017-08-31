@@ -1,4 +1,6 @@
-package com.itmei;
+package com.itmei.proxyfactory;
+
+import com.itmei.proxyfactory.Construction;
 
 /**
  * Created by qiaodan on 2017/8/30.
