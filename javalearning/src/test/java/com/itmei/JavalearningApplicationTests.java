@@ -632,4 +632,50 @@ public class JavalearningApplicationTests {
         assertTrue("Composite should contain 2 tags but it contains "+composite.getTags().size(), composite.getTags().size() == 2);
 
     }
+
+    @Test
+    public void testForBreak(){
+        for (int i=0;i<10;i++){
+            if (i==4){
+                break;
+            }
+            System.out.println("i "+i);
+
+        }
+    }
+// for循环中 continue 和 break 的使用
+    @Test
+    public void testForBreak2(){
+        for (int i=0;i<10;i++){
+            if (i==4){
+                continue;
+            }
+            System.out.println("i "+i);
+
+        }
+    }
+
+
+    @Test
+    public void testForBreak3(){
+        int[] arr = {1,2,3,4,5,6,7,8,9};
+        for (int i:arr) {
+            if (i==4){
+                continue;
+            }
+            System.out.println("i "+i);
+        }
+    }
+
+    @Test
+    public void testForBreak4(){
+        int[] arr = {1,2,3,4,5,6,7,8,9};
+        for (int i:arr) {
+            if (i==4){
+                break;
+            }
+            System.out.println("i "+i);
+        }
+    }
+
 }
