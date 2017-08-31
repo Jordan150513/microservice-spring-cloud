@@ -10,6 +10,9 @@ import com.itmei.proxy.LazyStudent;
 import com.itmei.proxyfactory.BeforeConstructAdvice;
 import com.itmei.proxyfactory.Construction;
 import com.itmei.proxyfactory.House;
+import com.itmei.template.EcologicalHouse;
+import com.itmei.template.HouseAbstract;
+import com.itmei.template.SeaHouse;
 import com.swetake.util.Qrcode;
 import jp.sourceforge.qrcode.exception.DecodingFailedException;
 import org.junit.Test;
@@ -678,4 +681,12 @@ public class JavalearningApplicationTests {
         }
     }
 
+    @Test
+    public void testTemplate(){
+        HouseAbstract house = new SeaHouse();
+        house.construct();
+
+        HouseAbstract ecologicalHouse = new EcologicalHouse();
+        ecologicalHouse.construct();
+    }
 }
