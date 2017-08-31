@@ -728,4 +728,10 @@ public class JavalearningApplicationTests {
         assertTrue("Programmer should be 'F L' but was '" + programmer + "'", programmer.toString().equals("F L"));
 
     }
+
+    // 工厂 模式的 实现 demo
+    @Test
+    public void testFactory(){
+
+    }
 }
