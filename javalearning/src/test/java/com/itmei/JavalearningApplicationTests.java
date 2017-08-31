@@ -4,6 +4,7 @@ import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
+import com.itmei.builder.Programmer;
 import com.itmei.composite.*;
 import com.itmei.proxy.Gunman;
 import com.itmei.proxy.LazyStudent;
@@ -19,6 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.imageio.ImageIO;
@@ -611,7 +613,7 @@ public class JavalearningApplicationTests {
 
     // 组合模式 demo
     @Test
-    public void testComposite(){
+    public void testComposite() {
         TextTagComposite composite = new PTag();
 
         composite.addTag(new SpanTag());
@@ -632,61 +634,98 @@ public class JavalearningApplicationTests {
 
         composite.endWrite();
 
-        assertTrue("Composite should contain 2 tags but it contains "+composite.getTags().size(), composite.getTags().size() == 2);
+        assertTrue("Composite should contain 2 tags but it contains " + composite.getTags().size(), composite.getTags().size() == 2);
 
     }
 
     @Test
-    public void testForBreak(){
-        for (int i=0;i<10;i++){
-            if (i==4){
+    public void testForBreak() {
+        for (int i = 0; i < 10; i++) {
+            if (i == 4) {
                 break;
             }
-            System.out.println("i "+i);
+            System.out.println("i " + i);
 
         }
     }
-// for循环中 continue 和 break 的使用
+
+    // for循环中 continue 和 break 的使用
     @Test
-    public void testForBreak2(){
-        for (int i=0;i<10;i++){
-            if (i==4){
+    public void testForBreak2() {
+        for (int i = 0; i < 10; i++) {
+            if (i == 4) {
                 continue;
             }
-            System.out.println("i "+i);
+            System.out.println("i " + i);
 
         }
     }
 
 
     @Test
-    public void testForBreak3(){
-        int[] arr = {1,2,3,4,5,6,7,8,9};
-        for (int i:arr) {
-            if (i==4){
+    public void testForBreak3() {
+        int[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        for (int i : arr) {
+            if (i == 4) {
                 continue;
             }
-            System.out.println("i "+i);
+            System.out.println("i " + i);
         }
     }
 
     @Test
-    public void testForBreak4(){
-        int[] arr = {1,2,3,4,5,6,7,8,9};
-        for (int i:arr) {
-            if (i==4){
+    public void testForBreak4() {
+        int[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        for (int i : arr) {
+            if (i == 4) {
                 break;
             }
-            System.out.println("i "+i);
+            System.out.println("i " + i);
         }
     }
 
+    // 模板类的实现 demo
     @Test
-    public void testTemplate(){
+    public void testTemplate() {
         HouseAbstract house = new SeaHouse();
         house.construct();
 
         HouseAbstract ecologicalHouse = new EcologicalHouse();
         ecologicalHouse.construct();
+    }
+
+    @Test
+    public void testSpringEL() {
+
+//        Writer writer = new Writer();
+//
+//        writer.setName("Writer's name");
+//
+//        StandardEvaluationContext modifierContext = new StandardEvaluationContext(subscriberContext);
+//
+//        modifierContext.setVariable("name", "Overriden writer's name");
+//
+//        parser.parseExpression("name = #name").getValue(modifierContext);
+//
+//        System.out.println("writer's name is : " + writer.getName());
+    }
+
+    // 建设者模式 Builder 内部类 实现
+    @Test
+    public void testBuilder() {
+
+        // 内部类
+        Programmer programmer = new Programmer.ProgrammerBuilder()
+                .setFirstName("F")
+                .setLastName("L")
+                .setCity("City")
+                .setZipCode("0000A")
+                .setAddress("Street 39")
+                .setLanguages(new String[]{"bash", "Perl"})
+                .setProjects(new String[]{"Linux kernel"})
+                .build();
+        System.out.println(programmer.toString());
+        assertTrue("Programmer should be 'F L' but was '" + programmer + "'", programmer.toString().equals("F L"));
+
     }
 }
