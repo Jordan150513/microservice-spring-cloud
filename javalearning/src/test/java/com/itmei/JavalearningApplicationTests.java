@@ -6,6 +6,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.itmei.builder.Programmer;
 import com.itmei.composite.*;
+import com.itmei.factory.Meal;
 import com.itmei.proxy.Gunman;
 import com.itmei.proxy.LazyStudent;
 import com.itmei.proxyfactory.BeforeConstructAdvice;
@@ -26,7 +27,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -729,9 +732,79 @@ public class JavalearningApplicationTests {
 
     }
 
-    // 工厂 模式的 实现 demo
+    // 工厂 模式的 实现 demo  ??????
     @Test
-    public void testFactory(){
+    public void testFactory() {
+        Meal fruit = Meal.valueOf("banana");
+
+        Meal vegetable = Meal.valueOf("carrot");
+
+        assertTrue("Banana should be a fruit but is " + fruit.getType(), fruit.getType().equals("fruit"));
+
+        assertTrue("Carrot should be a vegetable but is " + vegetable.getType(), vegetable.getType().equals("vegetable"));
+    }
+
+    // 下厨房 统计原材料的集合
+
+    @Test
+    public void testCountIngredient() {
+        String fileName = "Ingredients.txt";
+        try (FileReader fr = new FileReader(fileName)) {
+            try (BufferedReader bfr = new BufferedReader(fr)) {
+
+                String line = null;
+
+                Set<String> ingredientSet = new HashSet<String>();
+                HashMap<String,Integer> ingredientMap = new HashMap<String,Integer>();
+
+                while ((line = bfr.readLine()) != null) {
+                    System.out.println(line);
+
+                    String[] ingredientArr = line.split(" ");
+                    System.out.println(ingredientArr.toString()+" "+ingredientArr.length);
+
+                    for (int i = 0;i<ingredientArr.length;i++){
+
+                        ingredientSet.add(ingredientArr[i]);
+
+                        Integer count = 0;
+                        if (ingredientMap.size()>0) {
+                            System.out.println(ingredientMap.size());
+
+                            try{
+                                // count == null Exception
+                                count =  ingredientMap.get(ingredientArr[i]);
+                                System.out.println("count :"+count);
+                                count = count==null?0:count;
+                            }catch(Exception e){
+                                count = 0;
+                            }
+
+                        }
+                        // map Exception
+                        ingredientMap.put(ingredientArr[i],count+1);
+                        System.out.println("ingredientMap.size:");
+                        System.out.println(ingredientMap.size());
+                    }
+
+                }
+                System.out.println("result:");
+
+                System.out.println("ingredientSet.size:"+ingredientSet.size());
+                System.out.println(ingredientSet.toString());
+
+                System.out.println("ingredientMap.size:"+ingredientMap.size());
+                System.out.println(ingredientMap);
+
+            }catch (Exception e){
+                System.out.println("Exception 1");
+                System.out.println(e.getMessage());
+            }
+
+        }catch (Exception e){
+            System.out.println("Exception 2");
+            System.out.println(e.getMessage());
+        }
 
     }
 }
