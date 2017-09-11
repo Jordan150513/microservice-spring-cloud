@@ -5,6 +5,10 @@ import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.itmei.builder.Programmer;
+import com.itmei.command.Administrator;
+import com.itmei.command.Server;
+import com.itmei.command.StartApache;
+import com.itmei.command.StartTomcat;
 import com.itmei.composite.*;
 import com.itmei.factory.Meal;
 import com.itmei.proxy.Gunman;
@@ -816,4 +820,28 @@ public class JavalearningApplicationTests {
         }
 
     }
+
+    // command 命令模式
+    @Test
+    public void testCommand(){
+
+        Administrator admin = new Administrator();
+        Server server = new Server();
+        // start Apache
+        admin.setCommand(new StartApache(server));
+        admin.typeEnter();
+
+        // start Tomcat
+        admin.setCommand(new StartTomcat(server));
+        admin.typeEnter();
+
+        // check executed commands
+        int executed = server.getExecutedCommands().size();
+
+        assertTrue("Two commands should be executed but only "+
+
+                executed+ " were", executed == 2);
+
+    }
+
 }
