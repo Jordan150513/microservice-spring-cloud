@@ -747,6 +747,15 @@ public class JavalearningApplicationTests {
     // 下厨房 统计原材料的集合
 
     @Test
+    public void testString11(){
+        String constructDate = "2017/09/08 12:00:00";
+        if (constructDate.contains("/")){
+            constructDate = constructDate.replaceAll("/","-");
+        }
+        System.out.println(constructDate);
+    }
+
+    @Test
     public void testCountIngredient() {
         String fileName = "Ingredients.txt";
         try (FileReader fr = new FileReader(fileName)) {
