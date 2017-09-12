@@ -19,6 +19,7 @@ import com.itmei.proxyfactory.House;
 import com.itmei.template.EcologicalHouse;
 import com.itmei.template.HouseAbstract;
 import com.itmei.template.SeaHouse;
+import com.itmei.visit.*;
 import com.swetake.util.Qrcode;
 import jp.sourceforge.qrcode.exception.DecodingFailedException;
 import org.junit.Test;
@@ -40,6 +41,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
@@ -843,5 +845,30 @@ public class JavalearningApplicationTests {
                 executed+ " were", executed == 2);
 
     }
+
+    // 访问者模式
+    @Test
+    public void testVisitor(){
+
+        CarComponent car = new Car();
+
+        Mechanic mechanic = new QualifiedMechanic();
+
+        car.accept(mechanic);
+
+        assertTrue("After qualified mechanics visit, the car should be broken",
+
+                car.isBroken());
+
+        Mechanic nonqualifiedMechanic = new NonQualifiedMechanic();
+
+        car.accept(nonqualifiedMechanic);
+
+        assertFalse("Car shouldn't be broken becase non qualified mechanic " +
+
+                " can't see breakdowns", car.isBroken());
+
+    }
+
 
 }
