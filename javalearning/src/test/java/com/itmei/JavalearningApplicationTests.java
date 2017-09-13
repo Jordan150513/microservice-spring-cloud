@@ -12,6 +12,10 @@ import com.itmei.command.Server;
 import com.itmei.command.StartApache;
 import com.itmei.command.StartTomcat;
 import com.itmei.composite.*;
+import com.itmei.decoration.BlackCoffee;
+import com.itmei.decoration.Coffee;
+import com.itmei.decoration.MilkDecorator;
+import com.itmei.decoration.SugarDecorator;
 import com.itmei.factory.Meal;
 import com.itmei.proxy.Gunman;
 import com.itmei.proxy.LazyStudent;
@@ -848,7 +852,7 @@ public class JavalearningApplicationTests {
 
     }
 
-    // 访问者模式
+    // 访问者模式  ？？
     @Test
     public void testVisitor(){
 
@@ -873,7 +877,7 @@ public class JavalearningApplicationTests {
 
     }
 
-    // test 适配器模式
+    // test 适配器模式 分各种不同的情况 不同的情况 做同一事情的结果不一样
     @Test
     public void testAdapter(){
         HoleMaker maker = new HoleMakerImpl();
@@ -881,6 +885,14 @@ public class JavalearningApplicationTests {
         maker.makeHole(2);
         maker.makeHole(30);
         maker.makeHole(40);
+    }
+
+    // test 装饰者模式 ： 这种设计模式的主要作用是为给定的对象添加补充角色 复合各种角色成分
+    @Test
+    public void testDecoration(){
+        Coffee sugarMilkCoffee=new MilkDecorator(new SugarDecorator(new BlackCoffee()));
+        System.out.println(sugarMilkCoffee.getPrice());
+        System.out.println(sugarMilkCoffee.makeMoreCandied());
     }
 
 }
