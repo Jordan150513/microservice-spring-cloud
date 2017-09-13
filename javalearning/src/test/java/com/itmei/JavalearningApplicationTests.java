@@ -4,6 +4,8 @@ import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
+import com.itmei.adapter.HoleMaker;
+import com.itmei.adapter.HoleMakerImpl;
 import com.itmei.builder.Programmer;
 import com.itmei.command.Administrator;
 import com.itmei.command.Server;
@@ -850,8 +852,9 @@ public class JavalearningApplicationTests {
     @Test
     public void testVisitor(){
 
+        // CarComponent 是抽象父类 Car 子类
         CarComponent car = new Car();
-
+        // 接口Mechanic 汽车技术修理工人  QualifiedMechanic：实现接口的一个类
         Mechanic mechanic = new QualifiedMechanic();
 
         car.accept(mechanic);
@@ -859,9 +862,9 @@ public class JavalearningApplicationTests {
         assertTrue("After qualified mechanics visit, the car should be broken",
 
                 car.isBroken());
-
+        // 接口Mechanic 汽车技术修理工人  NonQualifiedMechanic：实现接口的一个类
         Mechanic nonqualifiedMechanic = new NonQualifiedMechanic();
-
+        // 免检的
         car.accept(nonqualifiedMechanic);
 
         assertFalse("Car shouldn't be broken becase non qualified mechanic " +
@@ -870,5 +873,14 @@ public class JavalearningApplicationTests {
 
     }
 
+    // test 适配器模式
+    @Test
+    public void testAdapter(){
+        HoleMaker maker = new HoleMakerImpl();
+        maker.makeHole(1);
+        maker.makeHole(2);
+        maker.makeHole(30);
+        maker.makeHole(40);
+    }
 
 }
