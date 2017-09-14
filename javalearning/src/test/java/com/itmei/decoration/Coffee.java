@@ -20,6 +20,9 @@ public abstract class Coffee {
         this.price+=price;
     }
 
+    public double getPrice(){
+        return this.price;
+    }
     public int getCandied(){
         return this.candied;
     }

@@ -17,6 +17,7 @@ import com.itmei.decoration.Coffee;
 import com.itmei.decoration.MilkDecorator;
 import com.itmei.decoration.SugarDecorator;
 import com.itmei.factory.Meal;
+import com.itmei.prototype.*;
 import com.itmei.proxy.Gunman;
 import com.itmei.proxy.LazyStudent;
 import com.itmei.proxyfactory.BeforeConstructAdvice;
@@ -37,6 +38,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.Robot;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -893,6 +895,31 @@ public class JavalearningApplicationTests {
         Coffee sugarMilkCoffee=new MilkDecorator(new SugarDecorator(new BlackCoffee()));
         System.out.println(sugarMilkCoffee.getPrice());
         System.out.println(sugarMilkCoffee.makeMoreCandied());
+    }
+
+    // protoType 原型 模式
+
+    @Test
+    public void testProtoType(){
+        com.itmei.prototype.Robot robot1 = new com.itmei.prototype.Robot("robotA");
+        com.itmei.prototype.Robot robot2 = null;
+        try {
+            robot2 = (com.itmei.prototype.Robot)robot1.clone();
+        }catch (Exception e){
+            System.out.println("clone failed!");
+        }
+
+        System.out.println(robot1);
+        System.out.println(robot1.getName());
+        System.out.println(robot2);
+        System.out.println(robot2.getName());
+
+        robot2.setName("RobotB");
+
+        System.out.println(robot1);
+        System.out.println(robot1.getName());
+        System.out.println(robot2);
+        System.out.println(robot2.getName());
     }
 
 }
