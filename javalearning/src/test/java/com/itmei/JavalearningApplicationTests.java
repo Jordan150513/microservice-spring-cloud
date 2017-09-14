@@ -17,6 +17,8 @@ import com.itmei.decoration.Coffee;
 import com.itmei.decoration.MilkDecorator;
 import com.itmei.decoration.SugarDecorator;
 import com.itmei.factory.Meal;
+import com.itmei.observer.PageOpener;
+import com.itmei.observer.Register;
 import com.itmei.prototype.*;
 import com.itmei.proxy.Gunman;
 import com.itmei.proxy.LazyStudent;
@@ -922,4 +924,29 @@ public class JavalearningApplicationTests {
         System.out.println(robot2.getName());
     }
 
+    // observer 观察者模式
+    @Test
+    public void testObserver(){
+        // 第一个观察者
+       com.itmei.observer.Observer pageOpener = new PageOpener();
+       // 第二个观察者
+        com.itmei.observer.Observer register = new Register();
+
+        // 被观察的
+        com.itmei.observer.Button btn = new com.itmei.observer.Button();
+        btn.addListener(pageOpener);
+        btn.addListener(register);
+        // 这个行为里 触发被观察的 行为
+        btn.clickOn();
+
+        assertTrue("Button should be clicked but it wasn't",
+                btn.wasClicked());
+
+        assertTrue("Page opener should be informed about click but it wasn't",
+                pageOpener.wasInformed());
+
+        assertTrue("Register should be informed about click but it wasn't",
+                register.wasInformed());
+
+    }
 }
