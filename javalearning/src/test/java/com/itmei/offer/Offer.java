@@ -106,7 +106,7 @@ public class Offer {
 
 
     /**
-     * 考察正则表达式的使用 还是写不出来 缺少练习
+     * 问题3、考察正则表达式的使用 还是写不出来 缺少练习 String 中的正则替换，分隔金额数字
      */
     @Test
     public void reviewPattern() {
@@ -122,35 +122,88 @@ public class Offer {
         // 反向预查 是开始的边界的 条件 和非条件
         String num2 = "123456780";
         String pattern2 = "(\\d)(?=(\\d{3})+(?!\\d))";
-       String result2 =  num2.replaceAll(pattern2,"$1"+",");
+        String result2 = num2.replaceAll(pattern2, "$1" + ",");
         System.out.println(result2);
     }
 
+    /**
+     * 问题4、二维数组（有序，同行从小到大，同列从小到大）中查找某个数值 是否在二维数组中
+     */
     @Test
-    public void findNuminMactrix(){
-        int[][] matrix1 = {{1,2,8,9}, {2,4,9,12}, {4,7,10,13}, {6,8,11,15}};
+    public void findNuminMactrix() {
+        int[][] matrix1 = {{1, 2, 8, 9}, {2, 4, 9, 12}, {4, 7, 10, 13}, {6, 8, 11, 15}};
         int target = 7; // 存在的数据 和不存在的数据 都可以正常返回！
         int row = matrix1.length;
         int col = matrix1[1].length;
         int startrow = 0;
         int startcol = 0;
-        int endrow = row-1;
-        int endcol = col-1;
+        int endrow = row - 1;
+        int endcol = col - 1;
 
         // 缩小列范围
-        while (startcol<endcol&&matrix1[1][endcol]>target)
-                endcol--;
-        while (startcol<endcol&&matrix1[row-1][startcol]<target)
+        while (startcol < endcol && matrix1[1][endcol] > target)
+            endcol--;
+        while (startcol < endcol && matrix1[row - 1][startcol] < target)
             startcol++;
 
-        while (startrow<endrow&&matrix1[startrow][endcol]<target)
+        while (startrow < endrow && matrix1[startrow][endcol] < target)
             startrow++;
-        while (startrow<endrow&&matrix1[endrow][endcol]>target)
+        while (startrow < endrow && matrix1[endrow][endcol] > target)
             endrow--;
 
-        if (matrix1[startrow][startcol]==target){
-            System.out.println("target :"+target+" 坐标是： "+"("+startrow+","+startcol+")");
-        }else System.out.println("没有找到");
+        if (matrix1[startrow][startcol] == target) {
+            System.out.println("target :" + target + " 坐标是： " + "(" + startrow + "," + startcol + ")");
+        } else System.out.println("没有找到");
+    }
+
+    /**
+     * 问题5、String中的空格替换 将string中的空格替换成%20
+     */
+    @Test
+    public void replaceSpace() {
+        // 1、将每一个空格 替换成 另外一个/串 字符
+        // 2、将一个或者多个空格 替换成 一个/串 字符
+        String content = "we are  happy!";
+        String regx = "\\s";
+        String result = content.replaceAll(regx, "%20");
+        System.out.println(result);
+    }
+
+    /**
+     * 问题6、有序数组 A1 A2 的合并
+     */
+    @Test
+    public void orderArrayMerge() {
+        // 两个有序数组 A1 A2 的合并
+        int[] A1 = {1, 5, 7, 8, 9, 12, 20, 39, 0, 0, 0, 0, 0, 0, 0};
+        int[] A2 = {3, 5, 7, 13, 15, 23, 45};
+        int A1A2Index = A1.length - 1;
+        int A1Rear = A1.length - A2.length - 1;
+        int A2Rear = A2.length - 1;
+        while (A2Rear >= 0 && A1Rear >= 0) {
+            if (A2[A2Rear] > A1[A1Rear]) {
+                // 要插入的数据 可以直接插入
+                A1[A1A2Index] = A2[A2Rear];
+                A2Rear--;
+            } else {
+                // 要插入的数据 需要往前插入
+                A1[A1A2Index] = A1[A1Rear];
+                A1Rear--;
+            }
+            A1A2Index--;
+        }
+        for (int num : A1) {
+            System.out.println(num);
+        }
+    // 总结 需要挪动数据的插入 要从后往前插入 时间复杂度0（n）
+    }
+
+    /**
+     *  问题7、
+     *
+     */
+    @Test
+    public void test(){
 
     }
 }
