@@ -269,6 +269,84 @@ public class Offer {
         if (head.next!=null)
             this.print_reverse_MyLinkedList(head.next);
          System.out.println(head.getData().toString());
+    }
+
+    /**
+     * 问题8、根据根据前序遍历和中序遍历 确定 构造一个 二叉树
+     */
+    @Test
+    public void contructionBinaryTree(){
+        int[] pre = {1,2,4,7,3,5,6,8};
+        int[] middle = {4,7,2,1,5,3,8,6};
+
+        int root = 0;
+        int startL = 0;
+        int endL = foundNumIndexinMiddle(pre[root],middle)-1;
+
+        int startR = foundNumIndexinMiddle(pre[root],middle)+1;
+        int endR = middle.length-1;
+
+        Person rootPerson = new Person();
+        int val = pre[root];
+        System.out.println(val);
+        rootPerson.setName("node"+pre[root]);
+        rootPerson.setAge(pre[root]);
+
+        BinaryTree<Person> tree = new BinaryTree<Person>(rootPerson);
+        tree.setCount(pre.length);
+        root++;
+        tree.setLeft(constructBTCore(root,startL,endL,middle,pre));
+        root = startR;
+        tree.setRight(constructBTCore(root,startR,endR,middle,pre));
+
+        System.out.println(tree.getLeft().getData().getName());
+        System.out.println(tree.getRight().getData().getName());
 
     }
+
+    public BinaryTreeNode<Person> constructBTCore(int rootindex,int start,int end,int[] middle,int[] pre){
+
+        Person p = new Person();
+        p.setName("node"+pre[rootindex]);
+        p.setAge(pre[rootindex]);
+
+        BinaryTreeNode<Person> tree = new BinaryTreeNode<>(p);
+
+        int startL = start;
+        int endL = foundNumIndexinMiddle(pre[rootindex],middle)-1;
+
+        int startR = foundNumIndexinMiddle(pre[rootindex],middle)+1;
+        int endR = end;
+
+        if (start<end && rootindex<pre.length) {
+            if (startL < endL&&startL>=start) {
+                rootindex++;
+                tree.setLeft(constructBTCore(rootindex, startL, endL, middle, pre));
+            } if (startL==endL){
+                rootindex++;
+                tree.setLeft(constructBTCore(rootindex, startL, endL, middle, pre));
+            }
+            else tree.setLeft(null);
+
+            if (startR < endR && rootindex<pre.length&&endR<=end) {
+                rootindex = startR;
+                tree.setRight(constructBTCore(rootindex, startR, endR, middle, pre));
+            } else if(startR==endR){
+                rootindex++;
+                tree.setRight(constructBTCore(rootindex, startR, endR, middle, pre));
+            }
+            else tree.setRight(null);
+        }
+        return tree;
+    }
+
+    public int foundNumIndexinMiddle(int num,int[] arr){
+
+        for (int i=0;i<arr.length;i++){
+            if (arr[i]==num)
+                return i;
+        }
+        return 0;
+    }
+
 }
