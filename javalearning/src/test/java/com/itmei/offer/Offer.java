@@ -293,6 +293,9 @@ public class Offer {
         root++;// 这里不严谨 还需要跟递归里面一样增加判断 单叉树 等等测试用例的验证
         tree.setLeft(constructBTCore(root,startL,endL,middle,pre));
         root = startR;
+        if (startR==endR){
+            root++;
+        }
         tree.setRight(constructBTCore(root,startR,endR,middle,pre));
         System.out.println(tree.getLeft().getData().getName());
         System.out.println(tree.getRight().getData().getName());
@@ -312,10 +315,7 @@ public class Offer {
         int startR = foundNumIndexinMiddle(pre[rootindex],middle)+1;
         int endR = end;
         if (start<end && rootindex<pre.length) {
-            if (startL < endL&&startL>=start) {
-                rootindex++;
-                tree.setLeft(constructBTCore(rootindex, startL, endL, middle, pre));
-            } if (startL==endL){
+            if (startL <= endL&&startL>=start) {
                 rootindex++;
                 tree.setLeft(constructBTCore(rootindex, startL, endL, middle, pre));
             }
