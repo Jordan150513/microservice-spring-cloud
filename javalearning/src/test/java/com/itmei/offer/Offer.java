@@ -278,30 +278,24 @@ public class Offer {
     public void contructionBinaryTree(){
         int[] pre = {1,2,4,7,3,5,6,8};
         int[] middle = {4,7,2,1,5,3,8,6};
-
         int root = 0;
         int startL = 0;
         int endL = foundNumIndexinMiddle(pre[root],middle)-1;
-
         int startR = foundNumIndexinMiddle(pre[root],middle)+1;
         int endR = middle.length-1;
-
         Person rootPerson = new Person();
         int val = pre[root];
         System.out.println(val);
         rootPerson.setName("node"+pre[root]);
         rootPerson.setAge(pre[root]);
-
         BinaryTree<Person> tree = new BinaryTree<Person>(rootPerson);
         tree.setCount(pre.length);
-        root++;
+        root++;// 这里不严谨 还需要跟递归里面一样增加判断 单叉树 等等测试用例的验证
         tree.setLeft(constructBTCore(root,startL,endL,middle,pre));
         root = startR;
         tree.setRight(constructBTCore(root,startR,endR,middle,pre));
-
         System.out.println(tree.getLeft().getData().getName());
         System.out.println(tree.getRight().getData().getName());
-
     }
 
     public BinaryTreeNode<Person> constructBTCore(int rootindex,int start,int end,int[] middle,int[] pre){
@@ -309,15 +303,14 @@ public class Offer {
         Person p = new Person();
         p.setName("node"+pre[rootindex]);
         p.setAge(pre[rootindex]);
-
         BinaryTreeNode<Person> tree = new BinaryTreeNode<>(p);
+        tree.setLeft(null);
+        tree.setRight(null);
 
         int startL = start;
         int endL = foundNumIndexinMiddle(pre[rootindex],middle)-1;
-
         int startR = foundNumIndexinMiddle(pre[rootindex],middle)+1;
         int endR = end;
-
         if (start<end && rootindex<pre.length) {
             if (startL < endL&&startL>=start) {
                 rootindex++;
@@ -326,7 +319,6 @@ public class Offer {
                 rootindex++;
                 tree.setLeft(constructBTCore(rootindex, startL, endL, middle, pre));
             }
-            else tree.setLeft(null);
 
             if (startR < endR && rootindex<pre.length&&endR<=end) {
                 rootindex = startR;
@@ -335,7 +327,6 @@ public class Offer {
                 rootindex++;
                 tree.setRight(constructBTCore(rootindex, startR, endR, middle, pre));
             }
-            else tree.setRight(null);
         }
         return tree;
     }
