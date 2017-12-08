@@ -3,6 +3,8 @@ package com.itmei.offer;
 import org.junit.Test;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Stack;
 
 /**
  * Created by qiaodan on 2017/12/6.
@@ -199,11 +201,74 @@ public class Offer {
     }
 
     /**
-     *  问题7、
+     *  问题7、从尾到头打印列表 用jdk的LinkList
      *
      */
     @Test
-    public void test(){
+    public void print_reverse_LinkedList(){
+        LinkedList<Person> list = new LinkedList<Person>();
+        for (int i =5;i>0;i--){
+            Person p1 = new Person();
+            p1.setName("Alice"+i);
+            p1.setAge(10+i);
+            list.add(p1);
+        }
+
+        // 利用栈 实现逆序打印链表的内容
+        Stack<Person> stack = new Stack<Person>();
+        while (!list.isEmpty()){
+            Person p2 = list.getFirst();
+            list.removeFirst();
+            stack.push(p2);
+        }
+
+        while (!stack.isEmpty()){
+            Person p = stack.pop();
+            System.out.println(p.toString());
+        }
+        // jdk 的 LinkedListu 执行递归打印 链表的最后一个数据 不方便 在自定义的地方进行递归操作
+    }
+
+    /**
+     *  问题8、从尾到头打印列表 自定义的MyLinkList 有next指针 可以直接用递归的方式来打印链表
+     *
+     */
+    @Test
+    public void print_reverse_MyLinkedList() {
+        MyLinkedList<Person> list = new MyLinkedList<>();
+        for (int i = 5; i > 0; i--) {
+            Person p1 = new Person();
+            p1.setName("Alice" + i);
+            p1.setAge(10 + i);
+            list.add(p1);
+        }
+
+        // 利用栈 实现逆序打印链表的内容
+//        Stack<Person> stack = new Stack<Person>();
+//        while (!list.isEmpty()) {
+//            Person p2 = list.getFirst();
+//            list.removeFirst();
+//            stack.push(p2);
+//        }
+//        while (!stack.isEmpty()){
+//            Person p = stack.pop();
+//            System.out.println(p.toString());
+//        }
+
+        // 利用递归来打印
+        if (list==null){
+            System.out.println("链表为空！");
+        }else {
+            print_reverse_MyLinkedList(list.head);
+        }
+
+    }
+
+    // 递归动作 这里还有一个问题 为什么没有按照预期 倒叙打印 反而只打印了链表的尾部
+    public void print_reverse_MyLinkedList(MyLinkedListNode head){
+        if (head.next==null)
+            System.out.println(head.getData().toString());
+        else this.print_reverse_MyLinkedList(head.next);
 
     }
 }
