@@ -264,11 +264,11 @@ public class Offer {
 
     }
 
-    // 递归动作 这里还有一个问题 为什么没有按照预期 倒叙打印 反而只打印了链表的尾部
+    // 递归动作 这里还有一个问题 为什么没有按照预期 倒叙打印 反而只打印了链表的尾部 一个else的区别 递归打印下面的元素之后 回来要打印自己！
     public void print_reverse_MyLinkedList(MyLinkedListNode head){
-        if (head.next==null)
-            System.out.println(head.getData().toString());
-        else this.print_reverse_MyLinkedList(head.next);
+        if (head.next!=null)
+            this.print_reverse_MyLinkedList(head.next);
+         System.out.println(head.getData().toString());
 
     }
 }
