@@ -368,6 +368,7 @@ public class Offer {
         }
     }
 
+    // 将指定范围的字符进行后移
     public int[] drawback(int start,int end,int[] a){
         while (end>=start){
             a[end] = a[end-1];
