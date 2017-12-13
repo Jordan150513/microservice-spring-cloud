@@ -340,4 +340,40 @@ public class Offer {
         return 0;
     }
 
+    /**
+     * 问题 9、一个有数组 里面有奇数偶数，将奇数和偶数分开，并且奇数的相对顺序不能改变 偶数的相对顺序也不能改变 不允许创建新的数组 空间复杂度为O(1)
+     */
+    @Test
+    public void seperateOddEven(){
+        // 准备将奇数放在前面 偶数放在后面
+        int[] a = {3,5,6,2,8,12,14,9,21,16,13};
+        for (int i =0;i<a.length;i++){
+            if (a[i]%2==1){
+                // 是奇数
+                continue;
+            }
+            // 找到了第一个偶数 然后再找到第一个偶数后面的第一个奇数
+            int j = i+1;
+            while (j<a.length&&a[j]%2==0){
+                j++;
+            }
+            if (j==a.length) break;
+            int tmp = a[j];
+            // 然后将 i--> j-1 的元素 全部向后移动
+            a = drawback(i,j,a);
+            a[i]= tmp;
+        }
+        for (int num:a){
+            System.out.println(num);
+        }
+    }
+
+    public int[] drawback(int start,int end,int[] a){
+        while (end>=start){
+            a[end] = a[end-1];
+            end--;
+        }
+        return a;
+    }
+
 }
