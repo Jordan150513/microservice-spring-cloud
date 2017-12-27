@@ -276,6 +276,12 @@ public class Offer {
      */
     @Test
     public void contructionBinaryTree(){
+        BinaryTree<Person> tree = buildATree();
+        System.out.println(tree.getLeft().getData().getName());
+        System.out.println(tree.getRight().getData().getName());
+    }
+
+    public BinaryTree<Person> buildATree(){
         int[] pre = {1,2,4,7,3,5,6,8};
         int[] middle = {4,7,2,1,5,3,8,6};
         int root = 0;
@@ -297,8 +303,40 @@ public class Offer {
             root++;
         }
         tree.setRight(constructBTCore(root,startR,endR,middle,pre));
-        System.out.println(tree.getLeft().getData().getName());
-        System.out.println(tree.getRight().getData().getName());
+        return tree;
+    }
+
+    public BinaryTreeThree<Person> buildATreeThree(){
+        int[] pre = {1,2,4,7,3,5,6,8};
+        int[] middle = {4,7,2,1,5,3,8,6};
+        int root = 0;
+        int startL = 0;
+        int endL = foundNumIndexinMiddle(pre[root],middle)-1;
+        int startR = foundNumIndexinMiddle(pre[root],middle)+1;
+        int endR = middle.length-1;
+        Person rootPerson = new Person();
+        int val = pre[root];
+        System.out.println(val);
+        rootPerson.setName("node"+pre[root]);
+        rootPerson.setAge(pre[root]);
+        BinaryTreeThree<Person> tree = new BinaryTreeThree<>(rootPerson);
+        tree.setCount(pre.length);
+        root++;
+        BinaryTreeNodeThree<Person>  left = constructBTCoreThree(root,startL,endL,middle,pre);
+        tree.setLeft(left);
+        if (left!=null){
+            left.setParentimp(tree);
+        }
+        root = startR;
+        if (startR==endR){
+            root++;
+        }
+        BinaryTreeNodeThree<Person>  right = constructBTCoreThree(root,startR,endR,middle,pre);
+        tree.setRight(right);
+        if (right!=null){
+            right.setParentimp(tree);
+        }
+        return tree;
     }
 
     public BinaryTreeNode<Person> constructBTCore(int rootindex,int start,int end,int[] middle,int[] pre){
@@ -327,6 +365,44 @@ public class Offer {
                 rootindex++;
                 tree.setRight(constructBTCore(rootindex, startR, endR, middle, pre));
             }
+        }
+        return tree;
+    }
+
+    public BinaryTreeNodeThree<Person> constructBTCoreThree(int rootindex,int start,int end,int[] middle,int[] pre){
+
+        Person p = new Person();
+        p.setName("node"+pre[rootindex]);
+        p.setAge(pre[rootindex]);
+        BinaryTreeNodeThree<Person> tree = new BinaryTreeNodeThree<>(p);
+        tree.setLeft(null);
+        tree.setRight(null);
+
+        int startL = start;
+        int endL = foundNumIndexinMiddle(pre[rootindex],middle)-1;
+        int startR = foundNumIndexinMiddle(pre[rootindex],middle)+1;
+        int endR = end;
+        if (start<end && rootindex<pre.length) {
+            if (startL <= endL&&startL>=start) {
+                rootindex++;
+                BinaryTreeNodeThree<Person> left=constructBTCoreThree(rootindex, startL, endL, middle, pre);
+                tree.setLeft(left);
+                if (left!=null) left.setParentimp(tree);
+            }
+
+            BinaryTreeNodeThree<Person> right=null;
+            if (startR < endR && rootindex<pre.length&&endR<=end) {
+                rootindex = startR;
+                right = constructBTCoreThree(rootindex, startR, endR, middle, pre);
+                tree.setRight(right);
+                if (right!=null) right.setParentimp(tree);
+
+            } else if(startR==endR){
+                rootindex++;
+                 right = constructBTCoreThree(rootindex, startR, endR, middle, pre);
+                tree.setRight(right);
+            }
+            if (right!=null) right.setParentimp(tree);
         }
         return tree;
     }
@@ -375,6 +451,20 @@ public class Offer {
             end--;
         }
         return a;
+    }
+
+    /**
+     * 问题10、寻找二叉树的下一个节点 节点 有左指针  右指针 父指针
+     */
+    @Test
+    public void findnext(){
+        // 粗略看 是对的 还需要核实验证 确实对的
+        BinaryTreeThree<Person> treeThree =  buildATreeThree();
+        System.out.println(treeThree.getLeft().getData().getName());
+        System.out.println(treeThree.getRight().getData().getName());
+
+        // 数据结构已经构造好 可以查下一个了
+        
     }
 
 }
