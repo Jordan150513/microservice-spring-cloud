@@ -35,6 +35,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!--添加我的私有包的依赖-->
+		<dependency>
+			<groupId>com.fang.home</groupId>
+			<artifactId>datasource</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -45,6 +51,17 @@
 			</plugin>
 		</plugins>
 	</build>
+	<!--指定我的git仓库-->
+	<repositories>
+		<repository>
+			<id>maven-repo-master</id>
+			<url>https://github.com/Jordan150513/maven-repo/master/</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories>
 
 
 </project>

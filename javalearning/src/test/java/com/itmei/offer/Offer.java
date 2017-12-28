@@ -197,32 +197,31 @@ public class Offer {
         for (int num : A1) {
             System.out.println(num);
         }
-    // 总结 需要挪动数据的插入 要从后往前插入 时间复杂度0（n）
+        // 总结 需要挪动数据的插入 要从后往前插入 时间复杂度0（n）
     }
 
     /**
-     *  问题7、从尾到头打印列表 用jdk的LinkList
-     *
+     * 问题7、从尾到头打印列表 用jdk的LinkList
      */
     @Test
-    public void print_reverse_LinkedList(){
+    public void print_reverse_LinkedList() {
         LinkedList<Person> list = new LinkedList<Person>();
-        for (int i =5;i>0;i--){
+        for (int i = 5; i > 0; i--) {
             Person p1 = new Person();
-            p1.setName("Alice"+i);
-            p1.setAge(10+i);
+            p1.setName("Alice" + i);
+            p1.setAge(10 + i);
             list.add(p1);
         }
 
         // 利用栈 实现逆序打印链表的内容
         Stack<Person> stack = new Stack<Person>();
-        while (!list.isEmpty()){
+        while (!list.isEmpty()) {
             Person p2 = list.getFirst();
             list.removeFirst();
             stack.push(p2);
         }
 
-        while (!stack.isEmpty()){
+        while (!stack.isEmpty()) {
             Person p = stack.pop();
             System.out.println(p.toString());
         }
@@ -230,8 +229,7 @@ public class Offer {
     }
 
     /**
-     *  问题8、从尾到头打印列表 自定义的MyLinkList 有next指针 可以直接用递归的方式来打印链表
-     *
+     * 问题8、从尾到头打印列表 自定义的MyLinkList 有next指针 可以直接用递归的方式来打印链表
      */
     @Test
     public void print_reverse_MyLinkedList() {
@@ -256,112 +254,112 @@ public class Offer {
 //        }
 
         // 利用递归来打印
-        if (list==null){
+        if (list == null) {
             System.out.println("链表为空！");
-        }else {
+        } else {
             print_reverse_MyLinkedList(list.head);
         }
 
     }
 
     // 递归动作 这里还有一个问题 为什么没有按照预期 倒叙打印 反而只打印了链表的尾部 一个else的区别 递归打印下面的元素之后 回来要打印自己！
-    public void print_reverse_MyLinkedList(MyLinkedListNode head){
-        if (head.next!=null)
+    public void print_reverse_MyLinkedList(MyLinkedListNode head) {
+        if (head.next != null)
             this.print_reverse_MyLinkedList(head.next);
-         System.out.println(head.getData().toString());
+        System.out.println(head.getData().toString());
     }
 
     /**
      * 问题8、根据根据前序遍历和中序遍历 确定 构造一个 二叉树
      */
     @Test
-    public void contructionBinaryTree(){
+    public void contructionBinaryTree() {
         BinaryTree<Person> tree = buildATree();
         System.out.println(tree.getLeft().getData().getName());
         System.out.println(tree.getRight().getData().getName());
     }
 
-    public BinaryTree<Person> buildATree(){
-        int[] pre = {1,2,4,7,3,5,6,8};
-        int[] middle = {4,7,2,1,5,3,8,6};
+    public BinaryTree<Person> buildATree() {
+        int[] pre = {1, 2, 4, 7, 3, 5, 6, 8};
+        int[] middle = {4, 7, 2, 1, 5, 3, 8, 6};
         int root = 0;
         int startL = 0;
-        int endL = foundNumIndexinMiddle(pre[root],middle)-1;
-        int startR = foundNumIndexinMiddle(pre[root],middle)+1;
-        int endR = middle.length-1;
+        int endL = foundNumIndexinMiddle(pre[root], middle) - 1;
+        int startR = foundNumIndexinMiddle(pre[root], middle) + 1;
+        int endR = middle.length - 1;
         Person rootPerson = new Person();
         int val = pre[root];
         System.out.println(val);
-        rootPerson.setName("node"+pre[root]);
+        rootPerson.setName("node" + pre[root]);
         rootPerson.setAge(pre[root]);
         BinaryTree<Person> tree = new BinaryTree<Person>(rootPerson);
         tree.setCount(pre.length);
         root++;// 这里不严谨 还需要跟递归里面一样增加判断 单叉树 等等测试用例的验证
-        tree.setLeft(constructBTCore(root,startL,endL,middle,pre));
+        tree.setLeft(constructBTCore(root, startL, endL, middle, pre));
         root = startR;
-        if (startR==endR){
+        if (startR == endR) {
             root++;
         }
-        tree.setRight(constructBTCore(root,startR,endR,middle,pre));
+        tree.setRight(constructBTCore(root, startR, endR, middle, pre));
         return tree;
     }
 
-    public BinaryTreeThree<Person> buildATreeThree(){
-        int[] pre = {1,2,4,7,3,5,6,8};
-        int[] middle = {4,7,2,1,5,3,8,6};
+    public BinaryTreeThree<Person> buildATreeThree() {
+        int[] pre = {1, 2, 4, 7, 3, 5, 6, 8};
+        int[] middle = {4, 7, 2, 1, 5, 3, 8, 6};
         int root = 0;
         int startL = 0;
-        int endL = foundNumIndexinMiddle(pre[root],middle)-1;
-        int startR = foundNumIndexinMiddle(pre[root],middle)+1;
-        int endR = middle.length-1;
+        int endL = foundNumIndexinMiddle(pre[root], middle) - 1;
+        int startR = foundNumIndexinMiddle(pre[root], middle) + 1;
+        int endR = middle.length - 1;
         Person rootPerson = new Person();
         int val = pre[root];
         System.out.println(val);
-        rootPerson.setName("node"+pre[root]);
+        rootPerson.setName("node" + pre[root]);
         rootPerson.setAge(pre[root]);
         BinaryTreeThree<Person> tree = new BinaryTreeThree<>(rootPerson);
         tree.setCount(pre.length);
         root++;
-        BinaryTreeNodeThree<Person>  left = constructBTCoreThree(root,startL,endL,middle,pre);
+        BinaryTreeNodeThree<Person> left = constructBTCoreThree(root, startL, endL, middle, pre);
         tree.setLeft(left);
-        if (left!=null){
+        if (left != null) {
             left.setParentimp(tree);
         }
         root = startR;
-        if (startR==endR){
+        if (startR == endR) {
             root++;
         }
-        BinaryTreeNodeThree<Person>  right = constructBTCoreThree(root,startR,endR,middle,pre);
+        BinaryTreeNodeThree<Person> right = constructBTCoreThree(root, startR, endR, middle, pre);
         tree.setRight(right);
-        if (right!=null){
+        if (right != null) {
             right.setParentimp(tree);
         }
         return tree;
     }
 
-    public BinaryTreeNode<Person> constructBTCore(int rootindex,int start,int end,int[] middle,int[] pre){
+    public BinaryTreeNode<Person> constructBTCore(int rootindex, int start, int end, int[] middle, int[] pre) {
 
         Person p = new Person();
-        p.setName("node"+pre[rootindex]);
+        p.setName("node" + pre[rootindex]);
         p.setAge(pre[rootindex]);
         BinaryTreeNode<Person> tree = new BinaryTreeNode<>(p);
         tree.setLeft(null);
         tree.setRight(null);
 
         int startL = start;
-        int endL = foundNumIndexinMiddle(pre[rootindex],middle)-1;
-        int startR = foundNumIndexinMiddle(pre[rootindex],middle)+1;
+        int endL = foundNumIndexinMiddle(pre[rootindex], middle) - 1;
+        int startR = foundNumIndexinMiddle(pre[rootindex], middle) + 1;
         int endR = end;
-        if (start<end && rootindex<pre.length) {
-            if (startL <= endL&&startL>=start) {
+        if (start < end && rootindex < pre.length) {
+            if (startL <= endL && startL >= start) {
                 rootindex++;
                 tree.setLeft(constructBTCore(rootindex, startL, endL, middle, pre));
             }
 
-            if (startR < endR && rootindex<pre.length&&endR<=end) {
+            if (startR < endR && rootindex < pre.length && endR <= end) {
                 rootindex = startR;
                 tree.setRight(constructBTCore(rootindex, startR, endR, middle, pre));
-            } else if(startR==endR){
+            } else if (startR == endR) {
                 rootindex++;
                 tree.setRight(constructBTCore(rootindex, startR, endR, middle, pre));
             }
@@ -369,48 +367,48 @@ public class Offer {
         return tree;
     }
 
-    public BinaryTreeNodeThree<Person> constructBTCoreThree(int rootindex,int start,int end,int[] middle,int[] pre){
+    public BinaryTreeNodeThree<Person> constructBTCoreThree(int rootindex, int start, int end, int[] middle, int[] pre) {
 
         Person p = new Person();
-        p.setName("node"+pre[rootindex]);
+        p.setName("node" + pre[rootindex]);
         p.setAge(pre[rootindex]);
         BinaryTreeNodeThree<Person> tree = new BinaryTreeNodeThree<>(p);
         tree.setLeft(null);
         tree.setRight(null);
 
         int startL = start;
-        int endL = foundNumIndexinMiddle(pre[rootindex],middle)-1;
-        int startR = foundNumIndexinMiddle(pre[rootindex],middle)+1;
+        int endL = foundNumIndexinMiddle(pre[rootindex], middle) - 1;
+        int startR = foundNumIndexinMiddle(pre[rootindex], middle) + 1;
         int endR = end;
-        if (start<end && rootindex<pre.length) {
-            if (startL <= endL&&startL>=start) {
+        if (start < end && rootindex < pre.length) {
+            if (startL <= endL && startL >= start) {
                 rootindex++;
-                BinaryTreeNodeThree<Person> left=constructBTCoreThree(rootindex, startL, endL, middle, pre);
+                BinaryTreeNodeThree<Person> left = constructBTCoreThree(rootindex, startL, endL, middle, pre);
                 tree.setLeft(left);
-                if (left!=null) left.setParentimp(tree);
+                if (left != null) left.setParentimp(tree);
             }
 
-            BinaryTreeNodeThree<Person> right=null;
-            if (startR < endR && rootindex<pre.length&&endR<=end) {
+            BinaryTreeNodeThree<Person> right = null;
+            if (startR < endR && rootindex < pre.length && endR <= end) {
                 rootindex = startR;
                 right = constructBTCoreThree(rootindex, startR, endR, middle, pre);
                 tree.setRight(right);
-                if (right!=null) right.setParentimp(tree);
+                if (right != null) right.setParentimp(tree);
 
-            } else if(startR==endR){
+            } else if (startR == endR) {
                 rootindex++;
-                 right = constructBTCoreThree(rootindex, startR, endR, middle, pre);
+                right = constructBTCoreThree(rootindex, startR, endR, middle, pre);
                 tree.setRight(right);
             }
-            if (right!=null) right.setParentimp(tree);
+            if (right != null) right.setParentimp(tree);
         }
         return tree;
     }
 
-    public int foundNumIndexinMiddle(int num,int[] arr){
+    public int foundNumIndexinMiddle(int num, int[] arr) {
 
-        for (int i=0;i<arr.length;i++){
-            if (arr[i]==num)
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == num)
                 return i;
         }
         return 0;
@@ -420,34 +418,34 @@ public class Offer {
      * 问题 9、一个有数组 里面有奇数偶数，将奇数和偶数分开，并且奇数的相对顺序不能改变 偶数的相对顺序也不能改变 不允许创建新的数组 空间复杂度为O(1)
      */
     @Test
-    public void seperateOddEven(){
+    public void seperateOddEven() {
         // 准备将奇数放在前面 偶数放在后面
-        int[] a = {3,5,6,2,8,12,14,9,21,16,13};
-        for (int i =0;i<a.length;i++){
-            if (a[i]%2==1){
+        int[] a = {3, 5, 6, 2, 8, 12, 14, 9, 21, 16, 13};
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] % 2 == 1) {
                 // 是奇数
                 continue;
             }
             // 找到了第一个偶数 然后再找到第一个偶数后面的第一个奇数
-            int j = i+1;
-            while (j<a.length&&a[j]%2==0){
+            int j = i + 1;
+            while (j < a.length && a[j] % 2 == 0) {
                 j++;
             }
-            if (j==a.length) break;
+            if (j == a.length) break;
             int tmp = a[j];
             // 然后将 i--> j-1 的元素 全部向后移动
-            a = drawback(i,j,a);
-            a[i]= tmp;
+            a = drawback(i, j, a);
+            a[i] = tmp;
         }
-        for (int num:a){
+        for (int num : a) {
             System.out.println(num);
         }
     }
 
     // 将指定范围的字符进行后移
-    public int[] drawback(int start,int end,int[] a){
-        while (end>=start){
-            a[end] = a[end-1];
+    public int[] drawback(int start, int end, int[] a) {
+        while (end >= start) {
+            a[end] = a[end - 1];
             end--;
         }
         return a;
@@ -457,14 +455,51 @@ public class Offer {
      * 问题10、寻找二叉树的下一个节点 节点 有左指针  右指针 父指针
      */
     @Test
-    public void findnext(){
+    public void findnext() {
         // 粗略看 是对的 还需要核实验证 确实对的
-        BinaryTreeThree<Person> treeThree =  buildATreeThree();
+        BinaryTreeThree<Person> treeThree = buildATreeThree();
         System.out.println(treeThree.getLeft().getData().getName());
         System.out.println(treeThree.getRight().getData().getName());
 
-        // 数据结构已经构造好 可以查下一个了
-        
+        // 数据结构已经构造好 先找到这个给定的值 然后再找这个给定值的中序上的下一个
+        int personvalue = 3;
+        if (treeThree != null) {
+            BinaryTreeNodeThree<Person> node = findtheone(personvalue, treeThree);
+            BinaryTreeNodeThree<Person> nextnode = findthenextone(treeThree, node);
+            System.out.println(nextnode.getData().getAge() + nextnode.getData().getName());
+        }
+
     }
 
+    // 找到树中的指定的那个节点
+    public BinaryTreeNodeThree<Person> findtheone(int pv, BinaryTreeNodeThree<Person> tree) {
+
+        BinaryTreeNodeThree<Person> node = null;
+        if (tree != null && tree.getData().getAge() == pv) {
+            node = tree;
+        }
+        if (node == null && tree != null && tree.getLeft() != null) {
+            node = findtheone(pv, tree.getLeft());
+        }
+        if (node == null && tree != null && tree.getRight() != null) {
+            node = findtheone(pv, tree.getRight());
+        }
+        return node;
+
+    }
+
+    // 找到指定 节点 中序便利中的下一个节点
+    public BinaryTreeNodeThree<Person> findthenextone(BinaryTreeThree<Person> tree, BinaryTreeNodeThree<Person> node) {
+        if (node.getRight()!=null){
+            return findTheLeftestinTree(node.getRight());
+        }else
+            return node.getParentimp();
+
+    }
+    // 找到一个树中最左边的那个节点 也就是中序便利中的第一个节点
+    public BinaryTreeNodeThree<Person> findTheLeftestinTree(BinaryTreeNodeThree<Person> node){
+        if (node.getLeft()==null)
+            return node;
+        else return findTheLeftestinTree(node.getLeft());
+    }
 }
