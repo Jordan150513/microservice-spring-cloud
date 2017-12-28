@@ -490,16 +490,39 @@ public class Offer {
 
     // 找到指定 节点 中序便利中的下一个节点
     public BinaryTreeNodeThree<Person> findthenextone(BinaryTreeThree<Person> tree, BinaryTreeNodeThree<Person> node) {
-        if (node.getRight()!=null){
+        if (node.getRight() != null) {
             return findTheLeftestinTree(node.getRight());
-        }else
+        } else
             return node.getParentimp();
 
     }
+
     // 找到一个树中最左边的那个节点 也就是中序便利中的第一个节点
-    public BinaryTreeNodeThree<Person> findTheLeftestinTree(BinaryTreeNodeThree<Person> node){
-        if (node.getLeft()==null)
+    public BinaryTreeNodeThree<Person> findTheLeftestinTree(BinaryTreeNodeThree<Person> node) {
+        if (node.getLeft() == null)
             return node;
         else return findTheLeftestinTree(node.getLeft());
     }
+
+    // 问题11、上面两个问题中的数据结构 是否可以复用 继承 类 可以不用每一种树都有一套单独的数据结构定义
+
+    // 问题12、 用两个栈 实现队列
+    @Test
+    public void useStatckasQueue() {
+        MyQueue<Integer> queue = new MyQueue<Integer>();
+        queue.queuein(1);
+        queue.queuein(2);
+        int res = queue.queueout();
+        System.out.println(res);
+        queue.queuein(3);
+        queue.queuein(4);
+         res = queue.queueout();
+        System.out.println(res);
+        while (queue.getCount() > 0) {
+            System.out.println(queue.queueout());
+        }
+
+
+    }
+
 }
