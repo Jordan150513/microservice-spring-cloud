@@ -164,7 +164,8 @@ public class Solution {
             int value = (new Integer(map.get(key).toString())).intValue();
             if (key.equals("I")||key.equals("X")||key.equals("C")){
                 // 左减的数字有限制，仅限于I、X、C
-                if (i+1<s.length()){//还有右边
+                if (i+1<s.length()){
+                    //还有右边
                     String keynext = "";
                     if (i+2<s.length()){
                          keynext = s.substring(i+1,i+2);
@@ -174,8 +175,8 @@ public class Solution {
                     if(new Integer(map.get(keynext).toString()).intValue()>new Integer(map.get(key).toString()).intValue()){
                          value = -(new Integer(map.get(key).toString())).intValue();
                         arrayList.add(i,value);
-                    }
-                }
+                    }else arrayList.add(i,value);
+                }else arrayList.add(i,value);
             }else
                 arrayList.add(i,value);
         }
@@ -190,7 +191,7 @@ public class Solution {
     public void  testRomanToInt(){
         // XLV
         // DCXXI
-        int rs = romanToInt("XLV");
+        int rs = romanToInt("DCXXI");
         System.out.println(rs);
     }
 
