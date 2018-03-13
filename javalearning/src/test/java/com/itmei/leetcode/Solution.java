@@ -195,4 +195,46 @@ public class Solution {
         System.out.println(rs);
     }
 
+    //
+    public String longestCommonPrefix(String[] strs) {
+        if (strs.length==0) return "";
+        int minLength = strs[1].length();
+        for (int i=0;i<strs.length;i++){
+            if (strs[i].length()<minLength)
+           minLength =  strs[i].length();
+        }
+        int index = minLength;
+        for (int i=0;i<minLength;i++){
+            String sample = "";
+            if (i+1<=minLength){
+                 sample = strs[1].substring(i,i+1);
+            }else {
+                 sample = strs[1].substring(i);
+            }
+
+        for (String item:strs){
+                String tm = "";
+                if (i+1<=item.length()){
+                    tm = item.substring(i,i+1);
+                }else {
+                   tm = item.substring(i);
+                }
+                if (!tm.equals(sample)){
+                    index = i;
+                    break;
+                }
+            }
+        }
+
+        String rs = strs[1].substring(0,index);
+        return rs;
+    }
+
+    @Test
+    public void testlongestCommonPrefix(){
+        String[] strs = {"abc123","a","abce","abcee","abccc"};
+        String rs = longestCommonPrefix(strs);
+        System.out.println(rs);
+    }
+
 }
