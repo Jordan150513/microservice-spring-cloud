@@ -195,44 +195,47 @@ public class Solution {
         System.out.println(rs);
     }
 
-    //
+    // 寻找最大的前缀
     public String longestCommonPrefix(String[] strs) {
         if (strs.length==0) return "";
-        int minLength = strs[1].length();
+        int minLength = strs[0].length();
+        boolean flage = true;
         for (int i=0;i<strs.length;i++){
             if (strs[i].length()<minLength)
-           minLength =  strs[i].length();
+                minLength =  strs[i].length();
         }
+        if(minLength==0) return "";
         int index = minLength;
-        for (int i=0;i<minLength;i++){
+        for (int i=0;i<minLength&&flage;i++){
             String sample = "";
             if (i+1<=minLength){
-                 sample = strs[1].substring(i,i+1);
+                sample = strs[0].substring(0,i+1);
             }else {
-                 sample = strs[1].substring(i);
+                sample = strs[0].substring(0);
             }
 
-        for (String item:strs){
+            for (String item:strs){
                 String tm = "";
                 if (i+1<=item.length()){
-                    tm = item.substring(i,i+1);
+                    tm = item.substring(0,i+1);
                 }else {
-                   tm = item.substring(i);
+                    tm = item.substring(0);
                 }
                 if (!tm.equals(sample)){
                     index = i;
+                    flage = false;
                     break;
                 }
             }
         }
 
-        String rs = strs[1].substring(0,index);
+        String rs = strs[0].substring(0,index);
         return rs;
     }
 
     @Test
     public void testlongestCommonPrefix(){
-        String[] strs = {"abc123","a","abce","abcee","abccc"};
+        String[] strs = {"flower","flow","flight"};
         String rs = longestCommonPrefix(strs);
         System.out.println(rs);
     }
