@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Stack;
 
 /**
  * Created by qiaodan on 2018/3/12.
@@ -240,4 +241,66 @@ public class Solution {
         System.out.println(rs);
     }
 
+    public boolean isValid(String s) {
+        if (s==null) return false;
+        if (s.isEmpty()) return true;
+//        '('=40 , ')'=41 , '{'=123, '}'=125, '['=91,  ']'=93
+
+        Stack<String> stack = new Stack<String>();
+        for (int i=0;i<s.length();i++){
+            char a = s.charAt(i);
+            switch (a){
+                case '{':
+                case '(':
+                case '[':
+                    {
+                        stack.push(String.valueOf(a));
+                        break;
+                    }
+                case '}':
+                    {
+                        if (stack.isEmpty()){
+                            return false;
+                        }
+                        char c = stack.pop().charAt(0);
+                        if (c!='{'){
+                            return false;
+                        }
+                        break;
+                    }
+                case ')':
+                {
+                    if (stack.isEmpty()){
+                        return false;
+                    }
+                    char c = stack.pop().charAt(0);
+                    if (c!='('){
+                        return false;
+                    }
+                    break;
+                }
+                case ']':
+                    {
+                        if (stack.isEmpty()){
+                            return false;
+                        }
+                    char c = stack.pop().charAt(0);
+                    if (c!='['){
+                        return false;
+                    }
+                    break;
+                }
+
+            }
+        }
+        if (!stack.isEmpty()) return false;
+        return true;
+    }
+
+    @Test
+    public void testIsValid(){
+        String s = "{";
+        boolean rs = isValid(s);
+        System.out.println(rs);
+    }
 }
