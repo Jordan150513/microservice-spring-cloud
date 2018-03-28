@@ -367,4 +367,27 @@ public class Solution {
            rs = rs.getNext();
        }
     }
+
+    public int removeDuplicates(int[] nums) {
+        int pre = 0;// pre是下标
+        int i;
+        for (i=1;i<nums.length;i++){
+            if (nums[pre]==nums[i]) continue;
+            if (nums[pre]<nums[i]){
+                pre++;
+                if (i-pre>0){
+                    nums[pre] = nums[i];
+                }
+            }
+        }
+        return pre+1;//需要返回长度
+    }
+
+    @Test
+    public void testRemoveDuplicates(){
+        int[] nums = {1,1,2,3,4,5,6,6};
+      int rs =   removeDuplicates(nums);
+      System.out.println(rs);
+    }
+
 }
