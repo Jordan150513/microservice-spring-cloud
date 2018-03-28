@@ -369,6 +369,7 @@ public class Solution {
     }
 
     public int removeDuplicates(int[] nums) {
+        if (nums==null||nums.length==0) return 0;
         int pre = 0;// pre是下标
         int i;
         for (i=1;i<nums.length;i++){
@@ -388,6 +389,35 @@ public class Solution {
         int[] nums = {1,1,2,3,4,5,6,6};
       int rs =   removeDuplicates(nums);
       System.out.println(rs);
+    }
+
+    public int removeElement(int[] nums, int val) {
+        if (nums==null||nums.length==0) return 0;
+        int length = nums.length;
+        int j=nums.length-1;
+        for (int i =0;i<nums.length;i++){
+            if (nums[i]==val){
+                length--;
+                while (j>i&&nums[j]==val)
+                    j--;
+                if (j>i){
+                    int tmp =  nums[i];
+                    nums[i] = nums[j];
+                    nums[j] = tmp;
+                    j--;
+                    length++;
+                }
+            }
+        }
+        return length;
+    }
+
+    @Test
+    public void testRemoveElement(){
+        int[] nums = {3,1,3,3,3};
+        int value = 3;
+        int rs = removeElement(nums,value);
+        System.out.println(rs);
     }
 
 }
