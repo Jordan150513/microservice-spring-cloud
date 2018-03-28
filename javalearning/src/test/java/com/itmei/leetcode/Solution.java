@@ -303,4 +303,68 @@ public class Solution {
         boolean rs = isValid(s);
         System.out.println(rs);
     }
+
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if (l1==null&&l2==null) return null;
+        if (l1==null) return l2;
+        if (l2==null) return l1;
+        ListNode rs = null;
+        ListNode rear = rs;
+        while (l1!=null&&l2!=null){
+                if(l1.getVal()<=l2.getVal()){
+                    if (rs==null)
+                    {
+                        rs = l1;
+                        rear = rs;
+                    }else {
+                        rear.setNext(l1);
+                        rear = l1;
+                    }
+                    l1 = l1.next;
+                    continue;
+                }
+
+                if(l1.getVal()>l2.getVal()){
+                    if (rs==null)
+                    {
+                        rs = l2;
+                        rear = rs;
+                    }else {
+                        rear.setNext(l2);
+                        rear = l2;
+                    }
+                    l2 = l2.next;
+                    continue;
+                }
+            }
+        if(l1!=null){
+            rear.next = l1;
+        }else {
+            rear.next = l2;
+        }
+        return rs;
+    }
+
+    @Test
+    public void testMergeTwoLists(){
+//[1,2,4]
+//[1,3,4]
+        int[] a = {1,2,4};
+        int[] b = {1,3,4};
+
+        ListNode item3 = new ListNode(4);
+        ListNode item2 = new ListNode(2);
+        item2.setNext(item3);
+        ListNode alist = new ListNode(1);
+        alist.setNext(item2);
+
+        ListNode blist = new ListNode(1);
+        blist.setNext(new ListNode(3));
+        blist.getNext().setNext(new ListNode(4));
+       ListNode rs =  mergeTwoLists(alist,blist);
+       while (rs!=null){
+           System.out.println(rs.getVal());
+           rs = rs.getNext();
+       }
+    }
 }
