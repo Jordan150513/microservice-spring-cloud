@@ -1,5 +1,7 @@
 package com.itmei.observer;
 
+import org.junit.runner.notification.RunListener;
+
 /**
  * Created by qiaodan on 2017/9/14.
  */

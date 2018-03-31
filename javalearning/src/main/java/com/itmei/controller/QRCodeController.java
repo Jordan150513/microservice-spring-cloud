@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class QRCodeController {
 
     @RequestMapping("tets01/")
+//  @com.fang.home.TargetDataSource("")
+    // 并不能成功使用
     public String test01(){
         return "";
     }
