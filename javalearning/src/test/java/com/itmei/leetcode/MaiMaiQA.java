@@ -62,4 +62,12 @@ public class MaiMaiQA {
         );
     }
 
+    @Test
+    public void testException(){
+//        Throwable
+//        Error;
+//        Exception;
+//        ClassNotFoundException;
+    }
+
 }

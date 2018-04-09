@@ -81,8 +81,9 @@ public class Solution {
        System.out.println(rs);
     }
 
-    // KMP
-    void cal_next(char[] str, int[] next, int len)
+    // TODO: 2018/4/9 比较重要的KMP算法 要理解 并且可以手写出来
+    // KMP算法
+   public void cal_next(char[] str, int[] next, int len)
     {
         next[0] = -1;//next[0]初始化为-1，-1表示不存在相同的最大前缀和最大后缀
         int k = -1;//k初始化为-1
@@ -420,4 +421,43 @@ public class Solution {
         System.out.println(rs);
     }
 
+    /**
+     * 大海捞针 在一个string里找到另外一个字符串，返回其下标 KMP算法？
+     * @param haystack
+     * @param needle
+     * @return
+     */
+    public int strStr(String haystack, String needle) {
+        if ((haystack==null||haystack.isEmpty())&&needle!=null&&!needle.isEmpty()) return -1;
+        if (haystack==null||haystack.isEmpty()||needle==null||needle.isEmpty()) return 0;
+        int a = KMP(haystack.toCharArray(), haystack.length(), needle.toCharArray(), needle.length());
+        return a;
+    }
+
+    @Test
+    public void testStrStr(){
+        String haystack = "hello";
+        String needle = "ll";
+        int rs = strStr(haystack,needle);
+        System.out.println(rs);
+    }
+
+    /**
+     * 找到插入的位置
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int searchInsert(int[] nums, int target) {
+
+        return 0;
+    }
+
+    @Test
+    public void testSearchInsert(){
+        int[] nums = {1,2,5,6};
+        int target = 7;
+        int rs = searchInsert(nums,target);
+        System.out.println(rs);
+    }
 }
