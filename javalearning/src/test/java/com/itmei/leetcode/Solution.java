@@ -89,7 +89,7 @@ public class Solution {
         int k = -1;//k初始化为-1
         for (int q = 1; q <= len-1; q++)
         {
-            while (k > -1 && str[k + 1] != str[q])//如果下一个不同，那么k就变成next[k]，注意next[k]是小于k的，无论k取任何值。
+            while (k > -1 && str[k + 1] != str[q])//如果下一个不同，那么k就变成next[k]，注意next[k]是小于k的，无论k取任何值。k标识的是已经有几个位置是一样的了
             {
                 k = next[k];//往前回溯
             }
@@ -462,5 +462,48 @@ public class Solution {
         int target = 7;
         int rs = searchInsert(nums,target);
         System.out.println(rs);
+    }
+
+
+    public String countAndSay(int n) {
+        if (n==1) return "1";
+        if (n==2) return "11";
+        else {
+            String tmp = countAndSay(n-1);
+            System.out.println("第"+(n-1)+":"+tmp);
+            return countString(tmp);
+        }
+    }
+
+    public String countString(String string){
+        StringBuilder rs = new StringBuilder();
+        int count = 0;
+        char[] chars = string.toCharArray();
+        char tmp = chars[0];
+        for (int i=0;i<chars.length;i++){
+            if (count==0){
+                tmp = chars[i];
+                count=1;
+            }
+            if (i!=0){
+                if (tmp==chars[i]) count++;
+                else {
+                    rs.append(count).append(tmp);
+                    count = 1;
+                    tmp = chars[i];
+                }
+            }
+
+        }
+        if (count!=0){
+            rs.append(count).append(tmp);
+        }
+        return rs.toString();
+    }
+    @Test
+    public void testCountAndSay(){
+        int n = 6;
+        String rs = countAndSay(n);
+        System.out.println("第"+n+":"+rs);
     }
 }
