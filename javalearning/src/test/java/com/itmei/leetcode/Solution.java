@@ -506,4 +506,64 @@ public class Solution {
         String rs = countAndSay(n);
         System.out.println("第"+n+":"+rs);
     }
+
+    public int maxSubArray(int[] nums) {
+        // 步数为1的是不行的 还有当前的问题 [-2,10,-3,-4,-1,-2,-5,5,4] 步数跨度需要调整 逐步增加
+        // 要区分全部是负数的情况，就需要选取最大的那个负数，就是结果
+        int max = nums[0];
+        for (int item:nums) {
+            if (max<item) max = item;
+        }
+        if (max<=0){
+            // 全部是负数 最大的那个负数就是结果
+            return max;
+        }
+        // 不是全部是负数 就按照下面的逻辑处理
+        int i = 0;
+        int j = nums.length-1;
+        while (nums[i]<0) i++;
+        while (nums[j]<0) j--;
+        for (int range = 1;range<j-i;range++){
+            while (i<j&&sumFromI(i,range,nums)<0){
+                i=i+range+1;
+                range=1;
+            }
+            while (i<j&&sumFromIRever(j,range,nums)<0){
+                j=j-range-1;
+                range = 1;
+            }
+        }
+
+        System.out.println("i:"+i+" nums[i]:"+nums[i]);
+        System.out.println("j:"+j+" nums[j]:"+nums[j]);
+        int rs = 0;
+        for (int k =i;k<=j;k++){
+            rs+=nums[k];
+        }
+        if (max>rs) return max;
+        return rs;
+    }
+    public int sumFromI(int from,int num,int[] nums){
+        int rs = nums[from];
+        for (int i=1;i<=num;i++){
+            rs+=nums[from+i];
+        }
+        return rs;
+}
+    public int sumFromIRever(int from,int num,int[] nums){
+        int rs = nums[from];
+        for (int i=1;i<=num;i++){
+            rs+=nums[from-i];
+        }
+        return rs;
+    }
+    @Test
+    public void testMaxSubArray(){
+        int[] nums = {3,-2,-3,-3,1,3,0};
+        //int[] nums = {-2,10,-3,-4,-1,-2,-5,5,4};   // 步数需要逐级增加
+        //int[] nums = {-2,1,-3,4,-1,2,1,-5,4};
+
+        int rs = maxSubArray(nums);
+        System.out.println(rs);
+    }
 }
