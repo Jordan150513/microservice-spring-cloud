@@ -507,6 +507,9 @@ public class Solution {
         System.out.println("第"+n+":"+rs);
     }
 
+    /**
+     * 这种思路不行啊 换一种思路
+     */
     public int maxSubArray(int[] nums) {
         // 步数为1的是不行的 还有当前的问题 [-2,10,-3,-4,-1,-2,-5,5,4] 步数跨度需要调整 逐步增加
         // 要区分全部是负数的情况，就需要选取最大的那个负数，就是结果
@@ -521,14 +524,14 @@ public class Solution {
         // 不是全部是负数 就按照下面的逻辑处理
         int i = 0;
         int j = nums.length-1;
-        while (nums[i]<0) i++;
-        while (nums[j]<0) j--;
-        for (int range = 1;range<j-i;range++){
-            while (i<j&&sumFromI(i,range,nums)<0){
+        while (nums[i]<=0) i++;
+        while (nums[j]<=0) j--;
+        for (int range = 1;range<=j-i&&j>i;range++){
+            if (i<j&&sumFromI(i,range,nums)<0){
                 i=i+range+1;
                 range=1;
             }
-            while (i<j&&sumFromIRever(j,range,nums)<0){
+            if (i<j&&sumFromIRever(j,range,nums)<0){
                 j=j-range-1;
                 range = 1;
             }
@@ -557,13 +560,57 @@ public class Solution {
         }
         return rs;
     }
+
+    /**
+     * 第二种数组的最大和子数组的思路
+     * @param nums
+     * @return
+     */
+    public int maxSubArray2(int[] nums) {
+        int max = nums[0];
+        int sum=0;
+        int maxsum = 0;
+        for (int i=0;i<nums.length;i++){
+            if (max<nums[i]) max = nums[i];
+            if (nums[i]<=0){
+                if (sum>maxsum) maxsum = sum;
+                sum = 0;
+            }else {
+                sum+=nums[i];
+            }
+        }
+        if (max<=0){
+            // 全部是负数 最大的那个负数就是结果
+            return max;
+        }
+     return maxsum;
+    }
+
+    /**
+     * 考虑正负的肯定不行，太局部片面 思路很重要 第一步 要思路是对的
+     */
+    public int maxSubArray3(int[] nums) {
+        if (nums.length==0)
+            return 0;
+        int max = nums[0];
+        int cur = 0;
+        for (int i = 0; i < nums.length; i++)
+        {
+            cur += nums[i];
+            max = (max>cur ? max : cur);  //当max > cur时，需要更新max
+            if (cur < 0)
+                cur = 0;                 //当cur < 0 时，需要将cur置0。
+        }
+        return max;
+    }
+
     @Test
     public void testMaxSubArray(){
-        int[] nums = {3,-2,-3,-3,1,3,0};
-        //int[] nums = {-2,10,-3,-4,-1,-2,-5,5,4};   // 步数需要逐级增加
-        //int[] nums = {-2,1,-3,4,-1,2,1,-5,4};
-
-        int rs = maxSubArray(nums);
-        System.out.println(rs);
+//        int[] nums = {3,-2,-3,-3,1,3,0};
+//        int[] nums = {-2,10,-3,-4,-1,-2,-5,5,4};   // 步数需要逐级增加
+        int[] nums = {-2,1,-3,4,-1,2,1,-5,4};
+//        int rs = maxSubArray2(nums);
+        int rs2 = maxSubArray3(nums);
+        System.out.println(rs2);
     }
 }
