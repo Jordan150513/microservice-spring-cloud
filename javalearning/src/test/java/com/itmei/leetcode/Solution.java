@@ -1,10 +1,12 @@
 package com.itmei.leetcode;
 
+import org.dom4j.Attribute;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Stack;
+import java.io.ByteArrayInputStream;
+import java.util.*;
 
 /**
  * Created by qiaodan on 2018/3/12.
@@ -612,5 +614,50 @@ public class Solution {
 //        int rs = maxSubArray2(nums);
         int rs2 = maxSubArray3(nums);
         System.out.println(rs2);
+    }
+
+    @Test
+    public void testPhone(){
+        String mobile = "15210235083";
+        String lastMobile = mobile.substring(mobile.length() - 4, mobile.length());
+        System.out.println(lastMobile);
+    }
+
+    @Test
+    public void  testXMLPrase(){
+
+        SAXReader reader = new SAXReader();
+        try {
+            String xml = "<?xml version=\"1.0\" encoding=\"gb2312\"?><ArrayOfPropertyItem xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\\\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\\\"><PropertyItem><Id>751</Id><Val>3</Val></PropertyItem><PropertyItem><Id>776</Id><Val>4</Val></PropertyItem><PropertyItem><Id>1430</Id><Val>5</Val></PropertyItem><PropertyItem><Id>1782</Id><Val>倾开上悬式</Val></PropertyItem></ArrayOfPropertyItem>";
+//            String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><bookstore><book id=\"1\"><name>冰与火之歌</name><author>乔治马丁</author><year>2014</year><price>89</price></book><book id=\"2\"> <name>安徒生童话</name><year>2004</year><price>77</price><language>English</language></book></bookstore>";
+            // 通过reader对象的read方法加载books.xml文件,获取docuemnt对象。
+            org.dom4j.Document document  = new SAXReader().read(new ByteArrayInputStream(xml.getBytes("gb2312")));
+//            org.dom4j.Document document = reader.read(xml);
+            // 通过document对象获取根节点bookstore
+            org.dom4j.Element bookStore = document.getRootElement();
+            // 通过element对象的elementIterator方法获取迭代器
+            Iterator it = bookStore.elementIterator();
+            // 遍历迭代器，获取根节点中的信息（书籍）
+            while (it.hasNext()) {
+                System.out.println("=====开始遍历某一本书=====");
+                org.dom4j.Element book = (org.dom4j.Element) it.next();
+                // 获取book的属性名以及 属性值
+                List<Attribute> bookAttrs = book.attributes();
+                for (Attribute attr : bookAttrs) {
+                    System.out.println("属性名：" + attr.getName() + "--属性值："
+                            + attr.getValue());
+                }
+                Iterator itt = book.elementIterator();
+                while (itt.hasNext()) {
+                    Element bookChild = (Element) itt.next();
+                    System.out.println("节点名：" + bookChild.getName() + "--节点值：" + bookChild.getStringValue());
+                }
+                System.out.println("=====结束遍历某一本书=====");
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+          String mess =   e.getMessage();
+            e.printStackTrace();
+        }
     }
 }
