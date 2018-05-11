@@ -40,6 +40,7 @@ public class MailService {
             sender.send(message);
             logger.info("发送简单邮件");
         }catch (Exception e){
+            e.printStackTrace();
             logger.error("发邮件异常");
             throw new Exception("发邮件错误");
         }

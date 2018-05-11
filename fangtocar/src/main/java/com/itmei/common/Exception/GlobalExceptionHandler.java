@@ -4,6 +4,7 @@ import com.itmei.common.util.Configration;
 import com.itmei.service.MailService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +24,8 @@ public class GlobalExceptionHandler {
     private org.slf4j.Logger logger = LoggerFactory.getLogger("GlobalExceptionHandler");
 //    @Autowired
 //    private ExceptionCache exceptionCache;
+    @Value("${error.mail.to}")
+    private String mailTo;
 
     @Autowired
     private MailService mailService;
@@ -37,7 +40,7 @@ public class GlobalExceptionHandler {
         errorInfo.setCode(Configration.ERROR);
         errorInfo.setData(getParams(request));
         errorInfo.setUrl(request.getRequestURI());
-        mailService.sendAttachmentsMail();
+        mailService.sendSimpleMail(mailTo.split(","),"testSubject","异常报错："+errorInfo.getData());
 //        exceptionCache.addExceptionToList(errorInfo);
         return errorInfo;
     }
