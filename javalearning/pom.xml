@@ -36,17 +36,32 @@
 			<scope>test</scope>
 		</dependency>
 		<!--添加我的私有包的依赖-->
-		<dependency>
-			<groupId>com.fang.home</groupId>
-			<artifactId>datasource</artifactId>
-			<version>0.0.2-SNAPSHOT</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>com.fang.home</groupId>-->
+			<!--<artifactId>datasource</artifactId>-->
+			<!--<version>0.0.2-SNAPSHOT</version>-->
+		<!--</dependency>-->
         <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
             <version>1.6.1</version>
             <scope>test</scope>
         </dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.4.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+            <version>4.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.cdp.product</groupId>
+			<artifactId>cdp-common-security</artifactId>
+			<version>3.5.0</version>
+		</dependency>
     </dependencies>
 
 	<build>

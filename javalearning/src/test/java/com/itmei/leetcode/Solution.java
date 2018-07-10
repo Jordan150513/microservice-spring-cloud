@@ -7,11 +7,52 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by qiaodan on 2018/3/12.
  */
 public class Solution {
+
+    /**
+     * 找到 string中的最后一个单词 等价于 找到string中的最后一个空格
+     * @param s
+     * @return
+     */
+    public int lengthOfLastWord(String s) {
+        if(s==null||s.length()==0) return 0;
+        if(s.indexOf(" ")==-1) return s.length();
+
+        // 方法1 用正则表达式 找到最后一个空格，然后获取最后一个空格的index length-index 就是最后一个word的长度了吧
+        // 感觉正则还不太对啊 找到一个空格 后面有若干个字母 但是没有空格
+        String reg = "(\\s)(?=[a-zA-Z]*(?!\\s))";
+        Pattern p = Pattern.compile(reg);
+        Matcher matcher = p.matcher(s);
+        matcher.find();
+        String word = matcher.group(1);
+        String res = s.replaceAll(reg,"&");
+        System.out.println(word+res+"matcher.end "+matcher.end()+"match group "+matcher.group());
+
+        // 正则demo 找到一个数字，后面只有3的倍数的数字 没有单个的数字
+//        String num2 = "123456780";
+//        String pattern2 = "(\\d)(?=(\\d{3})+(?!\\d))";
+//        String result2 = num2.replaceAll(pattern2, "$1" + ",");
+
+        // 方法2 split(“\\s+”);方法来对字符串切割
+        String[] wordsArr = s.split("\\s");
+        if (wordsArr==null||wordsArr.length==0) return 0;
+        int end = wordsArr.length-1;
+
+        return wordsArr[end].length();
+    }
+
+    @Test
+    public void testStringLength(){
+        int length = lengthOfLastWord("qiaodandan like it");
+        System.out.println(length);
+    }
+
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         if(l1==null) return l2;
         if(l2==null) return l1;
