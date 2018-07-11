@@ -1,5 +1,7 @@
 package com.itmei.leetcode;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
+import com.sun.xml.internal.xsom.impl.scd.Iterators;
 import org.dom4j.Attribute;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -15,6 +17,63 @@ import java.util.regex.Pattern;
  */
 public class Solution {
 
+    /**
+     * 数组表示的数字+1 这个版本的解答会有溢出的问题 为了避免溢出 按照string来解决？
+     * @param digits
+     * @return
+     */
+    public int[] plusOne(int[] digits) {
+        if (digits==null||digits.length==0) return null;
+        long value = 0;
+        for (int i=0;i<digits.length;i++){
+            value = value*10+digits[i];
+        }
+        System.out.println(value);
+        value++;
+        String string = value+"";
+        int size = string.length()<digits.length?digits.length:string.length();
+        int[] result = new int[size];
+        while (value>0){
+            result[size-1] = (int) value%10;
+            value = value/10;
+            size--;
+        }
+        return result;
+    }
+
+    /**
+     * 数组表示的数字+1 不转换成int 不用取余操作 用取下标的处理
+     * long 也是会溢出的 需要完全摒弃转换成数值计算的+1 要换成 string的按位数进位 的思路
+     * @param digits
+     * @return
+     */
+    public int[] plusOne2(int[] digits) {
+        if (digits==null||digits.length==0) return null;
+        long value = 0;
+        for (int i=0;i<digits.length;i++){
+            value = value*10+digits[i];
+        }
+        System.out.println(value);
+        value++;
+        String string = value+"";
+        int size = string.length()<digits.length?digits.length:string.length();
+        int[] result = new int[size];
+        char[] chars= string.toCharArray();
+        while (size>0){
+            result[size-1] = Integer.valueOf(String.valueOf(chars[size-1]));
+            size--;
+        }
+        return result;
+    }
+
+    @Test
+    public void testPlusOne(){
+        int[] arr = {7,2,8,5,0,9,1,2,9,5,3,6,6,7,3,2,8,4,3,7,9,5,7,7,4,7,4,9,4,7,0,1,1,1,7,4,0,0,6};
+//        int[] result = plusOne(arr);
+        int[] result = plusOne2(arr);
+        System.out.println(result);
+
+    }
     /**
      * 找到 string中的最后一个单词 等价于 找到string中的最后一个空格
      * @param s
