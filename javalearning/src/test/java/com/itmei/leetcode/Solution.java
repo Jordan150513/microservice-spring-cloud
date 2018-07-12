@@ -8,6 +8,7 @@ import org.dom4j.io.SAXReader;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,6 +18,67 @@ import java.util.regex.Pattern;
  */
 public class Solution {
 
+    @Test
+    public void testCurrentMillon(){
+        long startTime = System.currentTimeMillis();
+        int sum = 0;
+        for (int i=0;i<100;i++){
+            sum +=i;
+        }
+        System.out.println(sum);
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(dateformat.format(System.currentTimeMillis()-startTime));
+        System.out.println(System.currentTimeMillis()-startTime);
+    }
+
+    /**
+     * 数组表示的数字+1功能的实现 完全不用数学计算的方法 避免溢出
+     * @param digits
+     * @return
+     */
+    public int[] plusOne3(int[] digits) {
+        if (digits==null||digits.length==0) return null;
+
+        if (digits.length==1){
+            if (digits[0]+1<10){
+                digits[0] = digits[0]+1;
+                return digits;
+            }else {
+                digits = new int[digits.length+1];
+                digits[0]=1;
+                return digits;
+            }
+        }
+        int index = digits.length-1;
+        int overflow = 1;
+        while (overflow>0&&index>=0){
+            overflow = addOneToIndex(digits,overflow,index);
+            if (overflow>0)
+            index--;
+        }
+        if (index==-1){
+            digits = new int[digits.length+1];
+            digits[0]=1;
+        }
+        return digits;
+    }
+
+    /**
+     * 数组某一位加1 是否溢出
+     * @param digits
+     * @param overflow
+     * @param index
+     * @return
+     */
+    int addOneToIndex(int[] digits,int overflow,int index){
+        if (digits[index]+1<10) {
+            digits[index] = digits[index]+1;
+            return 0;
+        } else {
+            digits[index] = 0;
+            return 1;
+        }
+    }
     /**
      * 数组表示的数字+1 这个版本的解答会有溢出的问题 为了避免溢出 按照string来解决？
      * @param digits
@@ -40,6 +102,7 @@ public class Solution {
         }
         return result;
     }
+
 
     /**
      * 数组表示的数字+1 不转换成int 不用取余操作 用取下标的处理
@@ -68,10 +131,11 @@ public class Solution {
 
     @Test
     public void testPlusOne(){
-        int[] arr = {7,2,8,5,0,9,1,2,9,5,3,6,6,7,3,2,8,4,3,7,9,5,7,7,4,7,4,9,4,7,0,1,1,1,7,4,0,0,6};
-//        int[] result = plusOne(arr);
-        int[] result = plusOne2(arr);
-        System.out.println(result);
+//        int[] arr = {7,2,8,5,0,9,1,2,9,5,3,6,6,7,3,2,8,4,3,7,9,5,7,7,4,7,4,9,4,7,0,1,1,1,7,4,0,0,6};
+        int[] arr = {1,9};
+        System.out.println(arr.toString());
+        int[] result = plusOne3(arr);
+        System.out.println(result.toString());
 
     }
     /**
