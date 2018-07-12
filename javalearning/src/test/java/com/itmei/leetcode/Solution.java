@@ -18,6 +18,77 @@ import java.util.regex.Pattern;
  */
 public class Solution {
 
+    // 总是交付没有测试通过的代码 总是把问题到提交之后解决 不靠谱的提交和上线！
+
+    @Test
+    public void testStringBuilder(){
+        StringBuilder builder = new StringBuilder();
+        builder.insert(0,"1");
+        builder.insert(0,2);
+        System.out.println(builder.toString());
+    }
+
+    public String addBinary(String a, String b) {
+        if (a.length()==0) return b;
+        if (b.length()==0) return a;
+        StringBuilder result = new StringBuilder();
+        int overflow = 0;
+        while (a.length()>b.length()){
+            b="0"+b;
+        }
+        while (a.length()<b.length()){
+            a="0"+a;
+        }
+        int index = a.length()-1;
+        while (index>=0){
+            overflow = addABIndex(a,b,index,overflow,result);
+            index--;
+        }
+        if (index==-1&&overflow==1){
+            result.insert(0,"1");
+        }
+        return result.toString();
+    }
+
+    int addABIndex(String a,String b,int index,int overflow,StringBuilder result){
+
+       int aValue = Integer.valueOf(a.substring(index,index+1)).intValue();
+       int bValue = Integer.valueOf(b.substring(index,index+1)).intValue();
+       if (overflow==0){
+           if (aValue==0&&bValue==0){
+               result.insert(0,"0");
+               return 0;
+           }else if ((aValue+bValue==1)){
+               result.insert(0,"1");
+               return 0;
+           }else {
+               result.insert(0,"0");
+               return 1;
+           }
+       }else {
+           if (aValue+bValue==0){
+               result.insert(0,"1");
+               return 0;
+           }else if (aValue+bValue==1){
+               result.insert(0,"0");
+               return 1;
+           }else {
+               result.insert(0,"1");
+               return 1;
+           }
+       }
+
+    }
+
+    @Test
+    public void testAddBinary(){
+        String a = "111111";
+        String b = "1";
+
+        String result = addBinary(a,b);
+        System.out.println(result);
+    }
+
     @Test
     public void testCurrentMillon(){
         long startTime = System.currentTimeMillis();
