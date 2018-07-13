@@ -20,6 +20,63 @@ public class Solution {
 
     // 总是交付没有测试通过的代码 总是把问题到提交之后解决 不靠谱的提交和上线！
 
+
+    @Test
+    public void testCclimbStairs(){
+        int stairsNumbers = 35;
+        int rs = climbStairs(stairsNumbers);
+        System.out.println(rs);
+    }
+
+    /**
+     * 计算排列组合的情况数 明知肯定会溢出 还不做处理
+     * @param under
+     * @param top
+     * @return
+     */
+    public int caculateC(int under,int top){
+        if (top>under) return 0;
+        if (top==under) return 1;
+        long multipeTop = under;
+        long multipeUnder = top;
+        int topTmp = top;
+        int underTmp = under;
+        while (topTmp>1){
+            multipeTop *=(--underTmp);
+            multipeUnder *= (--topTmp);
+        }
+        return new Long(multipeTop/multipeUnder).intValue();
+    }
+
+    /**
+     * 70. Climbing Stairs n 阶台阶 每次1 or 2 步长 求有几种走法
+     * @param n
+     * @return
+     */
+    public int climbStairs(int n) {
+        if(n<=0) return 0;
+        // 全是 1 的这种情况
+        int sum = 1;
+
+        // min：2 最多的数量
+        int maxNumOf2 = n/2;
+        for (int i=1;i<=maxNumOf2;i++){
+            // 剩余1 的个数
+            int numberOf1 = n-2*i;
+            int inumber = caculateC(numberOf1+i,i);
+            System.out.println("2的数量为 "+i+"的时候的情况数 :"+inumber);
+            sum += inumber;
+        }
+        return sum;
+    }
+
+    @Test
+    public void testCaculateC(){
+        int under = 10;
+        int top = 1;
+        int rs = caculateC(under,top);
+        System.out.println(rs);
+    }
     /**
      * 69、求一个数的开方值 精度取到int整数
      * @param x
