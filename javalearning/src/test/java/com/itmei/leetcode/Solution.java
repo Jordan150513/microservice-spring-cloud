@@ -8,6 +8,7 @@ import org.dom4j.io.SAXReader;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -20,10 +21,54 @@ public class Solution {
 
     // 总是交付没有测试通过的代码 总是把问题到提交之后解决 不靠谱的提交和上线！
 
+//    83. Remove Duplicates from Sorted List
+
+    public ListNode deleteDuplicates(ListNode head) {
+
+        if (head==null||head.next==null) return head;
+        ListNode pre = head;
+        ListNode trail = head.next;
+        while (trail!=null){
+            while (pre!=null&&trail!=null&&trail.val!=pre.val){
+                pre = trail;
+                trail = pre.next;
+            }
+            while (pre!=null&&trail!=null&&pre.val==trail.val){
+                trail = trail.next;
+            }
+
+            pre.next=trail;
+            if (pre.next!=null){
+                pre = pre.next;
+                trail = pre.next;
+            }
+        }
+        return head;
+
+    }
+
+    @Test
+    public void testDeleteDuplicates(){
+
+        ListNode listNode1 = new ListNode(1);
+        ListNode listNode2 = new ListNode(2);
+        ListNode listNode3 = new ListNode(2);
+        ListNode listNode4 = new ListNode(3);
+        ListNode listNode5 = new ListNode(3);
+
+        listNode4.setNext(listNode5);
+        listNode3.setNext(listNode4);
+        listNode2.setNext(listNode3);
+        listNode1.setNext(listNode2);
+
+        deleteDuplicates(listNode1);
+        System.out.println(listNode1);
+    }
 
     @Test
     public void testCclimbStairs(){
-        int stairsNumbers = 35;
+         int stairsNumbers = 44;
+//        int stairsNumbers = 35;
         int rs = climbStairs(stairsNumbers);
         System.out.println(rs);
     }
@@ -37,15 +82,17 @@ public class Solution {
     public int caculateC(int under,int top){
         if (top>under) return 0;
         if (top==under) return 1;
-        long multipeTop = under;
-        long multipeUnder = top;
-        int topTmp = top;
-        int underTmp = under;
-        while (topTmp>1){
-            multipeTop *=(--underTmp);
-            multipeUnder *= (--topTmp);
+        BigDecimal multipeTop = new BigDecimal(under);
+        BigDecimal multipeUnder = new BigDecimal(top);
+        BigDecimal topTmp = new BigDecimal(top);
+        BigDecimal underTmp = new BigDecimal(under);
+        while (topTmp.intValue()>1){
+            underTmp = underTmp.subtract(new BigDecimal(1));
+            topTmp = topTmp.subtract(new BigDecimal(1));
+            multipeTop = multipeTop.multiply(underTmp);
+            multipeUnder = multipeUnder.multiply(topTmp);
         }
-        return new Long(multipeTop/multipeUnder).intValue();
+        return multipeTop.divide(multipeUnder).intValue();
     }
 
     /**
