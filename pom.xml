@@ -6,7 +6,12 @@
 	<groupId>com.qiaodan.it</groupId>
 	<artifactId>microservice-spring-cloud</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+    <modules>
+        <module>mq-provider</module>
+		<module>mq-consumer</module>
+        <module>mq-consumer-2</module>
+    </modules>
+    <packaging>pom</packaging>
 
 	<name>microservice-spring-cloud</name>
 	<description>Demo project for Spring Boot</description>
