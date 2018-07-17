@@ -19,7 +19,54 @@ import java.util.regex.Pattern;
  */
 public class Solution {
 
-    // 总是交付没有测试通过的代码 总是把问题到提交之后解决 不靠谱的提交和上线！
+    // 总是交付没有详细测试通过的代码 总是把问题到提交之后解决 不靠谱的提交和上线！
+
+//    88. Merge Sorted Array
+
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int trailM = m-1;
+        int trailN = n-1;
+        int trail = m+n-1;
+        for (int i= trail;i>=0;i--){
+            if (trailM<0&&trailN>=0){
+                nums1[i] = nums2[trailN];
+                trailN--;
+                continue;
+            }
+
+            if (trailN<0&&trailM>=0){
+                nums1[i] = nums1[trailM];
+                trailM--;
+                continue;
+            }
+            if (trailM>=0&&trailN>=0&&nums1[trailM]>=nums2[trailN]){
+                nums1[i] = nums1[trailM];
+                trailM--;
+                continue;
+            }
+            if (trailM>=0&&trailN>=0&&nums1[trailM]<nums2[trailN]){
+                nums1[i] = nums2[trailN];
+                trailN--;
+                continue;
+            }
+        }
+
+
+        if (m==0&&n>0){
+            nums1 = nums2;
+        }
+        System.out.println(nums1);
+    }
+
+    @Test
+    public void testMerge(){
+    int[] nums1 = {1,2,3,0,0,0};
+    int m = 3;
+    int[] nums2 = {2,5,6};
+    int n = 3;
+    merge(nums1,m,nums2,n);
+    System.out.println(nums1);
+    }
 
 //    83. Remove Duplicates from Sorted List
 
