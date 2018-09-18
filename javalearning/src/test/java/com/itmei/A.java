@@ -5,10 +5,14 @@ package com.itmei;
  */
 public class A {
     static {
-        System.out.print("1");
+        System.out.println("ClassA的静态代码块");
     }
 
     public A() {
-        System.out.print("2");
+        System.out.println("ClassA的构造方法");
+    }
+
+    {
+        System.out.println("ClassA的构造代码块");
     }
 }

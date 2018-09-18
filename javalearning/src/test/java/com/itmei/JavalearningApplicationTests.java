@@ -59,6 +59,18 @@ import static org.junit.Assert.assertTrue;
 @SpringBootTest
 public class JavalearningApplicationTests {
 
+
+        static {
+            System.out.println("Test的静态代码块");
+        }
+
+        public static void main(String[] args) {
+            System.out.println("执行main方法");
+            B b = new B();
+            b.excute();
+        }
+
+
     @Test
     public void contextLoads() {
     }
