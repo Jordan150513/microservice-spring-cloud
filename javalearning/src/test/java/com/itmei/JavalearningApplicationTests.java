@@ -4,6 +4,7 @@ package com.itmei;
 //import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 //import com.google.zxing.common.BitMatrix;
 //import com.google.zxing.common.HybridBinarizer;
+
 import com.itmei.SuperAndSub.SubClass;
 import com.itmei.adapter.HoleMaker;
 import com.itmei.adapter.HoleMakerImpl;
@@ -18,6 +19,8 @@ import com.itmei.decoration.Coffee;
 import com.itmei.decoration.MilkDecorator;
 import com.itmei.decoration.SugarDecorator;
 import com.itmei.factory.Meal;
+import com.itmei.leetcode.ListNode;
+import com.itmei.leetcode.TreeNode;
 import com.itmei.observer.PageOpener;
 import com.itmei.observer.Register;
 import com.itmei.prototype.*;
@@ -49,26 +52,159 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class JavalearningApplicationTests {
 
 
-        static {
-            System.out.println("Test的静态代码块");
+    @Test
+    public void testIsSymmetric() {
+        TreeNode root = new TreeNode(1);
+
+        TreeNode p = new TreeNode(2);
+        p.setLeft(new TreeNode(3));
+
+
+        TreeNode q = new TreeNode(3);
+        q.setLeft(new TreeNode(2));
+
+
+        root.setLeft(p);
+        root.setRight(q);
+
+        boolean rs = isSymmetric(root);
+        System.out.print(rs);
+    }
+
+    /**
+     * 镜面的树的中序遍历序列是回文 但是 中序遍历序列是回文的 不一定是镜面的树 需要用占位数字补全，满树的中序遍历序列是回文才能满足该条件? 还是不对
+     * @param root
+     * @return
+     */
+    public boolean isSymmetric(TreeNode root) {
+        if (root == null) return true;
+        String middleSerializer = middleSerilizer(root);
+        System.out.print("------middleSerializer:"+middleSerializer);
+        String[] arr = middleSerializer.split(",");
+        for (int i=0,j=arr.length-1;i<arr.length&&j>=0;i++,j--) {
+            if (!Integer.valueOf(arr[i]).equals(Integer.valueOf(arr[j]))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public String middleSerilizer(TreeNode root) {
+        StringBuilder builder = new StringBuilder();
+        if (root.right == null && root.left == null) {
+            return root.val + "";
         }
 
-        public static void main(String[] args) {
-            System.out.println("执行main方法");
-            B b = new B();
-            b.excute();
+        if (null == root.left) {
+            String right = middleSerilizer(root.right);
+            return builder.append("9999").append(",").append(root.val).append(",").append(right).toString();
         }
+
+        if (null == root.right) {
+            String left = middleSerilizer(root.left);
+            return builder.append(left).append(",").append(root.val).append(",").append("9999").toString();
+        }
+
+        String right = middleSerilizer(root.right);
+        String left = middleSerilizer(root.left);
+        return builder.append(left).append(",").append(root.val).append(",").append(right).toString();
+    }
+
+//    /**
+//     * solution 101 判断是否是一个镜面的树 每一层都是回文-中序遍历是回文，就说明是镜面的
+//     *
+//     * @param root
+//     * @return
+//     */
+//    public boolean isSymmetric(TreeNode root) {
+//        if (root == null) return true;
+//        String middleSerializer = middleSerilizer(root);
+//        System.out.print("------middleSerializer:"+middleSerializer);
+//        String[] arr = middleSerializer.split(",");
+//        for (int i=0,j=arr.length-1;i<arr.length&&j>=0;i++,j--) {
+//            if (!Integer.valueOf(arr[i]).equals(Integer.valueOf(arr[j]))) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+//
+//    public String middleSerilizer(TreeNode root) {
+//        StringBuilder builder = new StringBuilder();
+//        if (root.getRight() == null && root.getLeft() == null) {
+//            return root.getVal() + "";
+//        }
+//
+//        if (null == root.getLeft()) {
+//            String right = middleSerilizer(root.getRight());
+//            return builder.append(root.getVal()).append(",").append(right).toString();
+//        }
+//
+//        if (null == root.getRight()) {
+//            String left = middleSerilizer(root.getLeft());
+//            return builder.append(left).append(",").append(root.getVal()).toString();
+//        }
+//
+//        String right = middleSerilizer(root.getRight());
+//        String left = middleSerilizer(root.getLeft());
+//        return builder.append(left).append(",").append(root.getVal()).append(",").append(right).toString();
+//    }
+
+//    @Test
+//    public void testIsSameTree() {
+//
+//        TreeNode p = new TreeNode(2);
+//
+//        TreeNode q = new TreeNode(3);
+//
+//        boolean rs = isSameTree(p, q);
+//        System.out.print(rs);
+//    }
+
+    /**
+     * soltion 100 判断是否是相等的树
+     *
+     * @param p
+     * @param q
+     * @return
+     */
+//    public boolean isSameTree(TreeNode p, TreeNode q) {
+//
+//        if (p == null && q == null) {
+//            return true;
+//        }
+//        if ((null == p && q != null) || (null != p && q == null)) {
+//            return false;
+//        }
+//        if (p.getVal() != q.getVal()) {
+//            return false;
+//        }
+//        return isSameTree(p.getLeft(), q.getLeft()) && isSameTree(p.getRight(), q.getRight());
+//    }
+
+
+//        static {
+//            System.out.println("Test的静态代码块");
+//        }
+//
+//        public static void main(String[] args) {
+//            System.out.println("执行main方法");
+//            B b = new B();
+//            b.excute();
+//        }
 
 
     @Test
@@ -776,10 +912,10 @@ public class JavalearningApplicationTests {
     // 下厨房 统计原材料的集合
 
     @Test
-    public void testString11(){
+    public void testString11() {
         String constructDate = "2017/09/08 12:00:00";
-        if (constructDate.contains("/")){
-            constructDate = constructDate.replaceAll("/","-");
+        if (constructDate.contains("/")) {
+            constructDate = constructDate.replaceAll("/", "-");
         }
         System.out.println(constructDate);
     }
@@ -793,34 +929,34 @@ public class JavalearningApplicationTests {
                 String line = null;
 
                 Set<String> ingredientSet = new HashSet<String>();
-                HashMap<String,Integer> ingredientMap = new HashMap<String,Integer>();
+                HashMap<String, Integer> ingredientMap = new HashMap<String, Integer>();
 
                 while ((line = bfr.readLine()) != null) {
                     System.out.println(line);
 
                     String[] ingredientArr = line.split(" ");
-                    System.out.println(ingredientArr.toString()+" "+ingredientArr.length);
+                    System.out.println(ingredientArr.toString() + " " + ingredientArr.length);
 
-                    for (int i = 0;i<ingredientArr.length;i++){
+                    for (int i = 0; i < ingredientArr.length; i++) {
 
                         ingredientSet.add(ingredientArr[i]);
 
                         Integer count = 0;
-                        if (ingredientMap.size()>0) {
+                        if (ingredientMap.size() > 0) {
                             System.out.println(ingredientMap.size());
 
-                            try{
+                            try {
                                 // count == null Exception
-                                count =  ingredientMap.get(ingredientArr[i]);
-                                System.out.println("count :"+count);
-                                count = count==null?0:count;
-                            }catch(Exception e){
+                                count = ingredientMap.get(ingredientArr[i]);
+                                System.out.println("count :" + count);
+                                count = count == null ? 0 : count;
+                            } catch (Exception e) {
                                 count = 0;
                             }
 
                         }
                         // map Exception
-                        ingredientMap.put(ingredientArr[i],count+1);
+                        ingredientMap.put(ingredientArr[i], count + 1);
                         System.out.println("ingredientMap.size:");
                         System.out.println(ingredientMap.size());
                     }
@@ -828,18 +964,18 @@ public class JavalearningApplicationTests {
                 }
                 System.out.println("result:");
 
-                System.out.println("ingredientSet.size:"+ingredientSet.size());
+                System.out.println("ingredientSet.size:" + ingredientSet.size());
                 System.out.println(ingredientSet.toString());
 
-                System.out.println("ingredientMap.size:"+ingredientMap.size());
+                System.out.println("ingredientMap.size:" + ingredientMap.size());
                 System.out.println(ingredientMap);
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Exception 1");
                 System.out.println(e.getMessage());
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception 2");
             System.out.println(e.getMessage());
         }
@@ -848,7 +984,7 @@ public class JavalearningApplicationTests {
 
     // command 命令模式
     @Test
-    public void testCommand(){
+    public void testCommand() {
 
         Administrator admin = new Administrator();
         Server server = new Server();
@@ -863,15 +999,15 @@ public class JavalearningApplicationTests {
         // check executed commands
         int executed = server.getExecutedCommands().size();
 
-        assertTrue("Two commands should be executed but only "+
+        assertTrue("Two commands should be executed but only " +
 
-                executed+ " were", executed == 2);
+                executed + " were", executed == 2);
 
     }
 
     // 访问者模式  ？？
     @Test
-    public void testVisitor(){
+    public void testVisitor() {
 
         // CarComponent 是抽象父类 Car 子类
         CarComponent car = new Car();
@@ -896,7 +1032,7 @@ public class JavalearningApplicationTests {
 
     // test 适配器模式 分各种不同的情况 不同的情况 做同一事情的结果不一样
     @Test
-    public void testAdapter(){
+    public void testAdapter() {
         HoleMaker maker = new HoleMakerImpl();
         maker.makeHole(1);
         maker.makeHole(2);
@@ -906,8 +1042,8 @@ public class JavalearningApplicationTests {
 
     // test 装饰者模式 ： 这种设计模式的主要作用是为给定的对象添加补充角色 复合各种角色成分
     @Test
-    public void testDecoration(){
-        Coffee sugarMilkCoffee=new MilkDecorator(new SugarDecorator(new BlackCoffee()));
+    public void testDecoration() {
+        Coffee sugarMilkCoffee = new MilkDecorator(new SugarDecorator(new BlackCoffee()));
         System.out.println(sugarMilkCoffee.getPrice());
         System.out.println(sugarMilkCoffee.makeMoreCandied());
     }
@@ -915,12 +1051,12 @@ public class JavalearningApplicationTests {
     // protoType 原型 模式
 
     @Test
-    public void testProtoType(){
+    public void testProtoType() {
         com.itmei.prototype.Robot robot1 = new com.itmei.prototype.Robot("robotA");
         com.itmei.prototype.Robot robot2 = null;
         try {
-            robot2 = (com.itmei.prototype.Robot)robot1.clone();
-        }catch (Exception e){
+            robot2 = (com.itmei.prototype.Robot) robot1.clone();
+        } catch (Exception e) {
             System.out.println("clone failed!");
         }
 
@@ -939,10 +1075,10 @@ public class JavalearningApplicationTests {
 
     // observer 观察者模式
     @Test
-    public void testObserver(){
+    public void testObserver() {
         // 第一个观察者
-       com.itmei.observer.Observer pageOpener = new PageOpener();
-       // 第二个观察者
+        com.itmei.observer.Observer pageOpener = new PageOpener();
+        // 第二个观察者
         com.itmei.observer.Observer register = new Register();
 
         // 被观察的
@@ -964,14 +1100,14 @@ public class JavalearningApplicationTests {
     }
 
     @Test
-    public void testSuperAndSub(){
+    public void testSuperAndSub() {
         //  打印日期两次 但是第一次的时候 是null，是还没有给date赋值的时候，调用父类的构造函数的时候执行了打印方法 第二次打印的时候 是子类赋值之后的date
         SubClass sub = new SubClass();
         sub.overrideMe();
     }
 
     @Test
-    public void cityTransForm(){
+    public void cityTransForm() {
 
     }
 
