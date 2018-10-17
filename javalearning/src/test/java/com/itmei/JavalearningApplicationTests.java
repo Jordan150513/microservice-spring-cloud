@@ -66,6 +66,39 @@ public class JavalearningApplicationTests {
 
 
     @Test
+    public void testTreeSet(){
+//        TreeSet<Integer> treeSet = new TreeSet<>();
+//        treeSet.add(1);
+//        treeSet.add(2);
+//        treeSet.add(7);
+//        treeSet.add(10);
+//        treeSet.add(4);
+//        treeSet.add(2);
+//        System.out.println(treeSet.toArray().toString());
+//
+//        HashSet<Integer> hashSet = new HashSet<>();
+//        hashSet.add(1);
+//        hashSet.add(2);
+//        hashSet.add(7);
+//        hashSet.add(10);
+//        hashSet.add(4);
+//        hashSet.add(2);
+//        System.out.println(hashSet.toArray().toString());
+
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        arrayList.add(1);
+        arrayList.add(2);
+        arrayList.add(7);
+        arrayList.add(10);
+        arrayList.add(4);
+        if (!arrayList.contains(2)) {
+            arrayList.add(2);
+        }
+        System.out.println(arrayList.toArray().toString());
+    }
+
+
+    @Test
     public void testIsSymmetric() {
         TreeNode root = new TreeNode(1);
 
