@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RefreshScope
-@RequestMapping("test")
+@RequestMapping("/test/")
 public class TestController {
 
     @Value("${name}")
@@ -20,7 +20,7 @@ public class TestController {
 
     @RequestMapping(value = "fetchName",method = RequestMethod.GET)
     public String fetchName(){
-     return this.name;
+     return this.name + "from client-provider-1-user";
     }
 
     @RequestMapping(value = "getName",method = RequestMethod.GET)

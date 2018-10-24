@@ -64,6 +64,15 @@ import static org.junit.Assert.fail;
 @SpringBootTest
 public class JavalearningApplicationTests {
 
+    @Test
+    public void testRandom(){
+        for (int i=0;i<100;i++){
+            Random rand = new Random();
+            int index =rand.nextInt(5);
+            System.out.println(index);
+        }
+
+    }
 
     @Test
     public void testTreeSet(){
