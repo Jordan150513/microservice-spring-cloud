@@ -41,6 +41,7 @@ import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.StringUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -64,7 +65,47 @@ import static org.junit.Assert.fail;
 @SpringBootTest
 public class JavalearningApplicationTests {
 
-//    122. Best Time to Buy and Sell Stock II 买卖股票获取最大收益 进阶版本
+    @Test
+    public void testIsPalindrome(){
+//        String s = "A man, a plan, a canal: Panama";
+//        String s = "race a car";
+        String s = ",,,,";
+//        String s = "";
+        boolean rs = isPalindrome(s);
+        System.out.println(rs);
+    }
+
+//    125. Valid Palindrome
+    public boolean isPalindrome(String s) {
+        if (StringUtils.isEmpty(s) || null == s || s.length() == 0){
+            return true;
+        }
+       char[] orginChars =  s.toCharArray();
+        int head = 0;
+        int tail = orginChars.length-1;
+
+        do {
+            if (head==tail && !Character.isLetterOrDigit(orginChars[head])){
+                return true;
+            }
+            while (!Character.isLetterOrDigit(orginChars[head]) && head<tail){
+                head++;
+            }
+            while (!Character.isLetterOrDigit(orginChars[tail]) && head<tail){
+                tail--;
+            }
+            if (Character.toLowerCase(orginChars[head]) != Character.toLowerCase(orginChars[tail])){
+                return false;
+            }
+            head++;
+            tail--;
+        }while (head<=tail);
+        return true;
+    }
+
+
+
+//    122. Best Time to Buy and Sell Stock II 买卖股票获取最大收益 进阶版本 可以购买多次
     @Test
     public void testMaxProfit2() {
 //        int[] prices = {7,1,5,3,6,4};
@@ -76,7 +117,34 @@ public class JavalearningApplicationTests {
 }
 
     public int maxProfit3(int[] prices) {
-        return 0;
+        if (prices.length == 0 || prices.length == 1) {
+            return 0;
+        }
+        int profile = 0;
+        int begin = 0;
+        while (begin< prices.length-1 && prices[begin] > prices[begin + 1]) {
+            begin++;
+        }
+        if (begin == prices.length-1){
+            return 0;
+        }
+        int end = begin + 1;
+        while (end <= prices.length) {
+            if (end == prices.length || prices[end] < prices[end - 1]) {
+                profile += prices[end - 1] - prices[begin];
+                System.out.println("Buy on day " + (begin + 1) + " (price = " + prices[begin] + ") and sell on day " + (end) + " (price = " + prices[end - 1] + "), profit = " + prices[end - 1] + "-" + prices[begin] + " = " + (prices[end - 1] - prices[begin]) + ".");
+                if (end >= prices.length) return profile;
+                begin = end;
+                while (begin <prices.length-1 && prices[begin] == prices[begin + 1]) {
+                    begin++;
+                }
+                end = begin + 1;
+            } else {
+                end++;
+            }
+        }
+        System.out.println("total profit = " + profile);
+        return profile;
     }
 
     @Test
