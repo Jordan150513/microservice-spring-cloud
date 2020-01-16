@@ -64,6 +64,135 @@ import static org.junit.Assert.fail;
 @SpringBootTest
 public class JavalearningApplicationTests {
 
+//    122. Best Time to Buy and Sell Stock II 买卖股票获取最大收益 进阶版本
+    @Test
+    public void testMaxProfit2() {
+//        int[] prices = {7,1,5,3,6,4};
+//        int[] prices = {6,1,3,2,4,7};
+//        int[] prices = {2,1,2,1,0,1,2};
+    int[] prices = {3, 3, 5, 0, 0, 3, 1, 4};
+    int maxProfit = maxProfit3(prices);
+    System.out.println(maxProfit);
+}
+
+    public int maxProfit3(int[] prices) {
+        return 0;
+    }
+
+    @Test
+    public void testMaxProfit(){
+//        int[] prices = {7,1,5,3,6,4};
+//        int[] prices = {6,1,3,2,4,7};
+//        int[] prices = {2,1,2,1,0,1,2};
+        int[] prices ={3,3,5,0,0,3,1,4};
+        int maxProfit =   maxProfit2(prices);
+        System.out.println(maxProfit);
+    }
+
+    //121. Best Time to Buy and Sell Stock 买卖股票获取最大收益
+    public int maxProfit(int[] prices) {
+        int minIndex = 0;
+        int maxIndex = prices.length-1;
+        while (prices[minIndex]>prices[minIndex+1] && minIndex<maxIndex){
+            minIndex++;
+        }
+        while (prices[maxIndex]<prices[maxIndex-1] && minIndex<maxIndex){
+            maxIndex--;
+        }
+        // 后续计算 缩小范围
+
+        return 0;
+    }
+
+    public int maxProfit2(int[] prices) {
+        if (prices.length==0|| prices.length ==1){
+            return 0;
+        }
+        int minIndex = 0;
+        while (minIndex<prices.length-1 && prices[minIndex]>=prices[minIndex+1] ){
+            minIndex++;
+        }
+        if (prices.length-1 == minIndex){
+            return 0;
+        }
+
+        int maxIndex = minIndex+1;
+        while (maxIndex<prices.length-1 && prices[maxIndex]<=prices[maxIndex+1]){
+            maxIndex++;
+        }
+        // 后续计算 缩小范围
+        for (int i =minIndex;i<prices.length-1 ; i++){
+            for (int j=i+1;j< prices.length; j++){
+                if (prices[j]-prices[i]>=prices[maxIndex]-prices[minIndex] && prices[j]-prices[i]>0){
+                    maxIndex = j;
+                    minIndex = i;
+                }
+            }
+        }
+        System.out.println("minIndex:"+minIndex+" maxIndex:"+maxIndex);
+        System.out.println("profile:"+(prices[maxIndex]-prices[minIndex]));
+        System.out.println("Buy on day "+(minIndex+1)+" (price = "+prices[minIndex]+") and sell on day "+(maxIndex+1)+" (price = "+prices[maxIndex]+"), profit = "+prices[maxIndex]+"-"+prices[minIndex]+" = "+(prices[maxIndex]-prices[minIndex])+".");
+        return prices[maxIndex]-prices[minIndex];
+    }
+
+    //    119. Pascal's Triangle II
+    //    金字塔问题 金字塔的 行 列 计数都是从0开始 第0行 第0列 第1行第1列
+    @Test
+    public void testTriangle() {
+        int rowIndex = 5;
+       List<Integer> rs =  getRow3(rowIndex);
+       System.out.println(rs);
+    }
+    // 非递归方法实现金字塔问题
+    public List<Integer> getRow2(int rowIndex) {
+        List<Integer> result = new ArrayList<>(rowIndex+1);
+        int[] rs = new int[rowIndex+1];
+        rs[0]= 1;
+        for (int i=1;i<=rowIndex;i++){
+
+        }
+        return result;
+    }
+
+    // 递归改成for循环 印度小哥版本
+    public List<Integer> getRow3(int k) {
+        // 金字塔的第k行的数据 一共k+1个数据
+        Integer[] res = new Integer[k+1];
+        // k,0 一定是1
+        res[0] = 1;
+        if(k > 0){
+            res[1] = 1;
+            // 从第2行开始 res里存储的第r行数据
+            for(int r=2; r <= k; r++){
+                res[r] = 1;
+                for(int j=r-1; j > 0; j--)
+                    // 计算当前行数据 取用的是上一行的数据加法处理的 当前存储的就是上一行的数据
+                    res[j] += res[j-1];
+            }
+        }
+        // 空间复杂度就是n  时间复杂度n的平方
+        return Arrays.asList(res);
+    }
+
+    // 递归方法实现 题目限制表示不能用递归 递归会栈溢出 so需要递归展开
+    public List<Integer> getRow(int rowIndex) {
+        List<Integer> result = new ArrayList<>(rowIndex+1);
+        result.add(1);
+        for (int i=1;i<=rowIndex;i++){
+            Integer KI = getIJ(rowIndex,i);
+            result.add(KI);
+        }
+        return result;
+    }
+    // 获取金字塔第i行j列（i，j）的元素值 递归方式
+    public Integer getIJ(int i,int j){
+        if (j==0||i==j){
+            return 1;
+        }
+        return getIJ(i-1,j-1)+getIJ(i-1,j);
+    }
+
+
     @Test
     public void testRandom(){
         for (int i=0;i<100;i++){
